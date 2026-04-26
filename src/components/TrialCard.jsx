@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import TrialRadarChart from './TrialRadarChart.jsx';
+import RaceBar from './RaceBar.jsx';
 import { STATUS_META } from '../engine/matchEngine.js';
 
 const RESULT_LABEL = { met: 'Met', unknown: 'Unknown', not_met: 'Not met' };
@@ -64,6 +65,7 @@ export default function TrialCard({ trial, evaluation, defaultOpen, anchorId }) 
                 {trial.arr && <div><dt>ARR</dt><dd>{trial.arr}</dd></div>}
                 {trial.nnt && <div><dt>NNT</dt><dd>{trial.nnt}</dd></div>}
               </dl>
+              <RaceBar trialId={trial.id} />
               <p className="citation muted small">
                 {trial.citation}{' '}
                 {trial.url && (

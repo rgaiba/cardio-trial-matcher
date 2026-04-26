@@ -1,4 +1,4 @@
-# Cardio Trial Matcher
+# Cardiology Trial Match
 
 An educational tool that matches a hypothetical patient profile against the inclusion/exclusion criteria of landmark cardiology trials. Starts with **heart failure** trials and is designed to expand to other cardiology domains.
 

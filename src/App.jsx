@@ -15,9 +15,26 @@ export default function App() {
     <div className="app">
       <header className="topbar">
         <div className="brand">
-          <span className="brand-mark" aria-hidden="true">♥</span>
+          <svg className="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+            <defs>
+              <linearGradient id="brand-pulse" x1="0" y1="0" x2="32" y2="0" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stopColor="#fb7185" />
+                <stop offset="60%" stopColor="#ef4444" />
+                <stop offset="100%" stopColor="#dc2626" />
+              </linearGradient>
+            </defs>
+            <rect width="32" height="32" rx="7" fill="#0f172a" />
+            <path
+              d="M 4 16 H 10 L 12 11 L 16 22 L 20 5 L 22 16 H 28"
+              stroke="url(#brand-pulse)"
+              strokeWidth="2.4"
+              fill="none"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
           <div>
-            <h1>Cardio Trial Matcher</h1>
+            <h1>Cardiology Trial Match</h1>
             <p className="brand-sub muted">
               Landmark heart failure trials · Educational EBM tool
             </p>
