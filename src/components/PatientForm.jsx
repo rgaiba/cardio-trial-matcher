@@ -101,7 +101,7 @@ function NumberInput({ label, value, onChange, unit, hint, min, max, step }) {
     <label className="field">
       <span className="field-label">
         {label}
-        {hint && <span className="field-hint"> · {hint}</span>}
+        {hint && <span className="field-hint"> ({hint})</span>}
       </span>
       <span className="field-input-wrap">
         <input
@@ -111,7 +111,7 @@ function NumberInput({ label, value, onChange, unit, hint, min, max, step }) {
           min={min}
           max={max}
           step={step ?? 'any'}
-          placeholder="—"
+          placeholder=""
         />
         {unit && <span className="field-unit">{unit}</span>}
       </span>
@@ -176,7 +176,7 @@ export default function PatientForm({ patient, onChange }) {
       await navigator.clipboard.writeText(url);
       setShareState('copied');
     } catch {
-      // Clipboard API can fail on http or insecure contexts — fallback prompt
+      // Clipboard API can fail on http or insecure contexts; fallback to prompt
       window.prompt('Copy this link to share the patient case:', url);
       setShareState('copied');
     }
@@ -209,7 +209,7 @@ export default function PatientForm({ patient, onChange }) {
       <div className="form-header">
         <div>
           <h2>Patient profile</h2>
-          <p className="muted">No PHI — clinical variables only. Leave anything you don't know blank.</p>
+          <p className="muted">No PHI; clinical variables only. Leave any field blank if unknown.</p>
         </div>
         <div className="form-actions">
           <button
@@ -252,7 +252,7 @@ export default function PatientForm({ patient, onChange }) {
             value={patient.sex}
             onChange={(v) => update('sex', v)}
             options={[
-              { value: 'unknown', label: '—' },
+              { value: 'unknown', label: 'Not specified' },
               { value: 'M', label: 'Male' },
               { value: 'F', label: 'Female' },
             ]}
@@ -262,7 +262,7 @@ export default function PatientForm({ patient, onChange }) {
             value={patient.nyhaClass ?? ''}
             onChange={(v) => update('nyhaClass', v === '' ? undefined : Number(v))}
             options={[
-              { value: '', label: '—' },
+              { value: '', label: 'Not specified' },
               { value: 1, label: 'I' },
               { value: 2, label: 'II' },
               { value: 3, label: 'III' },
@@ -285,7 +285,7 @@ export default function PatientForm({ patient, onChange }) {
             value={patient.comorbidities.diabetes}
             onChange={(v) => update('comorbidities.diabetes', v)}
             options={[
-              { value: 'unknown', label: '—' },
+              { value: 'unknown', label: 'Not specified' },
               { value: 'none', label: 'None' },
               { value: 'type1', label: 'Type 1' },
               { value: 'type2', label: 'Type 2' },
@@ -332,7 +332,7 @@ export default function PatientForm({ patient, onChange }) {
             value={patient.rhythm}
             onChange={(v) => update('rhythm', v)}
             options={[
-              { value: 'unknown', label: '—' },
+              { value: 'unknown', label: 'Not specified' },
               { value: 'sinus', label: 'Sinus' },
               { value: 'afib', label: 'AFib / flutter' },
               { value: 'paced', label: 'Paced' },

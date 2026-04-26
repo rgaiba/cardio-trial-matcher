@@ -16,7 +16,7 @@ export const TRIALS = [
     fullName:
       'Prospective comparison of ARNI with ACEi to Determine Impact on Global Mortality and morbidity in Heart Failure',
     year: 2014,
-    category: 'HFrEF — Medication',
+    category: 'HFrEF medication',
     intervention: 'Sacubitril/Valsartan vs Enalapril',
     population: 'HFrEF, NYHA II–IV, EF ≤40% (later ≤35%)',
     nEnrolled: 8442,
@@ -36,7 +36,7 @@ export const TRIALS = [
       { id: 'lvef', label: 'LVEF ≤40%', evaluator: 'lvefLte', params: { max: 40 } },
       {
         id: 'natriuretic',
-        label: 'NT-proBNP ≥600 pg/mL (or ≥400 if HF hospitalization within 12 mo) — or BNP ≥150 (≥100 if recent hosp)',
+        label: 'NT-proBNP ≥600 pg/mL (or ≥400 if HF hospitalization within 12 mo); or BNP ≥150 (≥100 if recent hospitalization)',
         evaluator: 'natriureticParadigm',
         params: {},
       },
@@ -71,7 +71,7 @@ export const TRIALS = [
     name: 'DAPA-HF',
     fullName: 'Dapagliflozin and Prevention of Adverse Outcomes in Heart Failure',
     year: 2019,
-    category: 'HFrEF — Medication',
+    category: 'HFrEF medication',
     intervention: 'Dapagliflozin 10 mg vs Placebo',
     population: 'HFrEF, NYHA II–IV, EF ≤40%',
     nEnrolled: 4744,
@@ -84,7 +84,7 @@ export const TRIALS = [
     doi: '10.1056/NEJMoa1911303',
     url: 'https://doi.org/10.1056/NEJMoa1911303',
     keyTakeaway:
-      'Dapagliflozin reduced HF events and CV death in HFrEF regardless of diabetes status — established SGLT2i as a pillar of HFrEF therapy.',
+      'Dapagliflozin reduced HF events and CV death in HFrEF regardless of diabetes status, establishing SGLT2 inhibition as a pillar of HFrEF therapy.',
     inclusion: [
       { id: 'age', label: 'Age ≥18 years', evaluator: 'ageGte', params: { min: 18 } },
       { id: 'nyha', label: 'NYHA class II–IV', evaluator: 'nyhaIn', params: { classes: [2, 3, 4] } },
@@ -113,7 +113,7 @@ export const TRIALS = [
     name: 'EMPEROR-Reduced',
     fullName: 'Empagliflozin Outcome Trial in Patients with Chronic Heart Failure with Reduced Ejection Fraction',
     year: 2020,
-    category: 'HFrEF — Medication',
+    category: 'HFrEF medication',
     intervention: 'Empagliflozin 10 mg vs Placebo',
     population: 'HFrEF, NYHA II–IV, EF ≤40% with elevated NT-proBNP',
     nEnrolled: 3730,
@@ -126,7 +126,7 @@ export const TRIALS = [
     doi: '10.1056/NEJMoa2022190',
     url: 'https://doi.org/10.1056/NEJMoa2022190',
     keyTakeaway:
-      'Empagliflozin confirmed the SGLT2i HFrEF benefit and extended eligibility down to eGFR ≥20 — broader renal inclusion than DAPA-HF.',
+      'Empagliflozin confirmed the SGLT2 inhibitor HFrEF benefit and extended eligibility down to eGFR ≥20, with broader renal inclusion than DAPA-HF.',
     inclusion: [
       { id: 'age', label: 'Age ≥18 years', evaluator: 'ageGte', params: { min: 18 } },
       { id: 'nyha', label: 'NYHA class II–IV', evaluator: 'nyhaIn', params: { classes: [2, 3, 4] } },
@@ -155,7 +155,7 @@ export const TRIALS = [
     name: 'EMPHASIS-HF',
     fullName: 'Eplerenone in Patients with Systolic Heart Failure and Mild Symptoms',
     year: 2011,
-    category: 'HFrEF — Medication',
+    category: 'HFrEF medication',
     intervention: 'Eplerenone vs Placebo',
     population: 'NYHA II HFrEF, EF ≤30% (or ≤35% with QRS >130 ms)',
     nEnrolled: 2737,
@@ -168,7 +168,7 @@ export const TRIALS = [
     doi: '10.1056/NEJMoa1009492',
     url: 'https://doi.org/10.1056/NEJMoa1009492',
     keyTakeaway:
-      'Extended MRA benefit (previously RALES) to NYHA II patients — broadened indication for MRA in mild HFrEF.',
+      'Extended MRA benefit (previously demonstrated in RALES) to NYHA class II patients, broadening the indication for MRA therapy in mild HFrEF.',
     inclusion: [
       { id: 'age', label: 'Age ≥55 years', evaluator: 'ageGte', params: { min: 55 } },
       { id: 'nyha', label: 'NYHA class II', evaluator: 'nyhaIn', params: { classes: [2] } },
@@ -211,7 +211,7 @@ export const TRIALS = [
     name: 'CONSENSUS',
     fullName: 'Cooperative North Scandinavian Enalapril Survival Study',
     year: 1987,
-    category: 'HFrEF — Medication (Historical)',
+    category: 'HFrEF medication (historical)',
     intervention: 'Enalapril vs Placebo',
     population: 'NYHA IV severe HF',
     nEnrolled: 253,
@@ -224,7 +224,7 @@ export const TRIALS = [
     doi: '10.1056/NEJM198706043162301',
     url: 'https://doi.org/10.1056/NEJM198706043162301',
     keyTakeaway:
-      'First trial to show ACE inhibitors reduce mortality in severe HF — established neurohormonal blockade as a treatment paradigm.',
+      'First trial to demonstrate that ACE inhibitors reduce mortality in severe heart failure, establishing neurohormonal blockade as the foundational treatment paradigm.',
     inclusion: [
       { id: 'nyha', label: 'NYHA class IV', evaluator: 'nyhaIn', params: { classes: [4] } },
     ],
@@ -247,9 +247,9 @@ export const TRIALS = [
   {
     id: 'solvd-treatment',
     name: 'SOLVD-Treatment',
-    fullName: 'Studies of Left Ventricular Dysfunction — Treatment trial',
+    fullName: 'Studies of Left Ventricular Dysfunction (Treatment)',
     year: 1991,
-    category: 'HFrEF — Medication (Historical)',
+    category: 'HFrEF medication (historical)',
     intervention: 'Enalapril vs Placebo',
     population: 'Symptomatic HFrEF, EF ≤35%',
     nEnrolled: 2569,
@@ -262,7 +262,7 @@ export const TRIALS = [
     doi: '10.1056/NEJM199108013250501',
     url: 'https://doi.org/10.1056/NEJM199108013250501',
     keyTakeaway:
-      'Confirmed mortality benefit of ACEi across the spectrum of symptomatic HFrEF — anchored ACEi in foundational therapy.',
+      'Confirmed mortality benefit of ACE inhibition across the spectrum of symptomatic HFrEF; anchored ACE inhibitors in foundational therapy.',
     inclusion: [
       { id: 'lvef', label: 'LVEF ≤35%', evaluator: 'lvefLte', params: { max: 35 } },
       { id: 'nyha', label: 'Symptomatic HF (NYHA II–IV)', evaluator: 'nyhaIn', params: { classes: [2, 3, 4] } },
@@ -284,7 +284,7 @@ export const TRIALS = [
     name: 'MERIT-HF',
     fullName: 'Metoprolol CR/XL Randomised Intervention Trial in Congestive Heart Failure',
     year: 1999,
-    category: 'HFrEF — Medication (Historical)',
+    category: 'HFrEF medication (historical)',
     intervention: 'Metoprolol succinate CR/XL vs Placebo',
     population: 'NYHA II–IV HFrEF, EF ≤40%',
     nEnrolled: 3991,
@@ -297,7 +297,7 @@ export const TRIALS = [
     doi: '10.1016/S0140-6736(99)04440-2',
     url: 'https://doi.org/10.1016/S0140-6736(99)04440-2',
     keyTakeaway:
-      'Metoprolol succinate cut all-cause mortality by 34% — a foundational trial for beta-blockers in HFrEF.',
+      'Metoprolol succinate reduced all-cause mortality by 34%; a foundational trial establishing beta-blockers in HFrEF therapy.',
     inclusion: [
       { id: 'age', label: 'Age 40–80 years', evaluator: 'ageBetween', params: { min: 40, max: 80 } },
       { id: 'nyha', label: 'NYHA class II–IV', evaluator: 'nyhaIn', params: { classes: [2, 3, 4] } },
@@ -332,7 +332,7 @@ export const TRIALS = [
     name: 'CIBIS-II',
     fullName: 'Cardiac Insufficiency Bisoprolol Study II',
     year: 1999,
-    category: 'HFrEF — Medication (Historical)',
+    category: 'HFrEF medication (historical)',
     intervention: 'Bisoprolol vs Placebo',
     population: 'NYHA III–IV HFrEF, EF ≤35%',
     nEnrolled: 2647,
@@ -345,7 +345,7 @@ export const TRIALS = [
     doi: '10.1016/S0140-6736(98)11181-9',
     url: 'https://doi.org/10.1016/S0140-6736(98)11181-9',
     keyTakeaway:
-      'Bisoprolol reduced mortality and sudden death in symptomatic HFrEF on background ACEi — second pillar of GDMT confirmed.',
+      'Bisoprolol reduced mortality and sudden death in symptomatic HFrEF on background ACE inhibition; confirmed beta-blockade as the second pillar of GDMT.',
     inclusion: [
       { id: 'age', label: 'Age 18–80 years', evaluator: 'ageBetween', params: { min: 18, max: 80 } },
       { id: 'nyha', label: 'NYHA class III–IV', evaluator: 'nyhaIn', params: { classes: [3, 4] } },
@@ -374,7 +374,7 @@ export const TRIALS = [
     name: 'RALES',
     fullName: 'Randomized Aldactone Evaluation Study',
     year: 1999,
-    category: 'HFrEF — Medication (Historical)',
+    category: 'HFrEF medication (historical)',
     intervention: 'Spironolactone 25 mg vs Placebo',
     population: 'NYHA III–IV HFrEF, EF ≤35%',
     nEnrolled: 1663,
@@ -387,7 +387,7 @@ export const TRIALS = [
     doi: '10.1056/NEJM199909023411001',
     url: 'https://doi.org/10.1056/NEJM199909023411001',
     keyTakeaway:
-      'First MRA mortality trial in advanced HFrEF — established spironolactone as a third pillar of HFrEF GDMT.',
+      'First MRA mortality trial in advanced HFrEF; established spironolactone as the third pillar of HFrEF GDMT.',
     inclusion: [
       { id: 'nyha', label: 'NYHA III–IV (within last 6 mo)', evaluator: 'nyhaIn', params: { classes: [3, 4] } },
       { id: 'lvef', label: 'LVEF ≤35%', evaluator: 'lvefLte', params: { max: 35 } },
@@ -418,7 +418,7 @@ export const TRIALS = [
     name: 'MADIT-II',
     fullName: 'Multicenter Automatic Defibrillator Implantation Trial II',
     year: 2002,
-    category: 'Device — ICD',
+    category: 'ICD therapy',
     intervention: 'Prophylactic ICD vs Conventional therapy',
     population: 'Post-MI, EF ≤30%',
     nEnrolled: 1232,
@@ -431,7 +431,7 @@ export const TRIALS = [
     doi: '10.1056/NEJMoa013474',
     url: 'https://doi.org/10.1056/NEJMoa013474',
     keyTakeaway:
-      'Established primary-prevention ICD in post-MI patients with reduced EF — the basis for ICD recommendations in ischemic HFrEF.',
+      'Established primary-prevention ICD therapy in post-MI patients with reduced ejection fraction; the basis for ICD recommendations in ischemic HFrEF.',
     inclusion: [
       {
         id: 'priorMi',
@@ -463,7 +463,7 @@ export const TRIALS = [
     name: 'COMPANION',
     fullName: 'Comparison of Medical Therapy, Pacing, and Defibrillation in Heart Failure',
     year: 2004,
-    category: 'Device — CRT',
+    category: 'CRT therapy',
     intervention: 'CRT-P or CRT-D vs Optimal Medical Therapy',
     population: 'NYHA III–IV HFrEF, QRS ≥120 ms, EF ≤35%',
     nEnrolled: 1520,
@@ -476,7 +476,7 @@ export const TRIALS = [
     doi: '10.1056/NEJMoa032423',
     url: 'https://doi.org/10.1056/NEJMoa032423',
     keyTakeaway:
-      'Showed CRT (with or without ICD) reduces death and hospitalization in advanced HF with wide QRS — basis for CRT use.',
+      'Demonstrated that CRT (with or without ICD) reduces death and hospitalization in advanced heart failure with wide QRS; basis for CRT recommendations.',
     inclusion: [
       { id: 'nyha', label: 'NYHA class III–IV', evaluator: 'nyhaIn', params: { classes: [3, 4] } },
       { id: 'lvef', label: 'LVEF ≤35%', evaluator: 'lvefLte', params: { max: 35 } },
@@ -504,7 +504,7 @@ export const TRIALS = [
     name: 'CARE-HF',
     fullName: 'Cardiac Resynchronization-Heart Failure',
     year: 2005,
-    category: 'Device — CRT',
+    category: 'CRT therapy',
     intervention: 'CRT vs Medical Therapy',
     population: 'NYHA III–IV, EF ≤35%, QRS ≥120 ms',
     nEnrolled: 813,
@@ -517,7 +517,7 @@ export const TRIALS = [
     doi: '10.1056/NEJMoa050496',
     url: 'https://doi.org/10.1056/NEJMoa050496',
     keyTakeaway:
-      'CRT reduced mortality (not just hospitalization) — the trial that confirmed mortality benefit of CRT independent of ICD.',
+      'CRT reduced mortality (not just hospitalization); confirmed mortality benefit of CRT independent of ICD therapy.',
     inclusion: [
       { id: 'age', label: 'Age ≥18 years', evaluator: 'ageGte', params: { min: 18 } },
       { id: 'nyha', label: 'NYHA class III–IV', evaluator: 'nyhaIn', params: { classes: [3, 4] } },
@@ -545,7 +545,7 @@ export const TRIALS = [
     name: 'STICH',
     fullName: 'Surgical Treatment for Ischemic Heart Failure',
     year: 2011,
-    category: 'Surgical — CABG',
+    category: 'Surgical revascularization',
     intervention: 'CABG + Medical Therapy vs Medical Therapy alone',
     population: 'Ischemic cardiomyopathy, EF ≤35%, CAD amenable to CABG',
     nEnrolled: 1212,
@@ -558,7 +558,7 @@ export const TRIALS = [
     doi: '10.1056/NEJMoa1100356',
     url: 'https://doi.org/10.1056/NEJMoa1100356',
     keyTakeaway:
-      'CABG added to medical therapy reduced long-term mortality in ischemic HFrEF with CAD amenable to surgery — basis for revascularization in ischemic CM.',
+      'CABG added to medical therapy reduced long-term mortality in ischemic HFrEF with CAD amenable to surgery; basis for surgical revascularization in ischemic cardiomyopathy.',
     inclusion: [
       { id: 'lvef', label: 'LVEF ≤35%', evaluator: 'lvefLte', params: { max: 35 } },
       {
@@ -592,7 +592,7 @@ export const TRIALS = [
     name: 'TOPCAT',
     fullName: 'Treatment of Preserved Cardiac Function Heart Failure with an Aldosterone Antagonist',
     year: 2014,
-    category: 'HFpEF — Medication',
+    category: 'HFpEF medication',
     intervention: 'Spironolactone vs Placebo',
     population: 'HFpEF, NYHA II–IV, EF ≥45%',
     nEnrolled: 3445,
@@ -600,12 +600,12 @@ export const TRIALS = [
     primaryResult: 'HR 0.89 (95% CI 0.77–1.04)',
     pValue: '0.14 (negative for primary endpoint)',
     arr: 'Not significant overall; benefit in Americas region',
-    nnt: '—',
+    nnt: 'Not applicable',
     citation: 'Pitt B et al. N Engl J Med 2014;370:1383–1392',
     doi: '10.1056/NEJMoa1313731',
     url: 'https://doi.org/10.1056/NEJMoa1313731',
     keyTakeaway:
-      'Negative primary endpoint, but post-hoc analysis showed clear regional heterogeneity — benefit in the Americas (where enrollment quality was higher). Drives current guideline class IIb recommendation for MRA in selected HFpEF.',
+      'Negative primary endpoint; however, post-hoc analysis demonstrated clear regional heterogeneity, with benefit in the Americas (where enrollment quality was higher). Drives current guideline class IIb recommendation for MRA therapy in selected HFpEF.',
     inclusion: [
       { id: 'age', label: 'Age ≥50 years', evaluator: 'ageGte', params: { min: 50 } },
       { id: 'lvef', label: 'LVEF ≥45%', evaluator: 'lvefGte', params: { min: 45 } },
@@ -635,7 +635,7 @@ export const TRIALS = [
     name: 'PARAGON-HF',
     fullName: 'Prospective Comparison of ARNI with ARB Global Outcomes in HF with Preserved Ejection Fraction',
     year: 2019,
-    category: 'HFpEF — Medication',
+    category: 'HFpEF medication',
     intervention: 'Sacubitril/Valsartan vs Valsartan',
     population: 'HFpEF, NYHA II–IV, EF ≥45%',
     nEnrolled: 4822,
@@ -643,7 +643,7 @@ export const TRIALS = [
     primaryResult: 'RR 0.87 (95% CI 0.75–1.01)',
     pValue: '0.06 (negative for primary)',
     arr: 'Not significant overall; signal in EF 45–57% and women',
-    nnt: '—',
+    nnt: 'Not applicable',
     citation: 'Solomon SD et al. N Engl J Med 2019;381:1609–1620',
     doi: '10.1056/NEJMoa1908655',
     url: 'https://doi.org/10.1056/NEJMoa1908655',
@@ -684,7 +684,7 @@ export const TRIALS = [
     name: 'EMPEROR-Preserved',
     fullName: 'Empagliflozin Outcome Trial in Patients with Chronic Heart Failure with Preserved Ejection Fraction',
     year: 2021,
-    category: 'HFpEF — Medication',
+    category: 'HFpEF medication',
     intervention: 'Empagliflozin 10 mg vs Placebo',
     population: 'HFpEF/HFmrEF, NYHA II–IV, EF >40%',
     nEnrolled: 5988,
@@ -697,7 +697,7 @@ export const TRIALS = [
     doi: '10.1056/NEJMoa2107038',
     url: 'https://doi.org/10.1056/NEJMoa2107038',
     keyTakeaway:
-      'First trial to unequivocally show outcome benefit of any drug in HFpEF — driven mainly by reduced HF hospitalizations. Established SGLT2i across the entire EF spectrum.',
+      'First trial to unequivocally demonstrate outcome benefit of any therapy in HFpEF, driven primarily by reduced HF hospitalizations. Established SGLT2 inhibition across the entire ejection fraction spectrum.',
     inclusion: [
       { id: 'age', label: 'Age ≥18 years', evaluator: 'ageGte', params: { min: 18 } },
       { id: 'nyha', label: 'NYHA class II–IV', evaluator: 'nyhaIn', params: { classes: [2, 3, 4] } },
@@ -726,7 +726,7 @@ export const TRIALS = [
     name: 'DELIVER',
     fullName: 'Dapagliflozin Evaluation to Improve the Lives of Patients with Preserved Ejection Fraction Heart Failure',
     year: 2022,
-    category: 'HFpEF — Medication',
+    category: 'HFpEF medication',
     intervention: 'Dapagliflozin 10 mg vs Placebo',
     population: 'HFpEF/HFmrEF, NYHA II–IV, EF >40%',
     nEnrolled: 6263,
@@ -739,7 +739,7 @@ export const TRIALS = [
     doi: '10.1056/NEJMoa2206286',
     url: 'https://doi.org/10.1056/NEJMoa2206286',
     keyTakeaway:
-      'Confirmed and extended EMPEROR-Preserved findings — benefit consistent across the EF spectrum (including HFmrEF) and in patients recently hospitalized. SGLT2i now class I recommendation across HFmrEF and HFpEF.',
+      'Confirmed and extended EMPEROR-Preserved findings, with benefit consistent across the ejection fraction spectrum (including HFmrEF) and in patients recently hospitalized. SGLT2 inhibitors now hold class I recommendation across HFmrEF and HFpEF.',
     inclusion: [
       { id: 'age', label: 'Age ≥40 years', evaluator: 'ageGte', params: { min: 40 } },
       { id: 'nyha', label: 'NYHA class II–IV', evaluator: 'nyhaIn', params: { classes: [2, 3, 4] } },

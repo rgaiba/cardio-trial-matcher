@@ -22,32 +22,54 @@ export default function App() {
                 <stop offset="60%" stopColor="#ef4444" />
                 <stop offset="100%" stopColor="#dc2626" />
               </linearGradient>
+              <clipPath id="brand-lens-clip">
+                <circle cx="20" cy="15" r="6.5" />
+              </clipPath>
             </defs>
             <rect width="32" height="32" rx="7" fill="#0f172a" />
+            {/* Background trace, full width, slightly muted */}
             <path
-              d="M 4 16 H 10 L 12 11 L 16 22 L 20 5 L 22 16 H 28"
+              d="M 2 16 H 7 L 9 12 L 11 21 L 14 16 H 18 L 20 11 L 22 22 L 25 16 H 30"
               stroke="url(#brand-pulse)"
-              strokeWidth="2.4"
+              strokeWidth="1.5"
               fill="none"
               strokeLinecap="round"
               strokeLinejoin="round"
+              opacity="0.7"
             />
+            {/* Glass tint behind the magnified content */}
+            <circle cx="20" cy="15" r="6.5" fill="#0b1428" opacity="0.55" />
+            {/* Magnified pulse, clipped to lens circle */}
+            <g clipPath="url(#brand-lens-clip)">
+              <path
+                d="M 8 15 L 14 15 L 18 5 L 22 27 L 26 15 L 32 15"
+                stroke="url(#brand-pulse)"
+                strokeWidth="2.4"
+                fill="none"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </g>
+            {/* Lens ring */}
+            <circle cx="20" cy="15" r="6.5" fill="none" stroke="#cbd5e1" strokeWidth="1.4" />
+            {/* Lens handle */}
+            <line x1="24.6" y1="19.6" x2="28.5" y2="23.5" stroke="#cbd5e1" strokeWidth="2" strokeLinecap="round" />
           </svg>
           <div>
             <h1>Cardiology Trial Match</h1>
             <p className="brand-sub muted">
-              Landmark heart failure trials · Educational EBM tool
+              Landmark Cardiology Trials
             </p>
           </div>
         </div>
         <div className="topbar-meta">
-          <span className="badge">v0.1 · Heart Failure</span>
+          <span className="badge">Heart failure</span>
           <span className="muted small">{TRIALS.length} trials encoded</span>
         </div>
       </header>
 
       <div className="disclaimer">
-        For education only · No PHI is stored or transmitted · Not a substitute for clinical judgment.
+        For educational use only. No PHI is stored or transmitted. Not a substitute for clinical judgment.
       </div>
 
       <main className="layout">
@@ -62,7 +84,7 @@ export default function App() {
       <footer className="footer">
         <p className="muted small">
           Trial criteria are simplified summaries of published protocols. Always consult the original publication
-          before applying to clinical decisions. Open source on GitHub — contribute additional trials by editing
+          before applying to clinical decisions. Open source on GitHub; contribute additional trials by editing
           <code> src/data/trials.js</code>.
         </p>
       </footer>

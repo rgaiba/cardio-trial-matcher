@@ -37,7 +37,7 @@ export default function TrialCard({ trial, evaluation, defaultOpen, anchorId }) 
             <span className="trial-year muted">({trial.year})</span>
           </h3>
           <p className="trial-sub muted">
-            {trial.intervention} · {trial.category}
+            {trial.intervention}. {trial.category}.
           </p>
         </div>
         <div className="trial-header-right">

@@ -7,23 +7,23 @@ An educational tool that matches a hypothetical patient profile against the incl
 ## What's included (v1)
 
 ### HFrEF foundational quartet
-- **PARADIGM-HF** (2014) — Sacubitril/Valsartan vs Enalapril
-- **DAPA-HF** (2019) — Dapagliflozin
-- **EMPEROR-Reduced** (2020) — Empagliflozin
-- **EMPHASIS-HF** (2011) — Eplerenone
+- **PARADIGM-HF** (2014): Sacubitril/Valsartan vs Enalapril
+- **DAPA-HF** (2019): Dapagliflozin
+- **EMPEROR-Reduced** (2020): Empagliflozin
+- **EMPHASIS-HF** (2011): Eplerenone
 
 ### Older landmark medical-therapy trials
-- **CONSENSUS** (1987) — Enalapril in NYHA IV
-- **SOLVD-Treatment** (1991) — Enalapril
-- **MERIT-HF** (1999) — Metoprolol succinate
-- **CIBIS-II** (1999) — Bisoprolol
-- **RALES** (1999) — Spironolactone
+- **CONSENSUS** (1987): Enalapril in NYHA IV
+- **SOLVD-Treatment** (1991): Enalapril
+- **MERIT-HF** (1999): Metoprolol succinate
+- **CIBIS-II** (1999): Bisoprolol
+- **RALES** (1999): Spironolactone
 
 ### Device / advanced HF trials
-- **MADIT-II** (2002) — Prophylactic ICD
-- **COMPANION** (2004) — CRT-P / CRT-D
-- **CARE-HF** (2005) — CRT
-- **STICH** (2011) — CABG + medical therapy in ischemic CM
+- **MADIT-II** (2002): Prophylactic ICD
+- **COMPANION** (2004): CRT-P / CRT-D
+- **CARE-HF** (2005): CRT
+- **STICH** (2011): CABG + medical therapy in ischemic CM
 
 ## How it works
 
@@ -33,8 +33,8 @@ An educational tool that matches a hypothetical patient profile against the incl
    - An overall **eligibility status** (Eligible / Partial / Excluded / Insufficient data)
    - A **match score** (% of inclusion criteria met, with exclusions zeroing out the score)
 4. Results render as:
-   - A **match-strength bar chart** — sortable by best fit
-   - A **radar chart per trial** — one axis per criterion, showing which the patient meets
+   - A **match-strength bar chart** sortable by best fit.
+   - A **radar chart per trial** with one axis per criterion, showing which the patient meets.
 
 ## Local development
 

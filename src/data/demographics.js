@@ -66,7 +66,7 @@ export const DEMOGRAPHICS = {
   // ── HFpEF trials ──
   'topcat': {
     white: 89, black: 9, other: 2,
-    notes: '48% enrolled in Russia/Georgia, 52% Americas — drove later regional-heterogeneity finding.',
+    notes: '48% enrolled in Russia/Georgia, 52% Americas; this geographic distribution drove the later regional-heterogeneity finding.',
   },
   'paragon-hf': {
     white: 81, asian: 13, black: 2, other: 4,

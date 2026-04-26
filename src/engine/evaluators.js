@@ -83,7 +83,7 @@ export const evaluators = {
   },
 
   // ── Recent events (months since) ──
-  // 'recentEventWithin' returns 'met' (event happened within window) — useful
+  // 'recentEventWithin' returns 'met' (event happened within window); useful
   // for exclusions ("MI within 3 mo") AND inclusions ("HF hosp within 12 mo").
   recentEventWithin: (p, { keys, months }) => {
     if (!p.recent) return 'unknown';
