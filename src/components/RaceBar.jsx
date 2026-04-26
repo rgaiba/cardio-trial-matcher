@@ -28,7 +28,6 @@ export default function RaceBar({ trialId }) {
     <div className="race-bar-wrap">
       <div className="race-bar-label">
         <span>Race composition</span>
-        <span className="race-bar-pct muted small">n = study baseline</span>
       </div>
       <div
         className="race-bar"

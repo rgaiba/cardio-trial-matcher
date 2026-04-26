@@ -63,8 +63,18 @@ export default function TrialCard({ trial, evaluation, defaultOpen, anchorId }) 
                 <div><dt>Primary endpoint</dt><dd>{trial.primaryEndpoint}</dd></div>
                 <div><dt>Result</dt><dd>{trial.primaryResult} (p {trial.pValue})</dd></div>
                 {trial.arr && <div><dt>ARR</dt><dd>{trial.arr}</dd></div>}
-                {trial.nnt && <div><dt>NNT</dt><dd>{trial.nnt}</dd></div>}
+                {trial.nnt && (
+                  <div>
+                    <dt>NNT</dt>
+                    <dd><strong>{trial.nnt}</strong></dd>
+                  </div>
+                )}
               </dl>
+              {trial.nnt && evaluation.matchScore < 100 && (
+                <p className="nnt-caveat">
+                  NNT increases when trial results are applied to lower-risk populations.
+                </p>
+              )}
               <RaceBar trialId={trial.id} />
               <p className="citation muted small">
                 {trial.citation}{' '}

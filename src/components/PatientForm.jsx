@@ -198,10 +198,10 @@ export default function PatientForm({ patient, onChange }) {
   };
 
   const tabs = [
-    { id: 'core', label: 'Core HF variables' },
+    { id: 'core', label: 'Core' },
     { id: 'comorb', label: 'Comorbidities' },
-    { id: 'meds', label: 'Current medications' },
-    { id: 'labs', label: 'Labs & vitals' },
+    { id: 'meds', label: 'Medications' },
+    { id: 'labs', label: 'Labs' },
   ];
 
   return (
@@ -218,7 +218,7 @@ export default function PatientForm({ patient, onChange }) {
             onClick={handleShare}
             title="Copy a shareable link to this patient case"
           >
-            {shareState === 'copied' ? '✓ Link copied' : 'Share patient'}
+            {shareState === 'copied' ? '✓ Copied' : 'Share'}
           </button>
           <button type="button" className="btn-secondary" onClick={() => onChange(SAMPLE_PATIENT)}>
             Sample
