@@ -27,7 +27,7 @@ export const TRIALS = [
     nnt: '21 over 27 months',
     citation: 'McMurray JJV et al. N Engl J Med 2014;371:993–1004',
     doi: '10.1056/NEJMoa1409077',
-    url: 'https://www.nejm.org/doi/full/10.1056/NEJMoa1409077',
+    url: 'https://doi.org/10.1056/NEJMoa1409077',
     keyTakeaway:
       'Sacubitril/valsartan reduced CV death or HF hospitalization by 20% vs enalapril and is now first-line over ACEi in HFrEF.',
     inclusion: [
@@ -82,7 +82,7 @@ export const TRIALS = [
     nnt: '21 over 18 months',
     citation: 'McMurray JJV et al. N Engl J Med 2019;381:1995–2008',
     doi: '10.1056/NEJMoa1911303',
-    url: 'https://www.nejm.org/doi/full/10.1056/NEJMoa1911303',
+    url: 'https://doi.org/10.1056/NEJMoa1911303',
     keyTakeaway:
       'Dapagliflozin reduced HF events and CV death in HFrEF regardless of diabetes status — established SGLT2i as a pillar of HFrEF therapy.',
     inclusion: [
@@ -124,7 +124,7 @@ export const TRIALS = [
     nnt: '19 over 16 months',
     citation: 'Packer M et al. N Engl J Med 2020;383:1413–1424',
     doi: '10.1056/NEJMoa2022190',
-    url: 'https://www.nejm.org/doi/full/10.1056/NEJMoa2022190',
+    url: 'https://doi.org/10.1056/NEJMoa2022190',
     keyTakeaway:
       'Empagliflozin confirmed the SGLT2i HFrEF benefit and extended eligibility down to eGFR ≥20 — broader renal inclusion than DAPA-HF.',
     inclusion: [
@@ -166,7 +166,7 @@ export const TRIALS = [
     nnt: '13 over 21 months',
     citation: 'Zannad F et al. N Engl J Med 2011;364:11–21',
     doi: '10.1056/NEJMoa1009492',
-    url: 'https://www.nejm.org/doi/full/10.1056/NEJMoa1009492',
+    url: 'https://doi.org/10.1056/NEJMoa1009492',
     keyTakeaway:
       'Extended MRA benefit (previously RALES) to NYHA II patients — broadened indication for MRA in mild HFrEF.',
     inclusion: [
@@ -222,7 +222,7 @@ export const TRIALS = [
     nnt: '7 at 6 months',
     citation: 'CONSENSUS Trial Study Group. N Engl J Med 1987;316:1429–1435',
     doi: '10.1056/NEJM198706043162301',
-    url: 'https://www.nejm.org/doi/full/10.1056/NEJM198706043162301',
+    url: 'https://doi.org/10.1056/NEJM198706043162301',
     keyTakeaway:
       'First trial to show ACE inhibitors reduce mortality in severe HF — established neurohormonal blockade as a treatment paradigm.',
     inclusion: [
@@ -260,7 +260,7 @@ export const TRIALS = [
     nnt: '22 over 41 months',
     citation: 'SOLVD Investigators. N Engl J Med 1991;325:293–302',
     doi: '10.1056/NEJM199108013250501',
-    url: 'https://www.nejm.org/doi/full/10.1056/NEJM199108013250501',
+    url: 'https://doi.org/10.1056/NEJM199108013250501',
     keyTakeaway:
       'Confirmed mortality benefit of ACEi across the spectrum of symptomatic HFrEF — anchored ACEi in foundational therapy.',
     inclusion: [
@@ -295,7 +295,7 @@ export const TRIALS = [
     nnt: '27 over 1 year',
     citation: 'MERIT-HF Study Group. Lancet 1999;353:2001–2007',
     doi: '10.1016/S0140-6736(99)04440-2',
-    url: 'https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(99)04440-2/fulltext',
+    url: 'https://doi.org/10.1016/S0140-6736(99)04440-2',
     keyTakeaway:
       'Metoprolol succinate cut all-cause mortality by 34% — a foundational trial for beta-blockers in HFrEF.',
     inclusion: [
@@ -343,7 +343,7 @@ export const TRIALS = [
     nnt: '18 over 1.3 years',
     citation: 'CIBIS-II Investigators. Lancet 1999;353:9–13',
     doi: '10.1016/S0140-6736(98)11181-9',
-    url: 'https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(98)11181-9/fulltext',
+    url: 'https://doi.org/10.1016/S0140-6736(98)11181-9',
     keyTakeaway:
       'Bisoprolol reduced mortality and sudden death in symptomatic HFrEF on background ACEi — second pillar of GDMT confirmed.',
     inclusion: [
@@ -385,7 +385,7 @@ export const TRIALS = [
     nnt: '9 over 24 months',
     citation: 'Pitt B et al. N Engl J Med 1999;341:709–717',
     doi: '10.1056/NEJM199909023411001',
-    url: 'https://www.nejm.org/doi/full/10.1056/NEJM199909023411001',
+    url: 'https://doi.org/10.1056/NEJM199909023411001',
     keyTakeaway:
       'First MRA mortality trial in advanced HFrEF — established spironolactone as a third pillar of HFrEF GDMT.',
     inclusion: [
@@ -429,7 +429,7 @@ export const TRIALS = [
     nnt: '18 over 20 months',
     citation: 'Moss AJ et al. N Engl J Med 2002;346:877–883',
     doi: '10.1056/NEJMoa013474',
-    url: 'https://www.nejm.org/doi/full/10.1056/NEJMoa013474',
+    url: 'https://doi.org/10.1056/NEJMoa013474',
     keyTakeaway:
       'Established primary-prevention ICD in post-MI patients with reduced EF — the basis for ICD recommendations in ischemic HFrEF.',
     inclusion: [
@@ -474,7 +474,7 @@ export const TRIALS = [
     nnt: '~12',
     citation: 'Bristow MR et al. N Engl J Med 2004;350:2140–2150',
     doi: '10.1056/NEJMoa032423',
-    url: 'https://www.nejm.org/doi/full/10.1056/NEJMoa032423',
+    url: 'https://doi.org/10.1056/NEJMoa032423',
     keyTakeaway:
       'Showed CRT (with or without ICD) reduces death and hospitalization in advanced HF with wide QRS — basis for CRT use.',
     inclusion: [
@@ -515,7 +515,7 @@ export const TRIALS = [
     nnt: '~6',
     citation: 'Cleland JG et al. N Engl J Med 2005;352:1539–1549',
     doi: '10.1056/NEJMoa050496',
-    url: 'https://www.nejm.org/doi/full/10.1056/NEJMoa050496',
+    url: 'https://doi.org/10.1056/NEJMoa050496',
     keyTakeaway:
       'CRT reduced mortality (not just hospitalization) — the trial that confirmed mortality benefit of CRT independent of ICD.',
     inclusion: [
@@ -556,7 +556,7 @@ export const TRIALS = [
     nnt: '14 at 10 years',
     citation: 'Velazquez EJ et al. N Engl J Med 2011;364:1607–1616 (STICHES NEJM 2016;374:1511)',
     doi: '10.1056/NEJMoa1100356',
-    url: 'https://www.nejm.org/doi/full/10.1056/NEJMoa1100356',
+    url: 'https://doi.org/10.1056/NEJMoa1100356',
     keyTakeaway:
       'CABG added to medical therapy reduced long-term mortality in ischemic HFrEF with CAD amenable to surgery — basis for revascularization in ischemic CM.',
     inclusion: [
@@ -581,6 +581,185 @@ export const TRIALS = [
         evaluator: 'comorbidityPresent',
         params: { key: 'ccsAnginaClass3plus' },
       },
+    ],
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // HFpEF / HFmrEF TRIALS
+  // ─────────────────────────────────────────────────────────────────────────
+  {
+    id: 'topcat',
+    name: 'TOPCAT',
+    fullName: 'Treatment of Preserved Cardiac Function Heart Failure with an Aldosterone Antagonist',
+    year: 2014,
+    category: 'HFpEF — Medication',
+    intervention: 'Spironolactone vs Placebo',
+    population: 'HFpEF, NYHA II–IV, EF ≥45%',
+    nEnrolled: 3445,
+    primaryEndpoint: 'Composite of CV death, aborted cardiac arrest, or HF hospitalization',
+    primaryResult: 'HR 0.89 (95% CI 0.77–1.04)',
+    pValue: '0.14 (negative for primary endpoint)',
+    arr: 'Not significant overall; benefit in Americas region',
+    nnt: '—',
+    citation: 'Pitt B et al. N Engl J Med 2014;370:1383–1392',
+    doi: '10.1056/NEJMoa1313731',
+    url: 'https://doi.org/10.1056/NEJMoa1313731',
+    keyTakeaway:
+      'Negative primary endpoint, but post-hoc analysis showed clear regional heterogeneity — benefit in the Americas (where enrollment quality was higher). Drives current guideline class IIb recommendation for MRA in selected HFpEF.',
+    inclusion: [
+      { id: 'age', label: 'Age ≥50 years', evaluator: 'ageGte', params: { min: 50 } },
+      { id: 'lvef', label: 'LVEF ≥45%', evaluator: 'lvefGte', params: { min: 45 } },
+      { id: 'nyha', label: 'NYHA class II–IV', evaluator: 'nyhaIn', params: { classes: [2, 3, 4] } },
+      {
+        id: 'natriuretic',
+        label: 'BNP ≥100 / NT-proBNP ≥360 OR HF hospitalization within 12 mo',
+        evaluator: 'natriureticTopcat',
+        params: {},
+      },
+    ],
+    exclusion: [
+      { id: 'k', label: 'Serum K⁺ >5.0 mmol/L', evaluator: 'potassiumGt', params: { threshold: 5.0 } },
+      { id: 'egfr', label: 'eGFR <30 mL/min/1.73m²', evaluator: 'egfrLt', params: { threshold: 30 } },
+      { id: 'sbp', label: 'SBP <100 mmHg', evaluator: 'sbpLt', params: { threshold: 100 } },
+      {
+        id: 'valve',
+        label: 'Severe valvular disease',
+        evaluator: 'comorbidityPresent',
+        params: { key: 'severeValveDisease' },
+      },
+    ],
+  },
+
+  {
+    id: 'paragon-hf',
+    name: 'PARAGON-HF',
+    fullName: 'Prospective Comparison of ARNI with ARB Global Outcomes in HF with Preserved Ejection Fraction',
+    year: 2019,
+    category: 'HFpEF — Medication',
+    intervention: 'Sacubitril/Valsartan vs Valsartan',
+    population: 'HFpEF, NYHA II–IV, EF ≥45%',
+    nEnrolled: 4822,
+    primaryEndpoint: 'Total HF hospitalizations + CV death',
+    primaryResult: 'RR 0.87 (95% CI 0.75–1.01)',
+    pValue: '0.06 (negative for primary)',
+    arr: 'Not significant overall; signal in EF 45–57% and women',
+    nnt: '—',
+    citation: 'Solomon SD et al. N Engl J Med 2019;381:1609–1620',
+    doi: '10.1056/NEJMoa1908655',
+    url: 'https://doi.org/10.1056/NEJMoa1908655',
+    keyTakeaway:
+      'Narrowly missed primary endpoint, but pre-specified subgroup analysis suggested benefit at the lower end of EF range (45–57%) and in women. Led to FDA expansion of sacubitril/valsartan label to include HFpEF.',
+    inclusion: [
+      { id: 'age', label: 'Age ≥50 years', evaluator: 'ageGte', params: { min: 50 } },
+      { id: 'nyha', label: 'NYHA class II–IV', evaluator: 'nyhaIn', params: { classes: [2, 3, 4] } },
+      { id: 'lvef', label: 'LVEF ≥45%', evaluator: 'lvefGte', params: { min: 45 } },
+      {
+        id: 'natriuretic',
+        label: 'NT-proBNP >300 (>900 if hosp ≤9 mo; doubled if AFib)',
+        evaluator: 'natriureticParagon',
+        params: {},
+      },
+      {
+        id: 'diuretic',
+        label: 'On diuretic therapy',
+        evaluator: 'onMed',
+        params: { med: 'loopDiuretic' },
+      },
+    ],
+    exclusion: [
+      { id: 'egfr', label: 'eGFR <30 mL/min/1.73m²', evaluator: 'egfrLt', params: { threshold: 30 } },
+      { id: 'k', label: 'Serum K⁺ >5.2 mmol/L', evaluator: 'potassiumGt', params: { threshold: 5.2 } },
+      { id: 'sbp', label: 'SBP <110 mmHg', evaluator: 'sbpLt', params: { threshold: 110 } },
+      {
+        id: 'angioedema',
+        label: 'History of angioedema',
+        evaluator: 'comorbidityPresent',
+        params: { key: 'angioedema' },
+      },
+    ],
+  },
+
+  {
+    id: 'emperor-preserved',
+    name: 'EMPEROR-Preserved',
+    fullName: 'Empagliflozin Outcome Trial in Patients with Chronic Heart Failure with Preserved Ejection Fraction',
+    year: 2021,
+    category: 'HFpEF — Medication',
+    intervention: 'Empagliflozin 10 mg vs Placebo',
+    population: 'HFpEF/HFmrEF, NYHA II–IV, EF >40%',
+    nEnrolled: 5988,
+    primaryEndpoint: 'CV death or HF hospitalization',
+    primaryResult: 'HR 0.79 (95% CI 0.69–0.90)',
+    pValue: '<0.001',
+    arr: '3.3% over 26 months',
+    nnt: '31 over 26 months',
+    citation: 'Anker SD et al. N Engl J Med 2021;385:1451–1461',
+    doi: '10.1056/NEJMoa2107038',
+    url: 'https://doi.org/10.1056/NEJMoa2107038',
+    keyTakeaway:
+      'First trial to unequivocally show outcome benefit of any drug in HFpEF — driven mainly by reduced HF hospitalizations. Established SGLT2i across the entire EF spectrum.',
+    inclusion: [
+      { id: 'age', label: 'Age ≥18 years', evaluator: 'ageGte', params: { min: 18 } },
+      { id: 'nyha', label: 'NYHA class II–IV', evaluator: 'nyhaIn', params: { classes: [2, 3, 4] } },
+      { id: 'lvef', label: 'LVEF >40%', evaluator: 'lvefGte', params: { min: 41 } },
+      {
+        id: 'natriuretic',
+        label: 'NT-proBNP >300 pg/mL (>900 if AFib/flutter)',
+        evaluator: 'natriureticEmperorPreserved',
+        params: {},
+      },
+    ],
+    exclusion: [
+      {
+        id: 't1dm',
+        label: 'Type 1 diabetes mellitus',
+        evaluator: 'diabetesTypeIs',
+        params: { type: 'type1' },
+      },
+      { id: 'egfr', label: 'eGFR <20 mL/min/1.73m²', evaluator: 'egfrLt', params: { threshold: 20 } },
+      { id: 'sbp', label: 'SBP ≥180 mmHg', evaluator: 'sbpGte', params: { threshold: 180 } },
+    ],
+  },
+
+  {
+    id: 'deliver',
+    name: 'DELIVER',
+    fullName: 'Dapagliflozin Evaluation to Improve the Lives of Patients with Preserved Ejection Fraction Heart Failure',
+    year: 2022,
+    category: 'HFpEF — Medication',
+    intervention: 'Dapagliflozin 10 mg vs Placebo',
+    population: 'HFpEF/HFmrEF, NYHA II–IV, EF >40%',
+    nEnrolled: 6263,
+    primaryEndpoint: 'Worsening HF event or CV death',
+    primaryResult: 'HR 0.82 (95% CI 0.73–0.92)',
+    pValue: '<0.001',
+    arr: '3.1% over 28 months',
+    nnt: '32 over 28 months',
+    citation: 'Solomon SD et al. N Engl J Med 2022;387:1089–1098',
+    doi: '10.1056/NEJMoa2206286',
+    url: 'https://doi.org/10.1056/NEJMoa2206286',
+    keyTakeaway:
+      'Confirmed and extended EMPEROR-Preserved findings — benefit consistent across the EF spectrum (including HFmrEF) and in patients recently hospitalized. SGLT2i now class I recommendation across HFmrEF and HFpEF.',
+    inclusion: [
+      { id: 'age', label: 'Age ≥40 years', evaluator: 'ageGte', params: { min: 40 } },
+      { id: 'nyha', label: 'NYHA class II–IV', evaluator: 'nyhaIn', params: { classes: [2, 3, 4] } },
+      { id: 'lvef', label: 'LVEF >40%', evaluator: 'lvefGte', params: { min: 41 } },
+      {
+        id: 'natriuretic',
+        label: 'NT-proBNP ≥300 (≥600 if AFib; doubled if HF hosp ≤12 mo)',
+        evaluator: 'natriureticDeliver',
+        params: {},
+      },
+    ],
+    exclusion: [
+      {
+        id: 't1dm',
+        label: 'Type 1 diabetes mellitus',
+        evaluator: 'diabetesTypeIs',
+        params: { type: 'type1' },
+      },
+      { id: 'egfr', label: 'eGFR <25 mL/min/1.73m²', evaluator: 'egfrLt', params: { threshold: 25 } },
+      { id: 'sbp', label: 'SBP <95 mmHg', evaluator: 'sbpLt', params: { threshold: 95 } },
     ],
   },
 ];

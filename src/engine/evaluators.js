@@ -143,6 +143,42 @@ export const evaluators = {
     if (afib) cutoff *= 2;
     return p.ntProBnp >= cutoff ? 'met' : 'not_met';
   },
+  // ── HFpEF natriuretic rules ──
+  natriureticEmperorPreserved: (p) => {
+    // NT-proBNP >300 pg/mL (>900 if AFib/flutter)
+    if (!isNum(p.ntProBnp)) return 'unknown';
+    const afib = p.rhythm === 'afib' || p.comorbidities?.afib === true;
+    return p.ntProBnp > (afib ? 900 : 300) ? 'met' : 'not_met';
+  },
+  natriureticDeliver: (p) => {
+    // NT-proBNP ≥300 (≥600 if AFib); doubled if HF hosp ≤12 mo
+    if (!isNum(p.ntProBnp)) return 'unknown';
+    const afib = p.rhythm === 'afib' || p.comorbidities?.afib === true;
+    const recentHosp = isNum(p.recent?.hfHospWithinMonths) && p.recent.hfHospWithinMonths <= 12;
+    let cutoff = afib ? 600 : 300;
+    if (recentHosp) cutoff *= 2;
+    return p.ntProBnp >= cutoff ? 'met' : 'not_met';
+  },
+  natriureticTopcat: (p) => {
+    // BNP ≥100 OR NT-proBNP ≥360 within 60 days, OR HF hosp within 12 months
+    const recentHosp = isNum(p.recent?.hfHospWithinMonths) && p.recent.hfHospWithinMonths <= 12;
+    if (recentHosp) return 'met';
+    if (isNum(p.ntProBnp)) return p.ntProBnp >= 360 ? 'met' : 'not_met';
+    if (isNum(p.bnp)) return p.bnp >= 100 ? 'met' : 'not_met';
+    return 'unknown';
+  },
+  natriureticParagon: (p) => {
+    // NT-proBNP >300 (or >900 if AFib) in patients without recent HF hosp
+    // NT-proBNP >900 (or >1800 if AFib) in patients with HF hosp in last 9 months
+    if (!isNum(p.ntProBnp)) return 'unknown';
+    const afib = p.rhythm === 'afib' || p.comorbidities?.afib === true;
+    const recentHosp = isNum(p.recent?.hfHospWithinMonths) && p.recent.hfHospWithinMonths <= 9;
+    let cutoff;
+    if (recentHosp) cutoff = afib ? 1800 : 900;
+    else cutoff = afib ? 900 : 300;
+    return p.ntProBnp > cutoff ? 'met' : 'not_met';
+  },
+
   hospOrNatriureticEmphasis: (p) => {
     const recentHosp = isNum(p.recent?.hfHospWithinMonths) && p.recent.hfHospWithinMonths <= 6;
     if (recentHosp) return 'met';

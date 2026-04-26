@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { buildShareUrl } from '../engine/serialize.js';
 
 // Initial empty patient state. `undefined` means "user hasn't provided" → the
 // engine treats those criteria as `unknown` rather than auto-failing them.
@@ -167,6 +168,20 @@ function TriToggle({ label, value, onChange }) {
 
 export default function PatientForm({ patient, onChange }) {
   const [activeTab, setActiveTab] = useState('core');
+  const [shareState, setShareState] = useState('idle'); // 'idle' | 'copied' | 'failed'
+
+  const handleShare = async () => {
+    const url = buildShareUrl(patient);
+    try {
+      await navigator.clipboard.writeText(url);
+      setShareState('copied');
+    } catch {
+      // Clipboard API can fail on http or insecure contexts — fallback prompt
+      window.prompt('Copy this link to share the patient case:', url);
+      setShareState('copied');
+    }
+    setTimeout(() => setShareState('idle'), 2000);
+  };
 
   const update = (path, value) => {
     onChange((prev) => {
@@ -197,8 +212,16 @@ export default function PatientForm({ patient, onChange }) {
           <p className="muted">No PHI — clinical variables only. Leave anything you don't know blank.</p>
         </div>
         <div className="form-actions">
+          <button
+            type="button"
+            className={`btn-primary ${shareState === 'copied' ? 'btn-success' : ''}`}
+            onClick={handleShare}
+            title="Copy a shareable link to this patient case"
+          >
+            {shareState === 'copied' ? '✓ Link copied' : 'Share patient'}
+          </button>
           <button type="button" className="btn-secondary" onClick={() => onChange(SAMPLE_PATIENT)}>
-            Load sample patient
+            Sample
           </button>
           <button type="button" className="btn-secondary" onClick={() => onChange(EMPTY_PATIENT)}>
             Reset

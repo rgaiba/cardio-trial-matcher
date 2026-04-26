@@ -3,9 +3,11 @@ import PatientForm, { EMPTY_PATIENT } from './components/PatientForm.jsx';
 import ResultsDashboard from './components/ResultsDashboard.jsx';
 import { TRIALS } from './data/trials.js';
 import { evaluateAllTrials } from './engine/matchEngine.js';
+import { readPatientFromUrl } from './engine/serialize.js';
 
 export default function App() {
-  const [patient, setPatient] = useState(EMPTY_PATIENT);
+  // Lazy initial state: if URL has ?p=<encoded>, hydrate the patient from it.
+  const [patient, setPatient] = useState(() => readPatientFromUrl(EMPTY_PATIENT));
 
   const results = useMemo(() => evaluateAllTrials(TRIALS, patient), [patient]);
 
