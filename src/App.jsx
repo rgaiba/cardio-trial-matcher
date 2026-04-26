@@ -113,6 +113,25 @@ export default function App() {
           </a>{' '}
           and add trials by editing <code>src/data/trials.js</code>.
         </p>
+        <p className="footer-credit small muted">
+          Created by{' '}
+          <a
+            href="https://orcid.org/0000-0002-3256-1860"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Rahul Gaiba, MD
+          </a>
+          , Bayhealth Medical Center, Dover, Delaware. Released under the MIT License.
+          {' '}
+          <a
+            href="https://github.com/rgaiba/cardio-trial-matcher/blob/main/CITATION.cff"
+            target="_blank"
+            rel="noreferrer"
+          >
+            How to cite
+          </a>.
+        </p>
       </footer>
     </div>
   );

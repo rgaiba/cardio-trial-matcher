@@ -490,6 +490,21 @@ a { color: var(--primary); }
 .footer-cta a:hover {
   color: var(--accent);
 }
+.footer-credit {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+  line-height: 1.5;
+}
+.footer-credit a {
+  color: var(--text);
+  text-decoration: none;
+  border-bottom: 1px dotted var(--border-strong);
+}
+.footer-credit a:hover {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
 
 /* ── Mobile (≤600px) ────────────────────────────────────── */
 @media (max-width: 600px) {

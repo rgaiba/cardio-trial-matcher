@@ -56,6 +56,25 @@ This repo ships with a GitHub Actions workflow that deploys to GitHub Pages on e
 
 Drop a new entry into `src/data/trials.js` following the existing schema. Each criterion references a named evaluator from `src/engine/evaluators.js`. To add a new evaluator (e.g. for a new lab or device variable), add it there and reference it from the trial's criteria array.
 
+## Citation
+
+If you use this software in academic work, please cite it. Citation metadata is available in [`CITATION.cff`](CITATION.cff) (GitHub renders it as a "Cite this repository" button on the project sidebar).
+
+Suggested citation (APA):
+
+> Gaiba, R. (2026). *Cardiology Trial Match: an interactive tool for matching patient profiles against landmark cardiology trial criteria* (Version 0.2.0) [Computer software]. https://github.com/rgaiba/cardio-trial-matcher
+
+For a permanent, version-pinned DOI, link this repository to [Zenodo](https://zenodo.org) and tag a release. Each tagged release will mint its own DOI.
+
+## Author
+
+**Rahul Gaiba, MD** ([ORCID: 0000-0002-3256-1860](https://orcid.org/0000-0002-3256-1860))
+Bayhealth Medical Center, Kent Campus, Dover, Delaware, USA
+
+## License
+
+Released under the [MIT License](LICENSE). You are free to use, modify, and distribute with attribution.
+
 ## Disclaimer
 
 This is an educational EBM tool intended for clinicians and trainees exploring how their patients map onto landmark trial populations. It does not replace clinical judgment, individual chart review, or current society guidelines. Inclusion/exclusion encoding represents a faithful but simplified summary of published protocols.

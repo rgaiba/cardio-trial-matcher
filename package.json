@@ -1,7 +1,26 @@
 {
   "name": "cardio-trial-matcher",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.2.0",
+  "description": "Cardiology Trial Match: an interactive evidence-based medicine tool that matches patient profiles against landmark cardiology trial criteria.",
+  "author": {
+    "name": "Rahul Gaiba, MD",
+    "email": "rahulgaiba@gmail.com",
+    "url": "https://orcid.org/0000-0002-3256-1860"
+  },
+  "license": "MIT",
+  "homepage": "https://rgaiba.github.io/cardio-trial-matcher/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rgaiba/cardio-trial-matcher.git"
+  },
+  "keywords": [
+    "evidence-based-medicine",
+    "cardiology",
+    "heart-failure",
+    "clinical-trials",
+    "medical-education"
+  ],
   "type": "module",
   "scripts": {
     "dev": "vite",
