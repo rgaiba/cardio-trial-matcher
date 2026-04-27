@@ -131,6 +131,19 @@ export default function App() {
           Trial criteria are simplified summaries of published protocols. Always consult the original publication
           before applying to clinical decisions.
         </p>
+        <p className="footer-errata small">
+          <strong>Errata and suggestions welcome.</strong>{' '}
+          Encoded criteria reflect one clinician's reading of the published protocols and may contain errors or
+          omissions. Email{' '}
+          <a href="mailto:rahulgaiba@gmail.com">rahulgaiba@gmail.com</a> or open an{' '}
+          <a
+            href="https://github.com/rgaiba/cardio-trial-matcher/issues/new/choose"
+            target="_blank"
+            rel="noreferrer"
+          >
+            issue on GitHub
+          </a>.
+        </p>
         <p className="footer-cta small">
           Open source.{' '}
           <a
