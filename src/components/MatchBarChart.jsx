@@ -24,10 +24,9 @@ export default function MatchBarChart({ results, onPick }) {
 
   return (
     <div className="chart-card">
-      <h3>Match strength across trials</h3>
+      <h3>Match overview</h3>
       <p className="muted small">
-        % of inclusion criteria met (unknowns count as half-credit). Bars drop to zero if any
-        exclusion criterion is met. Click a bar to jump to that trial's details.
+        Inclusion criteria met (%). Unknowns = ½ credit. Any met exclusion zeros the score.
       </p>
       <div style={{ width: '100%', height: Math.max(300, data.length * 36) }}>
         <ResponsiveContainer>
