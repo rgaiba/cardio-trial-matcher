@@ -8,12 +8,14 @@
 //   npm run build                                 (runs automatically)
 
 import { writeFileSync } from 'fs';
+import { execSync } from 'child_process';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 import { TOPICS, TRIALS } from '../src/data/trials.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const OUTPUT = join(__dirname, '..', 'public', 'social-card.svg');
+const PNG_OUTPUT = join(__dirname, '..', 'public', 'social-card.png');
 
 // ── Compute current snapshot from data ─────────────────────────────────────
 const totalTrials = TRIALS.length;
@@ -119,3 +121,17 @@ writeFileSync(OUTPUT, svg);
 console.log(
   `✓ social-card.svg regenerated → ${activeTopics.length} topics (${topicLabels}), ${totalTrials} trials`
 );
+
+// Try to also generate a PNG version for better social-platform compatibility.
+// Facebook, LinkedIn, X/Twitter, and iMessage prefer PNG over SVG. The PNG is
+// generated via rsvg-convert (librsvg2-bin), which is installed in the GitHub
+// Actions deploy workflow. If unavailable locally, SVG-only is fine.
+try {
+  execSync(`rsvg-convert "${OUTPUT}" -o "${PNG_OUTPUT}" -w 1200 -h 630`, {
+    stdio: 'pipe',
+  });
+  console.log('✓ social-card.png generated via rsvg-convert (1200×630)');
+} catch {
+  console.log('  rsvg-convert not available; SVG-only generated.');
+  console.log('  (PNG will be generated on push by the GitHub Actions workflow.)');
+}
