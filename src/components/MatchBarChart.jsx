@@ -61,6 +61,15 @@ export default function MatchBarChart({ results, onPick }) {
           </BarChart>
         </ResponsiveContainer>
       </div>
+
+      <p className="chart-methods">
+        <strong>Methods.</strong> Match scores reflect agreement with each trial's published
+        inclusion and exclusion criteria, simplified for encoding. A high score indicates
+        protocol-level eligibility, not predicted clinical benefit. Real-world applicability
+        depends on factors beyond the encoded criteria, including unmeasured comorbidities,
+        frailty, and individual context, and requires independent clinical judgment. For
+        complete criteria, consult the original publication linked on each trial card.
+      </p>
     </div>
   );
 }

@@ -340,21 +340,16 @@ a { color: var(--primary); }
   line-height: 1.5;
 }
 
-/* ── End-of-results methods caption ─────────────────────── */
-.results-methods {
-  margin-top: 18px;
-  padding: 14px 16px;
-  background: #f8fafc;
-  border-left: 3px solid var(--border-strong);
-  border-radius: 4px;
-}
-.results-methods p {
-  margin: 0;
+/* ── Methods caption inside the Match overview chart card ── */
+.chart-methods {
+  margin: 12px 0 0;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
   font-size: 12px;
   line-height: 1.6;
   color: var(--muted);
 }
-.results-methods strong {
+.chart-methods strong {
   color: var(--text);
   font-weight: 600;
 }
