@@ -34,7 +34,7 @@ export default function ResultsDashboard({ results, topicFilter }) {
     : topicResults.filter((r) => r.evaluation.status === filter);
 
   const sortedForBar = [...filtered].sort(
-    (a, b) => b.evaluation.matchScore - a.evaluation.matchScore
+    (a, b) => (b.evaluation.matchScore ?? -1) - (a.evaluation.matchScore ?? -1)
   );
 
   // Step 3: group within topic, in canonical order.

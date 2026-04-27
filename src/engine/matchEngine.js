@@ -3,7 +3,8 @@ import { evaluateCriterion } from './evaluators.js';
 // Evaluate a single trial against patient state.
 // Returns: {
 //   trialId, status: 'eligible'|'partial'|'excluded'|'insufficient',
-//   matchScore: 0-100,
+//   matchScore: 0-100 or null  (null when all inclusion criteria are unknown)
+//   dataComplete: 0-100         (% of inclusion criteria with known data)
 //   inclusion: [{...criterion, result}], exclusion: [{...criterion, result}],
 //   tally: { incMet, incNotMet, incUnknown, exMet, exNotMet, exUnknown }
 // }
@@ -21,13 +22,24 @@ export function evaluateTrial(trial, patient) {
   };
 
   const totalInc = inclusion.length || 1;
-  // Treat "unknown" inclusion as half-credit for the purpose of scoring; this
-  // surfaces trials the patient might match if missing data were filled in,
-  // without overstating eligibility.
-  const rawScore = (tally.incMet + 0.5 * tally.incUnknown) / totalInc;
-  let matchScore = Math.round(rawScore * 100);
 
-  // Any met exclusion drops score to zero
+  // Match score is computed from KNOWN criteria only. Unknowns are excluded
+  // from both numerator and denominator so the score is not inflated by
+  // missing data. Data completeness is reported separately.
+  //
+  //   score          = met / (met + not_met)         when any criterion is known
+  //   score          = null                          when all inclusion criteria are unknown
+  //   dataComplete   = (total - unknown) / total     0–100, % of inclusion criteria with data
+  const knownInc = tally.incMet + tally.incNotMet;
+  let matchScore;
+  if (knownInc === 0) {
+    matchScore = null; // nothing to score against
+  } else {
+    matchScore = Math.round((tally.incMet / knownInc) * 100);
+  }
+  const dataComplete = Math.round(((totalInc - tally.incUnknown) / totalInc) * 100);
+
+  // Any met exclusion drops score to zero (regardless of inclusion match)
   if (tally.exMet > 0) matchScore = 0;
 
   let status;
@@ -38,7 +50,7 @@ export function evaluateTrial(trial, patient) {
   else if (tally.incMet === 0 && tally.incUnknown >= totalInc / 2) status = 'insufficient';
   else status = 'partial'; // mix of met / not_met / unknown
 
-  return { trialId: trial.id, status, matchScore, inclusion, exclusion, tally };
+  return { trialId: trial.id, status, matchScore, dataComplete, inclusion, exclusion, tally };
 }
 
 export function evaluateAllTrials(trials, patient) {

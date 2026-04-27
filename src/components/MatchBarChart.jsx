@@ -10,12 +10,20 @@ import {
 } from 'recharts';
 import { STATUS_META } from '../engine/matchEngine.js';
 
+// Threshold below which data completeness is shown in amber rather than green.
+// 80% completeness or higher is considered well-characterized.
+const COMPLETENESS_OK = 80;
+const COMPLETENESS_OK_COLOR = '#16a34a'; // green
+const COMPLETENESS_LOW_COLOR = '#f59e0b'; // amber
+
 export default function MatchBarChart({ results, onPick }) {
-  // sort best fit first
+  // For bar rendering, treat null (no known data) as 0 so it shows as an empty bar.
   const data = results
     .map(({ trial, evaluation }) => ({
       name: trial.name,
-      score: evaluation.matchScore,
+      score: evaluation.matchScore == null ? 0 : evaluation.matchScore,
+      hasScore: evaluation.matchScore != null,
+      dataComplete: evaluation.dataComplete,
       status: evaluation.status,
       year: trial.year,
       id: trial.id,
@@ -26,7 +34,7 @@ export default function MatchBarChart({ results, onPick }) {
     <div className="chart-card">
       <h3>Match overview</h3>
       <p className="muted small">
-        Inclusion criteria met (%). Unknowns = ½ credit. Any met exclusion zeros the score.
+        Inclusion criteria met (%). Meeting exclusion criteria makes the score zero.
       </p>
       <div style={{ width: '100%', height: Math.max(300, data.length * 36) }}>
         <ResponsiveContainer>
@@ -40,6 +48,8 @@ export default function MatchBarChart({ results, onPick }) {
                 if (!active || !payload?.length) return null;
                 const d = payload[0].payload;
                 const meta = STATUS_META[d.status];
+                const completenessColor =
+                  d.dataComplete >= COMPLETENESS_OK ? COMPLETENESS_OK_COLOR : COMPLETENESS_LOW_COLOR;
                 return (
                   <div className="tooltip">
                     <div className="tooltip-title">
@@ -48,7 +58,13 @@ export default function MatchBarChart({ results, onPick }) {
                     <div>
                       <span className="dot" style={{ background: meta.color }} /> {meta.label}
                     </div>
-                    <div className="muted small">Match score: {d.score}%</div>
+                    <div className="muted small">
+                      Match score: {d.hasScore ? `${d.score}%` : '—'}
+                    </div>
+                    <div className="small" style={{ color: completenessColor, fontWeight: 500 }}>
+                      <span className="dot" style={{ background: completenessColor }} />
+                      Data complete: {d.dataComplete}%
+                    </div>
                   </div>
                 );
               }}
@@ -64,11 +80,13 @@ export default function MatchBarChart({ results, onPick }) {
 
       <p className="chart-methods">
         <strong>Methods.</strong> Match scores reflect agreement with each trial's published
-        inclusion and exclusion criteria, simplified for encoding. A high score indicates
-        protocol-level eligibility, not predicted clinical benefit. Real-world applicability
-        depends on factors beyond the encoded criteria, including unmeasured comorbidities,
-        frailty, and individual context, and requires independent clinical judgment. For
-        complete criteria, consult the original publication linked on each trial card.
+        inclusion and exclusion criteria, simplified for encoding. Score is computed only
+        from criteria with known patient data; meeting any exclusion criterion zeros the
+        score. A high score indicates protocol-level eligibility, not predicted clinical
+        benefit. Real-world applicability depends on factors beyond the encoded criteria,
+        including unmeasured comorbidities, frailty, and individual context, and requires
+        independent clinical judgment. For complete criteria, consult the original
+        publication linked on each trial card.
       </p>
     </div>
   );

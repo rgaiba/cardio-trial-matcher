@@ -53,7 +53,9 @@ export default function TrialCard({ trial, evaluation, defaultOpen, anchorId }) 
           <span className="status-pill" style={{ background: meta.color }}>
             {meta.label}
           </span>
-          <span className="match-score">{evaluation.matchScore}%</span>
+          <span className="match-score">
+            {evaluation.matchScore == null ? '—' : `${evaluation.matchScore}%`}
+          </span>
           <span className={`chevron ${open ? 'open' : ''}`}>▾</span>
         </div>
       </header>
@@ -79,7 +81,7 @@ export default function TrialCard({ trial, evaluation, defaultOpen, anchorId }) 
                   </div>
                 )}
               </dl>
-              {trial.nnt && evaluation.matchScore < 100 && (
+              {trial.nnt && evaluation.matchScore != null && evaluation.matchScore < 100 && (
                 <p className="nnt-caveat">
                   NNT increases when trial results are applied to lower-risk populations.
                 </p>
