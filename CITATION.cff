@@ -2,16 +2,56 @@ cff-version: 1.2.0
 message: "If you use this software in academic work, please cite it using the metadata below."
 title: "Cardiology Trial Match: an interactive tool for matching patient profiles against landmark cardiology trial criteria"
 abstract: >-
-  Cardiology Trial Match is an open-source, browser-based educational tool for
-  evidence-based medicine. It allows users to enter non-identifying clinical
-  variables (e.g., NYHA class, LVEF, NT-proBNP, eGFR, comorbidities, current
-  guideline-directed medical therapy) and computes patient match against the
-  inclusion and exclusion criteria of landmark cardiology trials. Initial
-  release covers 17 heart-failure trials (HFrEF foundational quartet, older
-  landmark medical-therapy trials, device and surgical trials, and HFpEF
-  trials), each encoded with structured criteria, endpoint results, NNT, and
-  baseline race/ethnicity composition. Outputs include a match-strength bar
-  chart and a per-trial radar chart with criterion-level visualization.
+  Background. Application of evidence from landmark cardiology trials to
+  individual patients requires comparison of the patient against each trial's
+  published inclusion and exclusion criteria, an exercise that is time-
+  consuming and frequently incomplete in routine practice and clinical
+  education. Existing risk calculators report composite scores but do not
+  surface trial-level eligibility, the trial population enrolled, or the
+  distance between an individual patient and the populations from which the
+  evidence was derived.
+
+  Objectives. To provide a free, openly licensed educational tool that maps
+  clinician-entered, non-identifying patient variables onto the published
+  criteria of landmark heart failure and atrial fibrillation trials, with
+  explicit display of trial population, racial and ethnic composition, key
+  efficacy estimates, and the limitations of trial-to-patient extrapolation.
+
+  Methods. Inclusion and exclusion criteria of 30 landmark trials were
+  encoded across two clinical topics: heart failure (n = 17), comprising the
+  HFrEF foundational quartet (PARADIGM-HF, DAPA-HF, EMPEROR-Reduced,
+  EMPHASIS-HF), older landmark medical-therapy trials (CONSENSUS, SOLVD-T,
+  MERIT-HF, CIBIS-II, RALES), device and surgical trials (MADIT-II,
+  COMPANION, CARE-HF, STICH), and HFpEF trials (TOPCAT, PARAGON-HF,
+  EMPEROR-Preserved, DELIVER); and atrial fibrillation (n = 13), comprising
+  anticoagulation (ARISTOTLE, RE-LY, ROCKET-AF, SPAF, SPAF-II, SPAF-III),
+  rate and rhythm control (AFFIRM, RACE-II, ATHENA, PALLAS), and catheter
+  ablation (APAF, ThermoCool-AF, MANTRA-PAF) trials. Each criterion is
+  evaluated as met, not met, or unknown. The per-trial match score is
+  computed from criteria with known patient data only; any met exclusion
+  criterion reduces the score to zero. All evaluation runs in the user's
+  browser. The application accepts no protected health information, transmits
+  no clinical inputs, and persists no data.
+
+  Results. The tool presents an overview bar chart of match scores across
+  trials, per-trial radar plots of inclusion-criterion coverage, structured
+  display of inclusion and exclusion criteria with result-coded indicators,
+  the racial and ethnic composition of each trial population, and primary
+  endpoint results including hazard ratio, absolute risk reduction, and
+  number needed to treat where applicable, each linked to the original
+  publication by DOI. A standardized methods caption clarifies that match
+  scores reflect protocol-level eligibility only and do not predict clinical
+  benefit, which depends on factors beyond the encoded criteria including
+  unmeasured comorbidities, frailty, and individual context.
+
+  Conclusions. Cardiology Trial Match operationalizes the published
+  eligibility criteria of 30 landmark heart failure and atrial fibrillation
+  trials at the point of teaching or case discussion, with explicit
+  acknowledgment of the gap between protocol-level match and real-world
+  benefit. The tool is free, MIT-licensed, and designed to operate outside
+  the scope of HIPAA. Its open two-level taxonomy permits additive extension
+  to additional cardiology domains without modification of the matching
+  engine. Live at https://cardiologytrialmatch.org.
 type: software
 version: "1.0.0"
 date-released: "2026-04-27"
@@ -30,11 +70,29 @@ identifiers:
   - type: doi
     value: "10.5281/zenodo.19803460"
     description: "Concept DOI (resolves to the latest version)"
+  - type: url
+    value: "https://cardiologytrialmatch.org"
+    description: "Live application"
+  - type: url
+    value: "https://github.com/rgaiba/cardio-trial-matcher"
+    description: "Source code and contribution guide"
 keywords:
   - evidence-based medicine
+  - clinical decision support
   - cardiology
   - heart failure
-  - clinical trials
+  - HFrEF
+  - HFpEF
+  - atrial fibrillation
+  - landmark clinical trials
   - eligibility matching
-  - clinical decision support
+  - guideline-directed medical therapy
+  - GDMT
+  - SGLT2 inhibitor
+  - direct oral anticoagulant
+  - catheter ablation
   - medical education
+  - residency education
+  - open-source software
+  - HIPAA
+  - clinical informatics
