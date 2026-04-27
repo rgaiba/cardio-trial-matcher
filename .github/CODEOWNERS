@@ -1,0 +1,23 @@
+# CODEOWNERS for Cardiology Trial Match
+#
+# Lines later in this file override earlier ones. The owner listed for a
+# matched path is automatically requested as a reviewer when a pull request
+# touches that path.
+#
+# Reference: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Default: any change to anything requires the maintainer's review.
+*                       @rgaiba
+
+# Trial data and engine logic are clinically sensitive — explicit owner.
+/src/data/              @rgaiba
+/src/engine/            @rgaiba
+/src/components/        @rgaiba
+
+# Documentation and governance files.
+/README.md              @rgaiba
+/CONTRIBUTING.md        @rgaiba
+/TRIALS.md              @rgaiba
+/CITATION.cff           @rgaiba
+/LICENSE                @rgaiba
+/.github/               @rgaiba

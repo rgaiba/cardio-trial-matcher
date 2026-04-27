@@ -8,7 +8,7 @@ An open-source, browser-based educational tool for evidence-based medicine. User
 
 **Live site:** https://cardiologytrialmatch.org
 
-**Status:** v0.3.0. Two topics populated: **heart failure** (17 trials across 4 groups) and **atrial fibrillation** (13 trials across 3 groups). Coronary artery disease topic scaffolded for future expansion. See [`CONTRIBUTING.md`](CONTRIBUTING.md) for the trial-addition recipe.
+**Status:** v1.0.0 (first production-ready release). Two topics populated: **heart failure** (17 trials across 4 groups) and **atrial fibrillation** (13 trials across 3 groups). Coronary artery disease topic scaffolded for future expansion. See [`CONTRIBUTING.md`](CONTRIBUTING.md) for the trial-addition recipe.
 
 ## Disclaimer
 
@@ -280,6 +280,17 @@ To deploy your fork:
 
 If your fork has a different repository name, no `vite.config.js` change is needed because `base` is set to `'./'` (relative paths).
 
+## Governance and contributions
+
+The repository is open source under the MIT license; anyone may fork, modify, or redistribute. The canonical project at [github.com/rgaiba/cardio-trial-matcher](https://github.com/rgaiba/cardio-trial-matcher) follows a maintainer-reviewed contribution model:
+
+- The `main` branch is protected. Direct pushes are not permitted, including by the maintainer.
+- All changes go through a pull request, are reviewed by the maintainer (Rahul Gaiba), and require the deploy build to pass before merging.
+- Issues and trial proposals use structured templates to ensure published criteria, DOI, and race composition are documented up front. See [`.github/ISSUE_TEMPLATE/`](.github/ISSUE_TEMPLATE).
+- The [`CONTRIBUTING.md`](CONTRIBUTING.md) recipe walks through adding a trial, group, or topic without engine changes.
+
+This model balances openness (anyone can propose a change) with clinical safety (no unreviewed trial data reaches the live site).
+
 ## Citation
 
 If you use this software in academic work, please cite it. Citation metadata is in [`CITATION.cff`](CITATION.cff); GitHub renders it as a "Cite this repository" button on the project sidebar.
@@ -288,7 +299,7 @@ If you use this software in academic work, please cite it. Citation metadata is 
 
 Suggested citation (APA):
 
-> Gaiba, R. (2026). *Cardiology Trial Match: an interactive tool for matching patient profiles against landmark cardiology trial criteria* (Version 0.3.0) [Computer software]. Zenodo. https://doi.org/10.5281/zenodo.19803460
+> Gaiba, R. (2026). *Cardiology Trial Match: an interactive tool for matching patient profiles against landmark cardiology trial criteria* (Version 1.0.0) [Computer software]. Zenodo. https://doi.org/10.5281/zenodo.19803460
 
 BibTeX:
 
@@ -297,7 +308,7 @@ BibTeX:
   author       = {Gaiba, Rahul},
   title        = {Cardiology Trial Match: an interactive tool for matching
                   patient profiles against landmark cardiology trial criteria},
-  version      = {0.3.0},
+  version      = {1.0.0},
   year         = {2026},
   publisher    = {Zenodo},
   doi          = {10.5281/zenodo.19803460},

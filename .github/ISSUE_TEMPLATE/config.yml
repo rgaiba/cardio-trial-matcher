@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Contributing guide
+    url: https://github.com/rgaiba/cardio-trial-matcher/blob/main/CONTRIBUTING.md
+    about: Step-by-step recipe for adding a trial, group, or topic.
+  - name: Live site
+    url: https://cardiologytrialmatch.org
+    about: Try the tool before opening an issue.
