@@ -23,7 +23,7 @@ authors:
     affiliation: "Bayhealth Medical Center, Kent Campus, Dover, Delaware, USA"
     orcid: "https://orcid.org/0000-0002-3256-1860"
 repository-code: "https://github.com/rgaiba/cardio-trial-matcher"
-url: "https://rgaiba.github.io/cardio-trial-matcher/"
+url: "https://cardiologytrialmatch.org"
 license: MIT
 doi: "10.5281/zenodo.19803460"
 identifiers:
