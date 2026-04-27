@@ -14,92 +14,29 @@ An open-source, browser-based educational tool for evidence-based medicine. User
 
 This is an educational EBM tool intended for clinicians and trainees exploring how patients map onto landmark trial populations. It does not replace clinical judgment, individual chart review, or current society guidelines. The app does not store or transmit patient data; all evaluation runs in the browser. Inclusion and exclusion criteria are simplified summaries of published protocols; always consult the original publication before applying to clinical decisions.
 
-## Trial library (v0.3.0)
+## Trial library
 
-Trials are organized into a two-level taxonomy: **topic** (a clinical domain) → **group** (a clinically meaningful subdivision) → individual trial. The current release contains two topics: **heart failure** (4 groups, 17 trials) and **atrial fibrillation** (3 groups, 13 trials).
+Trials are organized into a two-level taxonomy: **topic** (a clinical domain) → **group** (a clinically meaningful subdivision) → individual trial. The current release covers two topics, **heart failure** (4 groups, 17 trials) and **atrial fibrillation** (3 groups, 13 trials), for a total of **30 trials**.
 
-## Heart failure
+The complete list with DOIs lives in [**TRIALS.md**](TRIALS.md) and is updated as new trials are added.
 
-### HFrEF foundational quartet
+## Privacy and HIPAA scope
 
-The four pillars of guideline-directed medical therapy for HFrEF: ARNI, SGLT2 inhibition, beta-blockade, and MRA.
+This tool is designed to operate **outside the scope of HIPAA** by never accepting, storing, or transmitting protected health information.
 
-| Trial | Year | Intervention | Citation |
-|---|---|---|---|
-| PARADIGM-HF | 2014 | Sacubitril/valsartan vs enalapril | [10.1056/NEJMoa1409077](https://doi.org/10.1056/NEJMoa1409077) |
-| DAPA-HF | 2019 | Dapagliflozin vs placebo | [10.1056/NEJMoa1911303](https://doi.org/10.1056/NEJMoa1911303) |
-| EMPEROR-Reduced | 2020 | Empagliflozin vs placebo | [10.1056/NEJMoa2022190](https://doi.org/10.1056/NEJMoa2022190) |
-| EMPHASIS-HF | 2011 | Eplerenone vs placebo | [10.1056/NEJMoa1009492](https://doi.org/10.1056/NEJMoa1009492) |
+Specific design choices that maintain this posture:
 
-### Older landmark medical therapies
+- **No PHI fields.** The patient input form accepts only de-identified clinical variables (NYHA class, LVEF, NT-proBNP, eGFR, current medications, comorbidities, etc.). There are no fields for name, MRN, date of birth, address, contact information, or any of the other 18 HIPAA identifiers.
+- **No backend.** The site is a pure static page hosted on GitHub Pages. There is no server that receives, processes, or logs patient inputs. All evaluation runs entirely in the user's browser via JavaScript.
+- **No data persistence.** Patient inputs live only in browser memory for the duration of the session. Closing the tab discards everything. Nothing is written to disk, browser storage, cookies, or any external service.
+- **No tracking of clinical inputs.** The analytics service ([GoatCounter](https://goatcounter.com)) records anonymous aggregate events (which trial cards are opened, which topic is selected) but never receives any patient data. GoatCounter does not store IP addresses or use cookies.
+- **Share button copies only the bare site URL.** A previous version encoded patient state into a URL parameter for case-sharing; this was removed because clinical variables in a shareable link is inappropriate even when no PHI is included. The Share button now copies `https://cardiologytrialmatch.org` only; patient inputs never leave the user's browser.
+- **No accounts, no authentication, no logins.** Nothing identifies the user or links sessions across visits.
+- **Open source.** The complete source code is available at [github.com/rgaiba/cardio-trial-matcher](https://github.com/rgaiba/cardio-trial-matcher) under the MIT license. Anyone can audit how patient data is handled.
 
-Foundational mortality trials that established ACE inhibitors, beta-blockers, and MRAs in HFrEF.
+**For institutional use:** if your hospital, residency program, or health system is considering linking to or embedding this tool in a clinical-education workflow, the above design means there is no PHI handling that requires a Business Associate Agreement. However, your institution's privacy or compliance office may still want to review the tool independently. The complete source code, deployment configuration, and analytics provider (GoatCounter) are all transparent and inspectable.
 
-| Trial | Year | Intervention | Citation |
-|---|---|---|---|
-| CONSENSUS | 1987 | Enalapril in NYHA IV | [10.1056/NEJM198706043162301](https://doi.org/10.1056/NEJM198706043162301) |
-| SOLVD-Treatment | 1991 | Enalapril | [10.1056/NEJM199108013250501](https://doi.org/10.1056/NEJM199108013250501) |
-| MERIT-HF | 1999 | Metoprolol succinate | [10.1016/S0140-6736(99)04440-2](https://doi.org/10.1016/S0140-6736(99)04440-2) |
-| CIBIS-II | 1999 | Bisoprolol | [10.1016/S0140-6736(98)11181-9](https://doi.org/10.1016/S0140-6736(98)11181-9) |
-| RALES | 1999 | Spironolactone | [10.1056/NEJM199909023411001](https://doi.org/10.1056/NEJM199909023411001) |
-
-### Device, CRT, and surgical trials
-
-Trials of implantable defibrillators, cardiac resynchronization therapy, and surgical revascularization in HFrEF.
-
-| Trial | Year | Intervention | Citation |
-|---|---|---|---|
-| MADIT-II | 2002 | Prophylactic ICD | [10.1056/NEJMoa013474](https://doi.org/10.1056/NEJMoa013474) |
-| COMPANION | 2004 | CRT-P / CRT-D | [10.1056/NEJMoa032423](https://doi.org/10.1056/NEJMoa032423) |
-| CARE-HF | 2005 | CRT | [10.1056/NEJMoa050496](https://doi.org/10.1056/NEJMoa050496) |
-| STICH | 2011 | CABG + medical therapy | [10.1056/NEJMoa1100356](https://doi.org/10.1056/NEJMoa1100356) |
-
-### HFpEF trials
-
-Trials in heart failure with preserved or mildly reduced ejection fraction.
-
-| Trial | Year | Intervention | Citation |
-|---|---|---|---|
-| TOPCAT | 2014 | Spironolactone vs placebo | [10.1056/NEJMoa1313731](https://doi.org/10.1056/NEJMoa1313731) |
-| PARAGON-HF | 2019 | Sacubitril/valsartan vs valsartan | [10.1056/NEJMoa1908655](https://doi.org/10.1056/NEJMoa1908655) |
-| EMPEROR-Preserved | 2021 | Empagliflozin vs placebo | [10.1056/NEJMoa2107038](https://doi.org/10.1056/NEJMoa2107038) |
-| DELIVER | 2022 | Dapagliflozin vs placebo | [10.1056/NEJMoa2206286](https://doi.org/10.1056/NEJMoa2206286) |
-
-## Atrial fibrillation
-
-### Anticoagulation trials
-
-Trials of warfarin, aspirin, and direct oral anticoagulants for stroke prevention in AF.
-
-| Trial | Year | Intervention | Citation |
-|---|---|---|---|
-| ARISTOTLE | 2011 | Apixaban vs warfarin | [10.1056/NEJMoa1107039](https://doi.org/10.1056/NEJMoa1107039) |
-| RE-LY | 2009 | Dabigatran vs warfarin | [10.1056/NEJMoa0905561](https://doi.org/10.1056/NEJMoa0905561) |
-| ROCKET-AF | 2011 | Rivaroxaban vs warfarin | [10.1056/NEJMoa1009638](https://doi.org/10.1056/NEJMoa1009638) |
-| SPAF | 1991 | Warfarin or aspirin vs placebo | [10.1161/01.CIR.84.2.527](https://doi.org/10.1161/01.CIR.84.2.527) |
-| SPAF-II | 1994 | Warfarin vs aspirin (by age) | [10.1016/S0140-6736(94)91577-6](https://doi.org/10.1016/S0140-6736(94)91577-6) |
-| SPAF-III | 1996 | Adjusted-dose vs low-dose warfarin + aspirin | [10.1016/S0140-6736(96)03487-3](https://doi.org/10.1016/S0140-6736(96)03487-3) |
-
-### Rate and rhythm control trials
-
-Trials comparing rate vs rhythm control strategies, lenient vs strict rate control, and antiarrhythmic drug therapy.
-
-| Trial | Year | Intervention | Citation |
-|---|---|---|---|
-| AFFIRM | 2002 | Rhythm vs rate control | [10.1056/NEJMoa021328](https://doi.org/10.1056/NEJMoa021328) |
-| RACE-II | 2010 | Lenient vs strict rate control | [10.1056/NEJMoa1001337](https://doi.org/10.1056/NEJMoa1001337) |
-| ATHENA | 2009 | Dronedarone vs placebo | [10.1056/NEJMoa0803778](https://doi.org/10.1056/NEJMoa0803778) |
-| PALLAS | 2011 | Dronedarone in permanent AF (harm) | [10.1056/NEJMoa1109867](https://doi.org/10.1056/NEJMoa1109867) |
-
-### Catheter ablation trials
-
-Trials of pulmonary vein isolation and radiofrequency ablation for paroxysmal AF.
-
-| Trial | Year | Intervention | Citation |
-|---|---|---|---|
-| APAF | 2006 | Circumferential PVA vs antiarrhythmic drugs | [10.1016/j.jacc.2006.08.037](https://doi.org/10.1016/j.jacc.2006.08.037) |
-| ThermoCool-AF | 2010 | RF catheter ablation vs antiarrhythmic drugs | [10.1001/jama.2009.2029](https://doi.org/10.1001/jama.2009.2029) |
-| MANTRA-PAF | 2012 | RF ablation vs first-line antiarrhythmic drugs | [10.1056/NEJMoa1113566](https://doi.org/10.1056/NEJMoa1113566) |
+**Important reminder:** This tool is intended for **education**, not for clinical decision support in named patients. Even though no PHI is transmitted, users should not enter inputs that derive from a real, identified patient encounter outside of a documented educational use (case-based teaching, journal club, residency curriculum). When in doubt, use hypothetical or de-identified examples.
 
 ## How matching works
 
