@@ -1,0 +1,7 @@
+# Cardiology Trial Match — robots.txt
+# All search engines are welcome to crawl and index the entire site.
+
+User-agent: *
+Allow: /
+
+Sitemap: https://cardiologytrialmatch.org/sitemap.xml
