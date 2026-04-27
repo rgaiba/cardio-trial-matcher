@@ -18,8 +18,14 @@
     "evidence-based-medicine",
     "cardiology",
     "heart-failure",
+    "HFrEF",
+    "HFpEF",
+    "atrial-fibrillation",
     "clinical-trials",
-    "medical-education"
+    "landmark-trials",
+    "GDMT",
+    "medical-education",
+    "open-source"
   ],
   "type": "module",
   "scripts": {

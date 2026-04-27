@@ -20,24 +20,6 @@ Trials are organized into a two-level taxonomy: **topic** (a clinical domain) �
 
 The complete list with DOIs lives in [**TRIALS.md**](TRIALS.md) and is updated as new trials are added.
 
-## Privacy and HIPAA scope
-
-This tool is designed to operate **outside the scope of HIPAA** by never accepting, storing, or transmitting protected health information.
-
-Specific design choices that maintain this posture:
-
-- **No PHI fields.** The patient input form accepts only de-identified clinical variables (NYHA class, LVEF, NT-proBNP, eGFR, current medications, comorbidities, etc.). There are no fields for name, MRN, date of birth, address, contact information, or any of the other 18 HIPAA identifiers.
-- **No backend.** The site is a pure static page hosted on GitHub Pages. There is no server that receives, processes, or logs patient inputs. All evaluation runs entirely in the user's browser via JavaScript.
-- **No data persistence.** Patient inputs live only in browser memory for the duration of the session. Closing the tab discards everything. Nothing is written to disk, browser storage, cookies, or any external service.
-- **No tracking of clinical inputs.** The analytics service ([GoatCounter](https://goatcounter.com)) records anonymous aggregate events (which trial cards are opened, which topic is selected) but never receives any patient data. GoatCounter does not store IP addresses or use cookies.
-- **Share button copies only the bare site URL.** A previous version encoded patient state into a URL parameter for case-sharing; this was removed because clinical variables in a shareable link is inappropriate even when no PHI is included. The Share button now copies `https://cardiologytrialmatch.org` only; patient inputs never leave the user's browser.
-- **No accounts, no authentication, no logins.** Nothing identifies the user or links sessions across visits.
-- **Open source.** The complete source code is available at [github.com/rgaiba/cardio-trial-matcher](https://github.com/rgaiba/cardio-trial-matcher) under the MIT license. Anyone can audit how patient data is handled.
-
-**For institutional use:** if your hospital, residency program, or health system is considering linking to or embedding this tool in a clinical-education workflow, the above design means there is no PHI handling that requires a Business Associate Agreement. However, your institution's privacy or compliance office may still want to review the tool independently. The complete source code, deployment configuration, and analytics provider (GoatCounter) are all transparent and inspectable.
-
-**Important reminder:** This tool is intended for **education**, not for clinical decision support in named patients. Even though no PHI is transmitted, users should not enter inputs that derive from a real, identified patient encounter outside of a documented educational use (case-based teaching, journal club, residency curriculum). When in doubt, use hypothetical or de-identified examples.
-
 ## How matching works
 
 ### Patient input model
@@ -295,7 +277,7 @@ This model balances openness (anyone can propose a change) with clinical safety 
 
 If you use this software in academic work, please cite it. Citation metadata is in [`CITATION.cff`](CITATION.cff); GitHub renders it as a "Cite this repository" button on the project sidebar.
 
-**DOI:** [10.5281/zenodo.19803460](https://doi.org/10.5281/zenodo.19803460)
+**DOI:** [10.5281/zenodo.19803460](https://doi.org/10.5281/zenodo.19803460) (concept DOI, always resolves to the latest version)
 
 Suggested citation (APA):
 
@@ -316,7 +298,9 @@ BibTeX:
 }
 ```
 
-The DOI above is the **concept DOI** — it always resolves to the latest released version. Each new GitHub release auto-mints its own version-specific DOI; both can be cited.
+The DOI above is the **concept DOI** — it always resolves to the latest released version. Each new GitHub release auto-mints a version-specific DOI; the v1.0.0 record carries DOI `10.5281/zenodo.19812465` and can be cited where exact-version reproducibility is required.
+
+The Zenodo record contains the full structured abstract (Background, Objectives, Methods, Results, Conclusions) describing this version's scope and methodology in clinical terms.
 
 ## Author
 
@@ -334,6 +318,24 @@ Contributions are welcome, especially:
 - Translations of trial criteria to other clinical settings
 
 Open a pull request with the trial data + a citation to the published baseline characteristics paper. The matching engine and visualizations require no changes — they discover new entries automatically.
+
+## Privacy and HIPAA scope
+
+This tool is designed to operate **outside the scope of HIPAA** by never accepting, storing, or transmitting protected health information.
+
+Specific design choices that maintain this posture:
+
+- **No PHI fields.** The patient input form accepts only de-identified clinical variables (NYHA class, LVEF, NT-proBNP, eGFR, current medications, comorbidities, etc.). There are no fields for name, MRN, date of birth, address, contact information, or any of the other 18 HIPAA identifiers.
+- **No backend.** The site is a pure static page hosted on GitHub Pages. There is no server that receives, processes, or logs patient inputs. All evaluation runs entirely in the user's browser via JavaScript.
+- **No data persistence.** Patient inputs live only in browser memory for the duration of the session. Closing the tab discards everything. Nothing is written to disk, browser storage, cookies, or any external service.
+- **No tracking of clinical inputs.** The analytics service ([GoatCounter](https://goatcounter.com)) records anonymous aggregate events (which trial cards are opened, which topic is selected) but never receives any patient data. GoatCounter does not store IP addresses or use cookies.
+- **Share button copies only the bare site URL.** A previous version encoded patient state into a URL parameter for case-sharing; this was removed because clinical variables in a shareable link is inappropriate even when no PHI is included. The Share button now copies `https://cardiologytrialmatch.org` only; patient inputs never leave the user's browser.
+- **No accounts, no authentication, no logins.** Nothing identifies the user or links sessions across visits.
+- **Open source.** The complete source code is available at [github.com/rgaiba/cardio-trial-matcher](https://github.com/rgaiba/cardio-trial-matcher) under the MIT license. Anyone can audit how patient data is handled.
+
+**For institutional use:** if your hospital, residency program, or health system is considering linking to or embedding this tool in a clinical-education workflow, the above design means there is no PHI handling that requires a Business Associate Agreement. However, your institution's privacy or compliance office may still want to review the tool independently. The complete source code, deployment configuration, and analytics provider (GoatCounter) are all transparent and inspectable.
+
+**Important reminder:** This tool is intended for **education**, not for clinical decision support in named patients. Even though no PHI is transmitted, users should not enter inputs that derive from a real, identified patient encounter outside of a documented educational use (case-based teaching, journal club, residency curriculum). When in doubt, use hypothetical or de-identified examples.
 
 ## License
 

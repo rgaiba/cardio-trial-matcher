@@ -3,9 +3,9 @@ message: "If you use this software in academic work, please cite it using the me
 title: "Cardiology Trial Match: an interactive tool for matching patient profiles against landmark cardiology trial criteria"
 abstract: >-
   Background. Application of evidence from landmark cardiology trials to
-  individual patients requires comparison of the patient against each trial's
-  published inclusion and exclusion criteria, an exercise that is time-
-  consuming and frequently incomplete in routine practice and clinical
+  individual patients requires comparing each patient against each trial's
+  published inclusion and exclusion criteria, an exercise that is
+  time-consuming and often impractical in routine clinical practice and
   education. Existing risk calculators report composite scores but do not
   surface trial-level eligibility, the trial population enrolled, or the
   distance between an individual patient and the populations from which the
@@ -15,7 +15,8 @@ abstract: >-
   clinician-entered, non-identifying patient variables onto the published
   criteria of landmark heart failure and atrial fibrillation trials, with
   explicit display of trial population, racial and ethnic composition, key
-  efficacy estimates, and the limitations of trial-to-patient extrapolation.
+  efficacy estimates, outlining the limitations of trial-to-patient
+  extrapolation.
 
   Methods. Inclusion and exclusion criteria of 30 landmark trials were
   encoded across two clinical topics: heart failure (n = 17), comprising the
@@ -34,24 +35,25 @@ abstract: >-
   no clinical inputs, and persists no data.
 
   Results. The tool presents an overview bar chart of match scores across
-  trials, per-trial radar plots of inclusion-criterion coverage, structured
-  display of inclusion and exclusion criteria with result-coded indicators,
-  the racial and ethnic composition of each trial population, and primary
-  endpoint results including hazard ratio, absolute risk reduction, and
-  number needed to treat where applicable, each linked to the original
-  publication by DOI. A standardized methods caption clarifies that match
-  scores reflect protocol-level eligibility only and do not predict clinical
-  benefit, which depends on factors beyond the encoded criteria including
-  unmeasured comorbidities, frailty, and individual context.
+  trials, per-trial radar plots of inclusion-criterion coverage, a
+  structured display of inclusion and exclusion criteria with result-coded
+  indicators, the racial and ethnic composition of each trial population,
+  and primary endpoint results including hazard ratio, absolute risk
+  reduction, and number needed to treat where applicable. Each trial is
+  linked to the original publication by DOI. A standardized methods caption
+  clarifies that match scores reflect protocol-level eligibility only and do
+  not predict clinical benefit, which depends on factors beyond the encoded
+  criteria, including unmeasured comorbidities, frailty, and individual
+  context.
 
   Conclusions. Cardiology Trial Match operationalizes the published
   eligibility criteria of 30 landmark heart failure and atrial fibrillation
   trials at the point of teaching or case discussion, with explicit
   acknowledgment of the gap between protocol-level match and real-world
   benefit. The tool is free, MIT-licensed, and designed to operate outside
-  the scope of HIPAA. Its open two-level taxonomy permits additive extension
-  to additional cardiology domains without modification of the matching
-  engine. Live at https://cardiologytrialmatch.org.
+  the scope of HIPAA. Its open two-level taxonomy permits additive extensions
+  to additional cardiology domains without modifying the matching engine.
+  Live at https://cardiologytrialmatch.org.
 type: software
 version: "1.0.0"
 date-released: "2026-04-27"
@@ -69,7 +71,10 @@ doi: "10.5281/zenodo.19803460"
 identifiers:
   - type: doi
     value: "10.5281/zenodo.19803460"
-    description: "Concept DOI (resolves to the latest version)"
+    description: "Concept DOI (always resolves to the latest version)"
+  - type: doi
+    value: "10.5281/zenodo.19812465"
+    description: "Version 1.0.0 DOI (this release)"
   - type: url
     value: "https://cardiologytrialmatch.org"
     description: "Live application"
