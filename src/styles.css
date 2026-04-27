@@ -234,14 +234,16 @@ a { color: var(--primary); }
   display: flex;
   align-items: center;
   gap: 6px;
-  padding: 6px 12px;
+  padding: 5px 12px;
   background: white;
-  border: 2px solid var(--border-strong);
+  border: 1px solid var(--border-strong);
   border-radius: 999px;
   font-size: 13px;
   cursor: pointer;
+  transition: background 0.15s;
 }
-.status-chip.active { background: #f8fafc; }
+.status-chip:hover { background: #f8fafc; }
+.status-chip.active { background: #f1f5f9; }
 .status-chip strong { font-weight: 700; }
 
 .dot {
@@ -262,27 +264,45 @@ a { color: var(--primary); }
 
 .cards-list { display: flex; flex-direction: column; gap: 12px; }
 
-/* ── Topic sections (top-level: heart failure, AF, CAD, etc.) ── */
-.topic-section {
+/* ── Topic selector tabs (minimal pills, matching status chips) ── */
+.topic-tabs {
   display: flex;
-  flex-direction: column;
-  gap: 16px;
-  padding-top: 8px;
-  border-top: 2px solid var(--border-strong);
-  margin-top: 8px;
+  gap: 6px;
+  flex-wrap: wrap;
 }
-.topic-section:first-of-type {
-  border-top: none;
-  padding-top: 0;
-  margin-top: 0;
+.topic-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  background: white;
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  font-size: 13px;
+  color: var(--muted);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
 }
-.topic-title {
-  font-size: 22px;
-  font-weight: 700;
-  letter-spacing: -0.01em;
+.topic-tab:hover:not(.active) {
+  background: #f8fafc;
   color: var(--text);
-  margin: 0;
-  padding: 4px 0;
+}
+.topic-tab.active {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
+  font-weight: 500;
+}
+.topic-tab-count {
+  font-size: 11px;
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.06);
+  font-weight: 600;
+}
+.topic-tab.active .topic-tab-count {
+  background: rgba(255, 255, 255, 0.22);
+  color: white;
 }
 
 /* ── Trial group sections ──────────────────────────────── */
