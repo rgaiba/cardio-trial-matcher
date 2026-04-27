@@ -67,14 +67,17 @@ authors:
 repository-code: "https://github.com/rgaiba/cardio-trial-matcher"
 url: "https://cardiologytrialmatch.org"
 license: MIT
-doi: "10.5281/zenodo.19803460"
+doi: "10.5281/zenodo.19803459"
 identifiers:
   - type: doi
-    value: "10.5281/zenodo.19803460"
-    description: "Concept DOI (always resolves to the latest version)"
+    value: "10.5281/zenodo.19803459"
+    description: "Concept DOI (cite all versions; always resolves to the latest)"
   - type: doi
     value: "10.5281/zenodo.19812465"
     description: "Version 1.0.0 DOI (this release)"
+  - type: doi
+    value: "10.5281/zenodo.19803460"
+    description: "Version 0.2.0 DOI (initial public release)"
   - type: url
     value: "https://cardiologytrialmatch.org"
     description: "Live application"

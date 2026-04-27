@@ -1,6 +1,6 @@
 # Cardiology Trial Match
 
-[![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.19803460-1f6feb)](https://doi.org/10.5281/zenodo.19803460)
+[![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.19803459-1f6feb)](https://doi.org/10.5281/zenodo.19803459)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Live site](https://img.shields.io/badge/live-cardiologytrialmatch.org-16a34a)](https://cardiologytrialmatch.org)
 
@@ -277,11 +277,11 @@ This model balances openness (anyone can propose a change) with clinical safety 
 
 If you use this software in academic work, please cite it. Citation metadata is in [`CITATION.cff`](CITATION.cff); GitHub renders it as a "Cite this repository" button on the project sidebar.
 
-**DOI:** [10.5281/zenodo.19803460](https://doi.org/10.5281/zenodo.19803460) (concept DOI, always resolves to the latest version)
+**DOI:** [10.5281/zenodo.19803459](https://doi.org/10.5281/zenodo.19803459) (concept DOI, always resolves to the latest version)
 
 Suggested citation (APA):
 
-> Gaiba, R. (2026). *Cardiology Trial Match: an interactive tool for matching patient profiles against landmark cardiology trial criteria* (Version 1.0.0) [Computer software]. Zenodo. https://doi.org/10.5281/zenodo.19803460
+> Gaiba, R. (2026). *Cardiology Trial Match: an interactive tool for matching patient profiles against landmark cardiology trial criteria* (Version 1.0.0) [Computer software]. Zenodo. https://doi.org/10.5281/zenodo.19803459
 
 BibTeX:
 
@@ -293,14 +293,14 @@ BibTeX:
   version      = {1.0.0},
   year         = {2026},
   publisher    = {Zenodo},
-  doi          = {10.5281/zenodo.19803460},
-  url          = {https://doi.org/10.5281/zenodo.19803460}
+  doi          = {10.5281/zenodo.19803459},
+  url          = {https://doi.org/10.5281/zenodo.19803459}
 }
 ```
 
 The DOI above is the **concept DOI** — it always resolves to the latest released version. Each new GitHub release auto-mints a version-specific DOI; the v1.0.0 record carries DOI `10.5281/zenodo.19812465` and can be cited where exact-version reproducibility is required.
 
-The Zenodo record contains the full structured abstract (Background, Objectives, Methods, Results, Conclusions) describing this version's scope and methodology in clinical terms.
+The full structured abstract (Background, Objectives, Methods, Results, Conclusions) is available as [`ABSTRACT.md`](ABSTRACT.md) for clinicians who prefer a journal-style summary, or directly on the [Zenodo record](https://doi.org/10.5281/zenodo.19803459).
 
 ## Author
 

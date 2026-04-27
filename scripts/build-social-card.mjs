@@ -112,7 +112,7 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" widt
 
   <g font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
     <text x="80" y="570" font-size="22" font-weight="500" fill="#94a3b8">cardiologytrialmatch.org</text>
-    <text x="1120" y="570" font-size="18" font-weight="400" fill="#64748b" text-anchor="end">Open source · MIT licensed · DOI 10.5281/zenodo.19803460</text>
+    <text x="1120" y="570" font-size="18" font-weight="400" fill="#64748b" text-anchor="end">Open source · MIT licensed · DOI 10.5281/zenodo.19803459</text>
   </g>
 </svg>
 `;

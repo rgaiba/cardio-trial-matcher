@@ -167,7 +167,7 @@ export default function App() {
           , Bayhealth Medical Center, Dover, Delaware. Released under the MIT License.
           {' '}
           <a
-            href="https://doi.org/10.5281/zenodo.19803460"
+            href="https://doi.org/10.5281/zenodo.19803459"
             target="_blank"
             rel="noreferrer"
             title="Zenodo record with one-click BibTeX, RIS, EndNote, and APA exports"
