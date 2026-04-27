@@ -56,7 +56,7 @@ export default function MatchBarChart({ results, onPick }) {
                 );
               }}
             />
-            <Bar dataKey="score" onClick={(d) => onPick?.(d.id)} radius={[0, 4, 4, 0]}>
+            <Bar dataKey="score" onClick={(d) => onPick?.(d.id)} radius={999} barSize={18}>
               {data.map((d) => (
                 <Cell key={d.id} fill={STATUS_META[d.status].color} cursor="pointer" />
               ))}
