@@ -292,6 +292,20 @@ Trial data added by contributors will be visible to anyone using the tool. By su
 
 ---
 
+## Auto-generated artifacts
+
+A few files in this repo are regenerated automatically and **should not be hand-edited**:
+
+- `public/social-card.svg` — the Open Graph preview image. Regenerated from `TOPICS` and `TRIALS` by `scripts/build-social-card.mjs`. The script runs automatically on every `npm run build` (which is what GitHub Actions runs on every push). When you add a new topic or trial, the social card updates itself; the next push will deploy a card showing the new topic count and the new total trial number.
+
+To regenerate manually after a data change without doing a full build:
+
+```bash
+npm run build:social-card
+```
+
+If you ever want to redesign the card (colors, layout, additional elements), edit the SVG template inside `scripts/build-social-card.mjs`, not the generated `social-card.svg` itself.
+
 ## Quick reference card
 
 For the impatient:
@@ -302,4 +316,4 @@ For the impatient:
 4. Append demographics object to `DEMOGRAPHICS` in `src/data/demographics.js`
 5. Run `node scripts/smoke.mjs` and `node scripts/smoke-afib.mjs`
 6. `npm run dev` to verify visually
-7. Commit, push, the deploy workflow handles the rest
+7. Commit, push, the deploy workflow handles the rest (including regenerating the social card)

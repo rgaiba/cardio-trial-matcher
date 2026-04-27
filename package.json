@@ -24,8 +24,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "prebuild": "node scripts/build-social-card.mjs",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "build:social-card": "node scripts/build-social-card.mjs"
   },
   "dependencies": {
     "react": "^18.3.1",
