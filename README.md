@@ -1,80 +1,333 @@
 # Cardiology Trial Match
 
-An educational tool that matches a hypothetical patient profile against the inclusion/exclusion criteria of landmark cardiology trials. Starts with **heart failure** trials and is designed to expand to other cardiology domains.
+An open-source, browser-based educational tool for evidence-based medicine. Users enter non-identifying clinical variables (NYHA class, LVEF, NT-proBNP, eGFR, comorbidities, current GDMT, etc.) and the app evaluates how well the patient matches the inclusion and exclusion criteria of landmark cardiology trials.
 
-**This tool does not store any data, does not accept PHI, and is for educational purposes only.** Outputs are not clinical recommendations.
+**Live site:** https://rgaiba.github.io/cardio-trial-matcher/
 
-## What's included (v1)
+**Status:** v0.2.0. Heart failure topic populated with 17 landmark trials. Atrial fibrillation and coronary artery disease topics scaffolded for future expansion.
+
+## Disclaimer
+
+This is an educational EBM tool intended for clinicians and trainees exploring how patients map onto landmark trial populations. It does not replace clinical judgment, individual chart review, or current society guidelines. The app does not store or transmit patient data; all evaluation runs in the browser. Inclusion and exclusion criteria are simplified summaries of published protocols; always consult the original publication before applying to clinical decisions.
+
+## Trial library (v0.2.0)
+
+Trials are organized into a two-level taxonomy: **topic** (a clinical domain) → **group** (a clinically meaningful subdivision) → individual trial. The current release contains one topic (heart failure) with four groups.
 
 ### HFrEF foundational quartet
-- **PARADIGM-HF** (2014): Sacubitril/Valsartan vs Enalapril
-- **DAPA-HF** (2019): Dapagliflozin
-- **EMPEROR-Reduced** (2020): Empagliflozin
-- **EMPHASIS-HF** (2011): Eplerenone
 
-### Older landmark medical-therapy trials
-- **CONSENSUS** (1987): Enalapril in NYHA IV
-- **SOLVD-Treatment** (1991): Enalapril
-- **MERIT-HF** (1999): Metoprolol succinate
-- **CIBIS-II** (1999): Bisoprolol
-- **RALES** (1999): Spironolactone
+The four pillars of guideline-directed medical therapy for HFrEF: ARNI, SGLT2 inhibition, beta-blockade, and MRA.
 
-### Device / advanced HF trials
-- **MADIT-II** (2002): Prophylactic ICD
-- **COMPANION** (2004): CRT-P / CRT-D
-- **CARE-HF** (2005): CRT
-- **STICH** (2011): CABG + medical therapy in ischemic CM
+| Trial | Year | Intervention | Citation |
+|---|---|---|---|
+| PARADIGM-HF | 2014 | Sacubitril/valsartan vs enalapril | [10.1056/NEJMoa1409077](https://doi.org/10.1056/NEJMoa1409077) |
+| DAPA-HF | 2019 | Dapagliflozin vs placebo | [10.1056/NEJMoa1911303](https://doi.org/10.1056/NEJMoa1911303) |
+| EMPEROR-Reduced | 2020 | Empagliflozin vs placebo | [10.1056/NEJMoa2022190](https://doi.org/10.1056/NEJMoa2022190) |
+| EMPHASIS-HF | 2011 | Eplerenone vs placebo | [10.1056/NEJMoa1009492](https://doi.org/10.1056/NEJMoa1009492) |
 
-## How it works
+### Older landmark medical therapies
 
-1. User enters non-identifying clinical variables (NYHA class, LVEF, NT-proBNP, eGFR, comorbidities, current GDMT, etc.).
-2. Each trial's inclusion and exclusion criteria are encoded as structured rules.
-3. A match engine evaluates each criterion as **met / not met / unknown** and computes:
-   - An overall **eligibility status** (Eligible / Partial / Excluded / Insufficient data)
-   - A **match score** (% of inclusion criteria met, with exclusions zeroing out the score)
-4. Results render as:
-   - A **match-strength bar chart** sortable by best fit.
-   - A **radar chart per trial** with one axis per criterion, showing which the patient meets.
+Foundational mortality trials that established ACE inhibitors, beta-blockers, and MRAs in HFrEF.
+
+| Trial | Year | Intervention | Citation |
+|---|---|---|---|
+| CONSENSUS | 1987 | Enalapril in NYHA IV | [10.1056/NEJM198706043162301](https://doi.org/10.1056/NEJM198706043162301) |
+| SOLVD-Treatment | 1991 | Enalapril | [10.1056/NEJM199108013250501](https://doi.org/10.1056/NEJM199108013250501) |
+| MERIT-HF | 1999 | Metoprolol succinate | [10.1016/S0140-6736(99)04440-2](https://doi.org/10.1016/S0140-6736(99)04440-2) |
+| CIBIS-II | 1999 | Bisoprolol | [10.1016/S0140-6736(98)11181-9](https://doi.org/10.1016/S0140-6736(98)11181-9) |
+| RALES | 1999 | Spironolactone | [10.1056/NEJM199909023411001](https://doi.org/10.1056/NEJM199909023411001) |
+
+### Device, CRT, and surgical trials
+
+Trials of implantable defibrillators, cardiac resynchronization therapy, and surgical revascularization in HFrEF.
+
+| Trial | Year | Intervention | Citation |
+|---|---|---|---|
+| MADIT-II | 2002 | Prophylactic ICD | [10.1056/NEJMoa013474](https://doi.org/10.1056/NEJMoa013474) |
+| COMPANION | 2004 | CRT-P / CRT-D | [10.1056/NEJMoa032423](https://doi.org/10.1056/NEJMoa032423) |
+| CARE-HF | 2005 | CRT | [10.1056/NEJMoa050496](https://doi.org/10.1056/NEJMoa050496) |
+| STICH | 2011 | CABG + medical therapy | [10.1056/NEJMoa1100356](https://doi.org/10.1056/NEJMoa1100356) |
+
+### HFpEF trials
+
+Trials in heart failure with preserved or mildly reduced ejection fraction.
+
+| Trial | Year | Intervention | Citation |
+|---|---|---|---|
+| TOPCAT | 2014 | Spironolactone vs placebo | [10.1056/NEJMoa1313731](https://doi.org/10.1056/NEJMoa1313731) |
+| PARAGON-HF | 2019 | Sacubitril/valsartan vs valsartan | [10.1056/NEJMoa1908655](https://doi.org/10.1056/NEJMoa1908655) |
+| EMPEROR-Preserved | 2021 | Empagliflozin vs placebo | [10.1056/NEJMoa2107038](https://doi.org/10.1056/NEJMoa2107038) |
+| DELIVER | 2022 | Dapagliflozin vs placebo | [10.1056/NEJMoa2206286](https://doi.org/10.1056/NEJMoa2206286) |
+
+## How matching works
+
+### Patient input model
+
+The patient state is a plain object containing only clinical variables. No identifiers, no PHI. Any field the user leaves blank is treated as `unknown`, not as failing.
+
+```js
+{
+  age: 64, sex: 'M', nyhaClass: 3, lvef: 28,
+  ntProBnp: 1850, egfr: 52, sbp: 118, hr: 78, qrs: 138,
+  potassium: 4.4, sodium: 138, hemoglobin: 12.8, creatinine: 1.3,
+  rhythm: 'sinus',
+  comorbidities: { diabetes: 'type2', afib: false, htn: true, priorMI: true, ... },
+  recent: { miWithinMonths: 18, hfHospWithinMonths: 4, ... },
+  meds: { aceArb: true, betaBlocker: true, mra: false, sglt2i: false, loopDiuretic: true, ... }
+}
+```
+
+### Criterion evaluators
+
+Each trial criterion is a structured object that references a named evaluator function. Evaluators live in `src/engine/evaluators.js` and return one of three values:
+
+- `'met'` — patient satisfies the criterion as written
+- `'not_met'` — patient does not satisfy
+- `'unknown'` — required input is missing
+
+Example: PARADIGM-HF's NT-proBNP rule is encoded as
+
+```js
+{
+  id: 'natriuretic',
+  label: 'NT-proBNP ≥600 pg/mL (or ≥400 if HF hospitalization within 12 mo); or BNP ≥150 (≥100 if recent hospitalization)',
+  evaluator: 'natriureticParadigm',
+  params: {},
+}
+```
+
+The `natriureticParadigm` evaluator inspects `patient.ntProBnp`, `patient.bnp`, and `patient.recent.hfHospWithinMonths` and applies the threshold logic from the published protocol.
+
+Reusable evaluators handle simple checks (`ageGte`, `lvefLte`, `egfrLt`, `sbpLt`, `nyhaIn`, `onMed`, `onAllMeds`, `comorbidityPresent`, etc.); trial-specific evaluators handle composite biomarker rules.
+
+### Match score and status
+
+`evaluateTrial(trial, patient)` produces:
+
+- `matchScore` (0–100): percent of inclusion criteria met. Unknowns count as half-credit. Any met exclusion drops the score to 0.
+- `status` — one of:
+  - **Eligible** — every inclusion is met, no exclusion is met, no unknowns.
+  - **Partial match** — some inclusion criteria met or unknown, no exclusion triggered.
+  - **Excluded** — at least one exclusion criterion is met, OR every inclusion is explicitly not met.
+  - **Insufficient data** — too many criteria are unknown to determine eligibility.
+
+Status carries a color in the dashboard: green (eligible), amber (partial), red (excluded), gray (insufficient).
+
+### NNT caveat
+
+When a trial is anything other than 100% eligible, the trial card surfaces a small note under NNT: *"NNT increases when trial results are applied to lower-risk populations."* This is a standard EBM caution: the published NNT applies to the trial population; patients who differ from that population (especially toward lower baseline risk) typically have higher NNTs in practice.
+
+## Visualizations
+
+- **Match-strength bar chart** at the top: overview of all trials, sorted by best fit, color-coded by status. Click a bar to jump to that trial's card.
+- **Per-trial radar chart**: each axis is one inclusion or exclusion criterion. The plot fills the outer ring when criteria are met (or when exclusions are correctly absent), drops to the center when not met or actively excluded, and sits at the middle for unknowns. Long axis labels wrap onto multiple lines automatically.
+- **Race composition bar**: minimalist horizontal stacked bar for each trial's enrolled population. Trials where the original publication did not formally report race show a striped placeholder with explanatory text.
+- **Status filter chips**: the four counts at the top of the results panel act as toggles to filter the cards by eligibility status.
+- **Share button**: encodes the current patient profile into a URL parameter. Anyone opening the link gets the form pre-filled with the same case. No data leaves the browser; encoding is base64-of-JSON, client-side only.
+
+## Architecture
+
+### Taxonomy
+
+Defined at the top of `src/data/trials.js`:
+
+```js
+TOPICS         — top-level clinical domains (e.g., heart-failure)
+TRIAL_GROUPS   — clinically meaningful subdivisions within a topic
+TRIALS         — individual trial entries, each tagged with topicId + groupId
+```
+
+Adding a topic, group, or trial is purely additive; the dashboard discovers the new entry automatically and renders it under the right section header.
+
+### File structure
+
+```
+cardio-trial-matcher/
+├── src/
+│   ├── App.jsx                      Top-level layout, topbar, footer
+│   ├── main.jsx                     React entry
+│   ├── styles.css                   All styles, including mobile media queries
+│   ├── data/
+│   │   ├── trials.js                TOPICS, TRIAL_GROUPS, all trial objects
+│   │   └── demographics.js          Race composition data per trial
+│   ├── engine/
+│   │   ├── evaluators.js            Named evaluator functions (met/not_met/unknown)
+│   │   ├── matchEngine.js           Trial evaluation + status logic
+│   │   └── serialize.js             URL-encode/decode patient state for sharing
+│   └── components/
+│       ├── PatientForm.jsx          Tabbed input form
+│       ├── ResultsDashboard.jsx     Status filter + bar chart + grouped sections
+│       ├── MatchBarChart.jsx        Overview bar chart (Recharts)
+│       ├── TrialCard.jsx            Per-trial card with stats + race bar + criteria
+│       ├── TrialRadarChart.jsx      Per-trial radar with custom multi-line ticks
+│       └── RaceBar.jsx              Race composition stacked bar
+├── scripts/
+│   ├── smoke.mjs                    End-to-end test with sample HFrEF patient
+│   └── smoke-hfpef.mjs              End-to-end test with HFpEF patient + URL roundtrip
+├── .github/workflows/deploy.yml     Auto-deploy to GitHub Pages on push to main
+├── CITATION.cff                     GitHub-renderable citation metadata
+├── LICENSE                          MIT
+├── README.md                        This file
+├── package.json
+├── vite.config.js
+└── index.html
+```
+
+## How to extend
+
+### Add a new trial to an existing group
+
+Append a trial object to the `TRIALS` array in `src/data/trials.js`:
+
+```js
+{
+  id: 'my-new-trial',
+  topicId: 'heart-failure',
+  groupId: 'hfref-foundational',  // must match an id in TRIAL_GROUPS
+  name: 'TRIAL-NAME',
+  fullName: 'Full trial name as published',
+  year: 2025,
+  category: 'HFrEF medication',
+  intervention: 'Drug X vs placebo',
+  population: 'HFrEF, NYHA II–IV, EF ≤40%',
+  nEnrolled: 5000,
+  primaryEndpoint: 'CV death or HF hospitalization',
+  primaryResult: 'HR 0.78 (95% CI 0.69–0.88)',
+  pValue: '<0.001',
+  arr: '4.5%',
+  nnt: '22 over 24 months',
+  citation: 'AuthorAB et al. N Engl J Med 2025;XXX:YYY',
+  doi: '10.1056/NEJMoaXXXXXXX',
+  url: 'https://doi.org/10.1056/NEJMoaXXXXXXX',
+  keyTakeaway: 'One-sentence editorial summary.',
+  inclusion: [
+    { id: 'age', label: 'Age ≥18', evaluator: 'ageGte', params: { min: 18 } },
+    // ...
+  ],
+  exclusion: [
+    { id: 'egfr', label: 'eGFR <30', evaluator: 'egfrLt', params: { threshold: 30 } },
+    // ...
+  ],
+}
+```
+
+Then add the trial's race composition to `src/data/demographics.js`:
+
+```js
+'my-new-trial': { white: 70, asian: 15, black: 8, other: 7 },
+```
+
+That's it. The dashboard, bar chart, radar, and race bar all update automatically.
+
+### Add a new evaluator
+
+If a trial uses a clinical variable not yet in the engine (e.g., a new biomarker, a new device parameter), add an evaluator to `src/engine/evaluators.js`:
+
+```js
+myNewEvaluator: (patient, { threshold }) => {
+  if (typeof patient.myField !== 'number') return 'unknown';
+  return patient.myField >= threshold ? 'met' : 'not_met';
+},
+```
+
+If the input variable is also new, add it to:
+- `src/components/PatientForm.jsx` `EMPTY_PATIENT` and the appropriate tab
+- `src/engine/serialize.js` (it'll be picked up automatically because the serializer walks the patient object)
+
+### Add a new group within heart failure
+
+Append to the `TRIAL_GROUPS` array in `src/data/trials.js`:
+
+```js
+{
+  id: 'hf-mechanical-support',
+  topicId: 'heart-failure',
+  label: 'Mechanical circulatory support',
+  description: 'Trials of LVAD, percutaneous support devices, and transplantation.',
+  order: 5,  // sort order within the topic
+}
+```
+
+Then tag the relevant trials with `groupId: 'hf-mechanical-support'`.
+
+### Add a new topic (e.g., atrial fibrillation, CAD)
+
+The taxonomy is designed for this. Three steps:
+
+1. Add a topic entry to `TOPICS`:
+
+   ```js
+   { id: 'atrial-fibrillation', label: 'Atrial fibrillation', badge: 'AFib' }
+   ```
+
+2. Add the relevant groups to `TRIAL_GROUPS`:
+
+   ```js
+   { id: 'afib-anticoagulation', topicId: 'atrial-fibrillation', label: 'Anticoagulation trials',
+     description: '...', order: 1 },
+   { id: 'afib-rhythm-control', topicId: 'atrial-fibrillation', label: 'Rhythm control trials',
+     description: '...', order: 2 },
+   // etc.
+   ```
+
+3. Add the trial entries with the new `topicId` and `groupId` values.
+
+The current dashboard renders all topics together in one view. A future enhancement could add a topic-selector in the topbar.
 
 ## Local development
 
 ```bash
 npm install
-npm run dev
+npm run dev      # http://localhost:5173
+npm run build    # production build → ./dist
 ```
 
-## Deployment to GitHub Pages
+Smoke tests run with plain Node (no build step):
 
-This repo ships with a GitHub Actions workflow that deploys to GitHub Pages on every push to `main`.
+```bash
+node scripts/smoke.mjs        # HFrEF sample patient
+node scripts/smoke-hfpef.mjs  # HFpEF sample patient + share-URL roundtrip
+```
+
+## Deployment
+
+The repo ships with a GitHub Actions workflow at `.github/workflows/deploy.yml` that builds and publishes to GitHub Pages on every push to `main`.
+
+To deploy your fork:
 
 1. Push the repo to GitHub.
-2. In the repo: **Settings → Pages → Build and deployment → Source**: select **GitHub Actions**.
-3. The workflow at `.github/workflows/deploy.yml` will build and publish.
-4. If your repo is named something other than `cardio-trial-matcher`, update the `base` field in `vite.config.js` to match (e.g. `/your-repo-name/`).
+2. **Settings → Pages → Build and deployment → Source**: select **GitHub Actions**.
+3. Tag a release on GitHub when you want a citable snapshot (this also triggers the Zenodo DOI mint if you've connected the repo to Zenodo).
 
-## Adding a new trial
-
-Drop a new entry into `src/data/trials.js` following the existing schema. Each criterion references a named evaluator from `src/engine/evaluators.js`. To add a new evaluator (e.g. for a new lab or device variable), add it there and reference it from the trial's criteria array.
+If your fork has a different repository name, no `vite.config.js` change is needed because `base` is set to `'./'` (relative paths).
 
 ## Citation
 
-If you use this software in academic work, please cite it. Citation metadata is available in [`CITATION.cff`](CITATION.cff) (GitHub renders it as a "Cite this repository" button on the project sidebar).
+If you use this software in academic work, please cite it. Citation metadata is in [`CITATION.cff`](CITATION.cff); GitHub renders it as a "Cite this repository" button on the project sidebar.
 
 Suggested citation (APA):
 
 > Gaiba, R. (2026). *Cardiology Trial Match: an interactive tool for matching patient profiles against landmark cardiology trial criteria* (Version 0.2.0) [Computer software]. https://github.com/rgaiba/cardio-trial-matcher
 
-For a permanent, version-pinned DOI, link this repository to [Zenodo](https://zenodo.org) and tag a release. Each tagged release will mint its own DOI.
+For a permanent, version-pinned DOI, link this repository to [Zenodo](https://zenodo.org) and tag a release. The DOI badge will appear here once minted.
 
 ## Author
 
 **Rahul Gaiba, MD** ([ORCID: 0000-0002-3256-1860](https://orcid.org/0000-0002-3256-1860))
 Bayhealth Medical Center, Kent Campus, Dover, Delaware, USA
 
+## Contributing
+
+Contributions are welcome, especially:
+
+- New trials within the existing groups (heart failure)
+- New groups within heart failure (e.g., mechanical circulatory support, advanced HF)
+- New topics (atrial fibrillation, coronary artery disease, lipid trials, hypertension trials)
+- Verified race/demographic data for trials currently marked "not reported"
+- Translations of trial criteria to other clinical settings
+
+Open a pull request with the trial data + a citation to the published baseline characteristics paper. The matching engine and visualizations require no changes — they discover new entries automatically.
+
 ## License
 
 Released under the [MIT License](LICENSE). You are free to use, modify, and distribute with attribution.
-
-## Disclaimer
-
-This is an educational EBM tool intended for clinicians and trainees exploring how their patients map onto landmark trial populations. It does not replace clinical judgment, individual chart review, or current society guidelines. Inclusion/exclusion encoding represents a faithful but simplified summary of published protocols.

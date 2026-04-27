@@ -262,6 +262,45 @@ a { color: var(--primary); }
 
 .cards-list { display: flex; flex-direction: column; gap: 12px; }
 
+/* ── Trial group sections ──────────────────────────────── */
+.trial-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.trial-group-header {
+  padding: 4px 0 0;
+  border-top: 1px solid var(--border);
+  padding-top: 14px;
+  margin-top: 4px;
+}
+.trial-group:first-of-type .trial-group-header {
+  border-top: none;
+  padding-top: 0;
+  margin-top: 0;
+}
+.trial-group-title {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.trial-group-count {
+  font-size: 11px;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+}
+.trial-group-desc {
+  margin: 0 0 4px;
+  line-height: 1.5;
+}
+
 .trial-card { padding: 0; overflow: hidden; transition: box-shadow 0.15s; }
 .trial-card:hover { box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08); }
 

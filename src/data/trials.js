@@ -1,10 +1,57 @@
-// Landmark heart failure trials with structured inclusion/exclusion criteria.
+// Landmark cardiology trials with structured inclusion/exclusion criteria.
 // Each criterion references a named evaluator from src/engine/evaluators.js.
-// To add a trial: append a new object below. To add new clinical variables:
-// add to src/components/PatientForm.jsx form state AND src/engine/evaluators.js.
+//
+// Two-level taxonomy: TOPIC (e.g. heart-failure, atrial-fibrillation, cad)
+// → GROUP (e.g. hfref-foundational, hfpef) → trial. Adding a new topic is a
+// matter of appending entries to TRIAL_GROUPS and the TRIALS array.
 //
 // Encoding represents a faithful but simplified summary of published protocols.
 // For research/clinical use, always consult the original publication.
+
+export const TOPICS = [
+  {
+    id: 'heart-failure',
+    label: 'Heart failure',
+    badge: 'Heart failure',
+  },
+  // Future: { id: 'atrial-fibrillation', label: 'Atrial fibrillation', ... },
+  //         { id: 'cad', label: 'Coronary artery disease', ... },
+];
+
+export const TRIAL_GROUPS = [
+  {
+    id: 'hfref-foundational',
+    topicId: 'heart-failure',
+    label: 'HFrEF foundational quartet',
+    description:
+      'The four pillars of guideline-directed medical therapy for HFrEF: ARNI, SGLT2 inhibition, beta-blockade, and MRA.',
+    order: 1,
+  },
+  {
+    id: 'hfref-historical',
+    topicId: 'heart-failure',
+    label: 'Older landmark medical therapies',
+    description:
+      'Foundational mortality trials that established ACE inhibitors, beta-blockers, and MRAs in HFrEF.',
+    order: 2,
+  },
+  {
+    id: 'device-surgical',
+    topicId: 'heart-failure',
+    label: 'Device, CRT, and surgical trials',
+    description:
+      'Trials of implantable defibrillators, cardiac resynchronization therapy, and surgical revascularization in HFrEF.',
+    order: 3,
+  },
+  {
+    id: 'hfpef',
+    topicId: 'heart-failure',
+    label: 'HFpEF trials',
+    description:
+      'Trials in heart failure with preserved or mildly reduced ejection fraction.',
+    order: 4,
+  },
+];
 
 export const TRIALS = [
   // ─────────────────────────────────────────────────────────────────────────
@@ -12,6 +59,8 @@ export const TRIALS = [
   // ─────────────────────────────────────────────────────────────────────────
   {
     id: 'paradigm-hf',
+    topicId: 'heart-failure',
+    groupId: 'hfref-foundational',
     name: 'PARADIGM-HF',
     fullName:
       'Prospective comparison of ARNI with ACEi to Determine Impact on Global Mortality and morbidity in Heart Failure',
@@ -68,6 +117,8 @@ export const TRIALS = [
 
   {
     id: 'dapa-hf',
+    topicId: 'heart-failure',
+    groupId: 'hfref-foundational',
     name: 'DAPA-HF',
     fullName: 'Dapagliflozin and Prevention of Adverse Outcomes in Heart Failure',
     year: 2019,
@@ -110,6 +161,8 @@ export const TRIALS = [
 
   {
     id: 'emperor-reduced',
+    topicId: 'heart-failure',
+    groupId: 'hfref-foundational',
     name: 'EMPEROR-Reduced',
     fullName: 'Empagliflozin Outcome Trial in Patients with Chronic Heart Failure with Reduced Ejection Fraction',
     year: 2020,
@@ -152,6 +205,8 @@ export const TRIALS = [
 
   {
     id: 'emphasis-hf',
+    topicId: 'heart-failure',
+    groupId: 'hfref-foundational',
     name: 'EMPHASIS-HF',
     fullName: 'Eplerenone in Patients with Systolic Heart Failure and Mild Symptoms',
     year: 2011,
@@ -208,6 +263,8 @@ export const TRIALS = [
   // ─────────────────────────────────────────────────────────────────────────
   {
     id: 'consensus',
+    topicId: 'heart-failure',
+    groupId: 'hfref-historical',
     name: 'CONSENSUS',
     fullName: 'Cooperative North Scandinavian Enalapril Survival Study',
     year: 1987,
@@ -246,6 +303,8 @@ export const TRIALS = [
 
   {
     id: 'solvd-treatment',
+    topicId: 'heart-failure',
+    groupId: 'hfref-historical',
     name: 'SOLVD-Treatment',
     fullName: 'Studies of Left Ventricular Dysfunction (Treatment)',
     year: 1991,
@@ -281,6 +340,8 @@ export const TRIALS = [
 
   {
     id: 'merit-hf',
+    topicId: 'heart-failure',
+    groupId: 'hfref-historical',
     name: 'MERIT-HF',
     fullName: 'Metoprolol CR/XL Randomised Intervention Trial in Congestive Heart Failure',
     year: 1999,
@@ -329,6 +390,8 @@ export const TRIALS = [
 
   {
     id: 'cibis-ii',
+    topicId: 'heart-failure',
+    groupId: 'hfref-historical',
     name: 'CIBIS-II',
     fullName: 'Cardiac Insufficiency Bisoprolol Study II',
     year: 1999,
@@ -371,6 +434,8 @@ export const TRIALS = [
 
   {
     id: 'rales',
+    topicId: 'heart-failure',
+    groupId: 'hfref-historical',
     name: 'RALES',
     fullName: 'Randomized Aldactone Evaluation Study',
     year: 1999,
@@ -415,6 +480,8 @@ export const TRIALS = [
   // ─────────────────────────────────────────────────────────────────────────
   {
     id: 'madit-ii',
+    topicId: 'heart-failure',
+    groupId: 'device-surgical',
     name: 'MADIT-II',
     fullName: 'Multicenter Automatic Defibrillator Implantation Trial II',
     year: 2002,
@@ -460,6 +527,8 @@ export const TRIALS = [
 
   {
     id: 'companion',
+    topicId: 'heart-failure',
+    groupId: 'device-surgical',
     name: 'COMPANION',
     fullName: 'Comparison of Medical Therapy, Pacing, and Defibrillation in Heart Failure',
     year: 2004,
@@ -501,6 +570,8 @@ export const TRIALS = [
 
   {
     id: 'care-hf',
+    topicId: 'heart-failure',
+    groupId: 'device-surgical',
     name: 'CARE-HF',
     fullName: 'Cardiac Resynchronization-Heart Failure',
     year: 2005,
@@ -542,6 +613,8 @@ export const TRIALS = [
 
   {
     id: 'stich',
+    topicId: 'heart-failure',
+    groupId: 'device-surgical',
     name: 'STICH',
     fullName: 'Surgical Treatment for Ischemic Heart Failure',
     year: 2011,
@@ -589,6 +662,8 @@ export const TRIALS = [
   // ─────────────────────────────────────────────────────────────────────────
   {
     id: 'topcat',
+    topicId: 'heart-failure',
+    groupId: 'hfpef',
     name: 'TOPCAT',
     fullName: 'Treatment of Preserved Cardiac Function Heart Failure with an Aldosterone Antagonist',
     year: 2014,
@@ -632,6 +707,8 @@ export const TRIALS = [
 
   {
     id: 'paragon-hf',
+    topicId: 'heart-failure',
+    groupId: 'hfpef',
     name: 'PARAGON-HF',
     fullName: 'Prospective Comparison of ARNI with ARB Global Outcomes in HF with Preserved Ejection Fraction',
     year: 2019,
@@ -681,6 +758,8 @@ export const TRIALS = [
 
   {
     id: 'emperor-preserved',
+    topicId: 'heart-failure',
+    groupId: 'hfpef',
     name: 'EMPEROR-Preserved',
     fullName: 'Empagliflozin Outcome Trial in Patients with Chronic Heart Failure with Preserved Ejection Fraction',
     year: 2021,
@@ -723,6 +802,8 @@ export const TRIALS = [
 
   {
     id: 'deliver',
+    topicId: 'heart-failure',
+    groupId: 'hfpef',
     name: 'DELIVER',
     fullName: 'Dapagliflozin Evaluation to Improve the Lives of Patients with Preserved Ejection Fraction Heart Failure',
     year: 2022,
