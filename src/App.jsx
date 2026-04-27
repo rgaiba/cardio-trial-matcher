@@ -1,15 +1,25 @@
 import { useMemo, useState } from 'react';
 import PatientForm, { EMPTY_PATIENT } from './components/PatientForm.jsx';
 import ResultsDashboard from './components/ResultsDashboard.jsx';
-import { TRIALS } from './data/trials.js';
+import { TRIALS, TOPICS } from './data/trials.js';
 import { evaluateAllTrials } from './engine/matchEngine.js';
 import { readPatientFromUrl } from './engine/serialize.js';
 
 export default function App() {
   // Lazy initial state: if URL has ?p=<encoded>, hydrate the patient from it.
   const [patient, setPatient] = useState(() => readPatientFromUrl(EMPTY_PATIENT));
+  const [topicFilter, setTopicFilter] = useState(TOPICS[0]?.id || 'heart-failure');
 
   const results = useMemo(() => evaluateAllTrials(TRIALS, patient), [patient]);
+
+  // Per-topic trial counts for the topbar tabs
+  const topicCounts = useMemo(() => {
+    const c = {};
+    for (const t of TOPICS) {
+      c[t.id] = TRIALS.filter((tr) => tr.topicId === t.id).length;
+    }
+    return c;
+  }, []);
 
   return (
     <div className="app">
@@ -63,7 +73,21 @@ export default function App() {
           </div>
         </div>
         <div className="topbar-meta">
-          <span className="badge">Heart failure · AFib</span>
+          <nav className="topic-tabs" role="tablist" aria-label="Select clinical topic">
+            {TOPICS.map((t) => (
+              <button
+                key={t.id}
+                type="button"
+                role="tab"
+                aria-selected={topicFilter === t.id}
+                className={`topic-tab ${topicFilter === t.id ? 'active' : ''}`}
+                onClick={() => setTopicFilter(t.id)}
+              >
+                {t.label}
+                <span className="topic-tab-count">{topicCounts[t.id] || 0}</span>
+              </button>
+            ))}
+          </nav>
           <span className="muted small">{TRIALS.length} trials encoded</span>
           <a
             className="github-link"
@@ -93,7 +117,7 @@ export default function App() {
           <PatientForm patient={patient} onChange={setPatient} />
         </aside>
         <section className="right-pane">
-          <ResultsDashboard results={results} />
+          <ResultsDashboard results={results} topicFilter={topicFilter} />
         </section>
       </main>
 
