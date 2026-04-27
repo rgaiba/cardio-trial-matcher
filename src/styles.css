@@ -262,6 +262,29 @@ a { color: var(--primary); }
 
 .cards-list { display: flex; flex-direction: column; gap: 12px; }
 
+/* ── Topic sections (top-level: heart failure, AF, CAD, etc.) ── */
+.topic-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-top: 8px;
+  border-top: 2px solid var(--border-strong);
+  margin-top: 8px;
+}
+.topic-section:first-of-type {
+  border-top: none;
+  padding-top: 0;
+  margin-top: 0;
+}
+.topic-title {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  margin: 0;
+  padding: 4px 0;
+}
+
 /* ── Trial group sections ──────────────────────────────── */
 .trial-group {
   display: flex;

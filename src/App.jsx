@@ -63,7 +63,7 @@ export default function App() {
           </div>
         </div>
         <div className="topbar-meta">
-          <span className="badge">Heart failure</span>
+          <span className="badge">Heart failure · AFib</span>
           <span className="muted small">{TRIALS.length} trials encoded</span>
           <a
             className="github-link"

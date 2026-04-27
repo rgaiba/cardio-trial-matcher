@@ -13,7 +13,7 @@ abstract: >-
   baseline race/ethnicity composition. Outputs include a match-strength bar
   chart and a per-trial radar chart with criterion-level visualization.
 type: software
-version: "0.2.0"
+version: "0.3.0"
 date-released: "2026-04-26"
 authors:
   - given-names: Rahul

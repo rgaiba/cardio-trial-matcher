@@ -30,7 +30,17 @@ export const EMPTY_PATIENT = {
     cadAmenableToCabg: undefined,
     leftMainGte50: undefined,
     ccsAnginaClass3plus: undefined,
+    // AF-specific
+    priorStrokeOrTIA: undefined,
+    vascularDisease: undefined,
+    mitralStenosis: undefined,
+    mechanicalValve: undefined,
   },
+  // AF-specific top-level fields
+  afibType: 'unknown',           // paroxysmal | persistent | permanent | unknown
+  afibSymptomatic: undefined,
+  priorAblation: undefined,
+  priorAADFailure: undefined,
   recent: {
     miWithinMonths: undefined,
     hfHospWithinMonths: undefined,
@@ -202,6 +212,7 @@ export default function PatientForm({ patient, onChange }) {
     { id: 'comorb', label: 'Comorbidities' },
     { id: 'meds', label: 'Medications' },
     { id: 'labs', label: 'Labs' },
+    { id: 'afib', label: 'AF' },
   ];
 
   return (
@@ -338,6 +349,29 @@ export default function PatientForm({ patient, onChange }) {
               { value: 'paced', label: 'Paced' },
             ]}
           />
+        </div>
+      )}
+
+      {activeTab === 'afib' && (
+        <div className="form-grid form-grid-tri">
+          <SelectInput
+            label="AF type"
+            value={patient.afibType}
+            onChange={(v) => update('afibType', v)}
+            options={[
+              { value: 'unknown', label: 'Not specified' },
+              { value: 'paroxysmal', label: 'Paroxysmal' },
+              { value: 'persistent', label: 'Persistent' },
+              { value: 'permanent', label: 'Permanent' },
+            ]}
+          />
+          <TriToggle label="Symptomatic AF" value={patient.afibSymptomatic} onChange={(v) => update('afibSymptomatic', v)} />
+          <TriToggle label="Prior catheter ablation" value={patient.priorAblation} onChange={(v) => update('priorAblation', v)} />
+          <TriToggle label="Failed ≥1 antiarrhythmic drug" value={patient.priorAADFailure} onChange={(v) => update('priorAADFailure', v)} />
+          <TriToggle label="Prior stroke or TIA (any time)" value={patient.comorbidities.priorStrokeOrTIA} onChange={(v) => update('comorbidities.priorStrokeOrTIA', v)} />
+          <TriToggle label="Vascular disease (PAD or prior MI)" value={patient.comorbidities.vascularDisease} onChange={(v) => update('comorbidities.vascularDisease', v)} />
+          <TriToggle label="Moderate–severe mitral stenosis" value={patient.comorbidities.mitralStenosis} onChange={(v) => update('comorbidities.mitralStenosis', v)} />
+          <TriToggle label="Mechanical heart valve" value={patient.comorbidities.mechanicalValve} onChange={(v) => update('comorbidities.mechanicalValve', v)} />
         </div>
       )}
     </div>

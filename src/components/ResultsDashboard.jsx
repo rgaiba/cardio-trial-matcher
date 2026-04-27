@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 import MatchBarChart from './MatchBarChart.jsx';
 import TrialCard from './TrialCard.jsx';
 import { STATUS_META } from '../engine/matchEngine.js';
-import { TRIAL_GROUPS } from '../data/trials.js';
+import { TRIAL_GROUPS, TOPICS } from '../data/trials.js';
 
 export default function ResultsDashboard({ results }) {
   const [filter, setFilter] = useState('all');
@@ -20,35 +20,32 @@ export default function ResultsDashboard({ results }) {
     ? results
     : results.filter((r) => r.evaluation.status === filter);
 
-  // Build a sorted list for the overview bar chart (flat, all trials).
+  // Build sorted list for the overview bar chart (flat, all trials).
   const sortedForBar = [...filtered].sort(
     (a, b) => b.evaluation.matchScore - a.evaluation.matchScore
   );
 
-  // Group results by trial.groupId, preserving the canonical group order.
-  const groupedResults = useMemo(() => {
-    const byGroup = new Map();
-    for (const r of filtered) {
-      const gid = r.trial.groupId || 'ungrouped';
-      if (!byGroup.has(gid)) byGroup.set(gid, []);
-      byGroup.get(gid).push(r);
-    }
-    // Sort within each group by match score descending
-    for (const arr of byGroup.values()) {
-      arr.sort((a, b) => b.evaluation.matchScore - a.evaluation.matchScore);
-    }
-    // Order groups per TRIAL_GROUPS canonical order, then any unknown groups last
-    const ordered = [];
-    for (const g of [...TRIAL_GROUPS].sort((a, b) => a.order - b.order)) {
-      if (byGroup.has(g.id)) {
-        ordered.push({ group: g, results: byGroup.get(g.id) });
-        byGroup.delete(g.id);
+  // Group by topic → group → trials.
+  const topicSections = useMemo(() => {
+    const sections = [];
+    for (const topic of TOPICS) {
+      const groups = TRIAL_GROUPS
+        .filter((g) => g.topicId === topic.id)
+        .sort((a, b) => a.order - b.order);
+      const groupSections = [];
+      for (const group of groups) {
+        const groupResults = filtered
+          .filter((r) => r.trial.groupId === group.id)
+          .sort((a, b) => b.evaluation.matchScore - a.evaluation.matchScore);
+        if (groupResults.length > 0) {
+          groupSections.push({ group, results: groupResults });
+        }
+      }
+      if (groupSections.length > 0) {
+        sections.push({ topic, groups: groupSections });
       }
     }
-    for (const [gid, arr] of byGroup.entries()) {
-      ordered.push({ group: { id: gid, label: 'Other', description: '' }, results: arr });
-    }
-    return ordered;
+    return sections;
   }, [filtered]);
 
   const handlePick = (id) => {
@@ -83,34 +80,39 @@ export default function ResultsDashboard({ results }) {
 
       <MatchBarChart results={sortedForBar} onPick={handlePick} />
 
-      {groupedResults.length === 0 && (
+      {topicSections.length === 0 && (
         <p className="muted">No trials match the current filter.</p>
       )}
 
-      {groupedResults.map(({ group, results: groupResults }) => (
-        <section key={group.id} className="trial-group">
-          <header className="trial-group-header">
-            <h3 className="trial-group-title">
-              {group.label}
-              <span className="trial-group-count muted">
-                {groupResults.length} {groupResults.length === 1 ? 'trial' : 'trials'}
-              </span>
-            </h3>
-            {group.description && (
-              <p className="trial-group-desc muted small">{group.description}</p>
-            )}
-          </header>
-          <div className="cards-list">
-            {groupResults.map(({ trial, evaluation }) => (
-              <TrialCard
-                key={trial.id}
-                trial={trial}
-                evaluation={evaluation}
-                anchorId={`trial-${trial.id}`}
-                defaultOpen={trial.id === highlightId}
-              />
-            ))}
-          </div>
+      {topicSections.map(({ topic, groups }) => (
+        <section key={topic.id} className="topic-section">
+          <h2 className="topic-title">{topic.label}</h2>
+          {groups.map(({ group, results: groupResults }) => (
+            <section key={group.id} className="trial-group">
+              <header className="trial-group-header">
+                <h3 className="trial-group-title">
+                  {group.label}
+                  <span className="trial-group-count muted">
+                    {groupResults.length} {groupResults.length === 1 ? 'trial' : 'trials'}
+                  </span>
+                </h3>
+                {group.description && (
+                  <p className="trial-group-desc muted small">{group.description}</p>
+                )}
+              </header>
+              <div className="cards-list">
+                {groupResults.map(({ trial, evaluation }) => (
+                  <TrialCard
+                    key={trial.id}
+                    trial={trial}
+                    evaluation={evaluation}
+                    anchorId={`trial-${trial.id}`}
+                    defaultOpen={trial.id === highlightId}
+                  />
+                ))}
+              </div>
+            </section>
+          ))}
         </section>
       ))}
     </section>

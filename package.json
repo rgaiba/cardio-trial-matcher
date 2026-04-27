@@ -1,8 +1,8 @@
 {
   "name": "cardio-trial-matcher",
   "private": true,
-  "version": "0.2.0",
-  "description": "Cardiology Trial Match: an interactive evidence-based medicine tool that matches patient profiles against landmark cardiology trial criteria.",
+  "version": "0.3.0",
+  "description": "Cardiology Trial Match: an interactive evidence-based medicine tool that matches patient profiles against landmark heart failure and atrial fibrillation trials.",
   "author": {
     "name": "Rahul Gaiba, MD",
     "email": "rahulgaiba@gmail.com",

@@ -77,6 +77,64 @@ export const DEMOGRAPHICS = {
   'deliver': {
     white: 71, asian: 20, black: 3, other: 6,
   },
+
+  // ── Atrial fibrillation: Anticoagulation ──
+  'aristotle': {
+    white: 83, asian: 14, black: 1, other: 2,
+    notes: 'Geographic spread: 25% N. America, 19% Latin America, 40% Europe, 16% Asia/Pacific.',
+  },
+  're-ly': {
+    white: 70, asian: 16, black: 1, other: 13,
+    notes: 'Multi-regional trial (44 countries); race underreported in primary publication.',
+  },
+  'rocket-af': {
+    white: 83, asian: 13, black: 1, other: 3,
+    notes: 'Higher CHADS₂ population than ARISTOTLE/RE-LY.',
+  },
+  'spaf': {
+    notReported: true,
+    notes: 'US multi-center trial (1991); race not formally reported. Population was predominantly White.',
+  },
+  'spaf-ii': {
+    notReported: true,
+    notes: 'US multi-center trial (1994); race not formally reported.',
+  },
+  'spaf-iii': {
+    notReported: true,
+    notes: 'US/Canadian trial (1996); race not formally reported.',
+  },
+
+  // ── Atrial fibrillation: Rate and rhythm control ──
+  'affirm': {
+    white: 89, black: 9, other: 2,
+    notes: 'US/Canadian trial; ~11% ethnic minorities reported in baseline characteristics.',
+  },
+  'race-ii': {
+    notReported: true,
+    notes: 'Dutch multi-center trial; race not formally reported. Population was predominantly White.',
+  },
+  'athena': {
+    white: 89, asian: 4, black: 2, other: 5,
+    notes: 'International trial in 37 countries.',
+  },
+  'pallas': {
+    white: 92, asian: 4, black: 1, other: 3,
+    notes: 'International; trial stopped early for harm.',
+  },
+
+  // ── Atrial fibrillation: Catheter ablation ──
+  'apaf': {
+    notReported: true,
+    notes: 'Single-center Italian trial; race not formally reported. Population was predominantly White European.',
+  },
+  'thermocool-af': {
+    white: 91, black: 3, other: 6,
+    notes: 'US multi-center trial.',
+  },
+  'mantra-paf': {
+    notReported: true,
+    notes: 'Scandinavian multi-center trial (Denmark, Sweden, Finland); race not formally reported.',
+  },
 };
 
 // Display order and brand colors. Slate/amber/indigo palette to match the

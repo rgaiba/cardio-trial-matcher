@@ -5,6 +5,55 @@
 const isNum = (v) => typeof v === 'number' && !Number.isNaN(v);
 const isBool = (v) => typeof v === 'boolean';
 
+// Generic "is this risk factor present?" used by hasAnyRiskFactor for AF trials.
+// Returns 'met' | 'not_met' | 'unknown'.
+function checkRiskFactor(p, factor) {
+  switch (factor) {
+    case 'ageGte65':
+      return !isNum(p.age) ? 'unknown' : p.age >= 65 ? 'met' : 'not_met';
+    case 'ageGte70':
+      return !isNum(p.age) ? 'unknown' : p.age >= 70 ? 'met' : 'not_met';
+    case 'ageGte75':
+      return !isNum(p.age) ? 'unknown' : p.age >= 75 ? 'met' : 'not_met';
+    case 'priorStrokeOrTIA':
+      return !isBool(p.comorbidities?.priorStrokeOrTIA)
+        ? 'unknown'
+        : p.comorbidities.priorStrokeOrTIA ? 'met' : 'not_met';
+    case 'htn':
+      return !isBool(p.comorbidities?.htn)
+        ? 'unknown'
+        : p.comorbidities.htn ? 'met' : 'not_met';
+    case 'diabetes':
+      if (!p.comorbidities?.diabetes || p.comorbidities.diabetes === 'unknown') return 'unknown';
+      return p.comorbidities.diabetes === 'none' ? 'not_met' : 'met';
+    case 'priorMI':
+      return !isBool(p.comorbidities?.priorMI)
+        ? 'unknown'
+        : p.comorbidities.priorMI ? 'met' : 'not_met';
+    case 'vascularDisease':
+      return !isBool(p.comorbidities?.vascularDisease)
+        ? 'unknown'
+        : p.comorbidities.vascularDisease ? 'met' : 'not_met';
+    case 'lvefLt40':
+      return !isNum(p.lvef) ? 'unknown' : p.lvef < 40 ? 'met' : 'not_met';
+    case 'lvefLt50':
+      return !isNum(p.lvef) ? 'unknown' : p.lvef < 50 ? 'met' : 'not_met';
+    case 'hfHistory': {
+      // proxy: NYHA II+ OR LVEF ≤40 OR recent HF hosp
+      const nyhaKnown = isNum(p.nyhaClass);
+      const lvefKnown = isNum(p.lvef);
+      const hospKnown = isNum(p.recent?.hfHospWithinMonths);
+      if (nyhaKnown && p.nyhaClass >= 2) return 'met';
+      if (lvefKnown && p.lvef <= 40) return 'met';
+      if (hospKnown && p.recent.hfHospWithinMonths <= 6) return 'met';
+      if (nyhaKnown || lvefKnown || hospKnown) return 'not_met';
+      return 'unknown';
+    }
+    default:
+      return 'unknown';
+  }
+}
+
 export const evaluators = {
   // ── Demographics ──
   ageGte: (p, { min }) =>
@@ -21,6 +70,8 @@ export const evaluators = {
   // ── LVEF ──
   lvefLte: (p, { max }) =>
     !isNum(p.lvef) ? 'unknown' : p.lvef <= max ? 'met' : 'not_met',
+  lvefLt: (p, { threshold }) =>
+    !isNum(p.lvef) ? 'unknown' : p.lvef < threshold ? 'met' : 'not_met',
   lvefGte: (p, { min }) =>
     !isNum(p.lvef) ? 'unknown' : p.lvef >= min ? 'met' : 'not_met',
   lvefEmphasis: (p) => {
@@ -55,6 +106,68 @@ export const evaluators = {
     !isNum(p.qrs) ? 'unknown' : p.qrs >= threshold ? 'met' : 'not_met',
   rhythmIs: (p, { rhythm }) =>
     !p.rhythm || p.rhythm === 'unknown' ? 'unknown' : p.rhythm === rhythm ? 'met' : 'not_met',
+  hrGte: (p, { threshold }) =>
+    !isNum(p.hr) ? 'unknown' : p.hr >= threshold ? 'met' : 'not_met',
+  hrGt: (p, { threshold }) =>
+    !isNum(p.hr) ? 'unknown' : p.hr > threshold ? 'met' : 'not_met',
+
+  // ── Atrial fibrillation specifics ──
+  afibTypeIn: (p, { types }) =>
+    !p.afibType || p.afibType === 'unknown' ? 'unknown' : types.includes(p.afibType) ? 'met' : 'not_met',
+  afibSymptomatic: (p) =>
+    !isBool(p.afibSymptomatic) ? 'unknown' : p.afibSymptomatic ? 'met' : 'not_met',
+  priorAblation: (p) =>
+    !isBool(p.priorAblation) ? 'unknown' : p.priorAblation ? 'met' : 'not_met',
+  noPriorAblation: (p) =>
+    !isBool(p.priorAblation) ? 'unknown' : !p.priorAblation ? 'met' : 'not_met',
+  priorAADFailure: (p) =>
+    !isBool(p.priorAADFailure) ? 'unknown' : p.priorAADFailure ? 'met' : 'not_met',
+  noPriorAAD: (p) =>
+    !isBool(p.priorAADFailure) ? 'unknown' : !p.priorAADFailure ? 'met' : 'not_met',
+
+  // ── CHADS2 / CHA2DS2-VASc style composites ──
+  // Generic "≥1 stroke risk factor" — used by ARISTOTLE, RE-LY, etc.
+  // Each trial has slightly different qualifying factors; pass `factors` array.
+  hasAnyRiskFactor: (p, { factors }) => {
+    let anyKnown = false;
+    for (const f of factors) {
+      const result = checkRiskFactor(p, f);
+      if (result === 'met') return 'met';
+      if (result === 'not_met') anyKnown = true;
+    }
+    return anyKnown ? 'not_met' : 'unknown';
+  },
+  // ROCKET-AF style: stroke/TIA OR ≥2 of {HF/EF≤35, HTN, age≥75, DM}
+  rocketAfRisk: (p) => {
+    // Tier 1: prior stroke/TIA → automatic met
+    if (p.comorbidities?.priorStrokeOrTIA === true) return 'met';
+    // Tier 2: count modifiable factors
+    let count = 0;
+    let unknowns = 0;
+    const checks = [
+      isBool(p.comorbidities?.priorMI) ? null : null, // not used
+      // HF or EF ≤35
+      (() => {
+        if (isNum(p.lvef)) return p.lvef <= 35;
+        return null;
+      })(),
+      // HTN
+      isBool(p.comorbidities?.htn) ? p.comorbidities.htn : null,
+      // age ≥75
+      isNum(p.age) ? p.age >= 75 : null,
+      // DM
+      p.comorbidities?.diabetes
+        ? p.comorbidities.diabetes === 'type1' || p.comorbidities.diabetes === 'type2'
+        : null,
+    ].filter((v) => v !== undefined);
+    for (const c of checks) {
+      if (c === true) count += 1;
+      else if (c === null) unknowns += 1;
+    }
+    if (count >= 2) return 'met';
+    if (count + unknowns >= 2) return 'unknown';
+    return 'not_met';
+  },
 
   // ── Medications ──
   onMed: (p, { med }) =>

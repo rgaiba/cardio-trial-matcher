@@ -8,15 +8,17 @@ An open-source, browser-based educational tool for evidence-based medicine. User
 
 **Live site:** https://rgaiba.github.io/cardio-trial-matcher/
 
-**Status:** v0.2.0. Heart failure topic populated with 17 landmark trials. Atrial fibrillation and coronary artery disease topics scaffolded for future expansion.
+**Status:** v0.3.0. Two topics populated: **heart failure** (17 trials across 4 groups) and **atrial fibrillation** (13 trials across 3 groups). Coronary artery disease topic scaffolded for future expansion. See [`CONTRIBUTING.md`](CONTRIBUTING.md) for the trial-addition recipe.
 
 ## Disclaimer
 
 This is an educational EBM tool intended for clinicians and trainees exploring how patients map onto landmark trial populations. It does not replace clinical judgment, individual chart review, or current society guidelines. The app does not store or transmit patient data; all evaluation runs in the browser. Inclusion and exclusion criteria are simplified summaries of published protocols; always consult the original publication before applying to clinical decisions.
 
-## Trial library (v0.2.0)
+## Trial library (v0.3.0)
 
-Trials are organized into a two-level taxonomy: **topic** (a clinical domain) → **group** (a clinically meaningful subdivision) → individual trial. The current release contains one topic (heart failure) with four groups.
+Trials are organized into a two-level taxonomy: **topic** (a clinical domain) → **group** (a clinically meaningful subdivision) → individual trial. The current release contains two topics: **heart failure** (4 groups, 17 trials) and **atrial fibrillation** (3 groups, 13 trials).
+
+## Heart failure
 
 ### HFrEF foundational quartet
 
@@ -62,6 +64,42 @@ Trials in heart failure with preserved or mildly reduced ejection fraction.
 | PARAGON-HF | 2019 | Sacubitril/valsartan vs valsartan | [10.1056/NEJMoa1908655](https://doi.org/10.1056/NEJMoa1908655) |
 | EMPEROR-Preserved | 2021 | Empagliflozin vs placebo | [10.1056/NEJMoa2107038](https://doi.org/10.1056/NEJMoa2107038) |
 | DELIVER | 2022 | Dapagliflozin vs placebo | [10.1056/NEJMoa2206286](https://doi.org/10.1056/NEJMoa2206286) |
+
+## Atrial fibrillation
+
+### Anticoagulation trials
+
+Trials of warfarin, aspirin, and direct oral anticoagulants for stroke prevention in AF.
+
+| Trial | Year | Intervention | Citation |
+|---|---|---|---|
+| ARISTOTLE | 2011 | Apixaban vs warfarin | [10.1056/NEJMoa1107039](https://doi.org/10.1056/NEJMoa1107039) |
+| RE-LY | 2009 | Dabigatran vs warfarin | [10.1056/NEJMoa0905561](https://doi.org/10.1056/NEJMoa0905561) |
+| ROCKET-AF | 2011 | Rivaroxaban vs warfarin | [10.1056/NEJMoa1009638](https://doi.org/10.1056/NEJMoa1009638) |
+| SPAF | 1991 | Warfarin or aspirin vs placebo | [10.1161/01.CIR.84.2.527](https://doi.org/10.1161/01.CIR.84.2.527) |
+| SPAF-II | 1994 | Warfarin vs aspirin (by age) | [10.1016/S0140-6736(94)91577-6](https://doi.org/10.1016/S0140-6736(94)91577-6) |
+| SPAF-III | 1996 | Adjusted-dose vs low-dose warfarin + aspirin | [10.1016/S0140-6736(96)03487-3](https://doi.org/10.1016/S0140-6736(96)03487-3) |
+
+### Rate and rhythm control trials
+
+Trials comparing rate vs rhythm control strategies, lenient vs strict rate control, and antiarrhythmic drug therapy.
+
+| Trial | Year | Intervention | Citation |
+|---|---|---|---|
+| AFFIRM | 2002 | Rhythm vs rate control | [10.1056/NEJMoa021328](https://doi.org/10.1056/NEJMoa021328) |
+| RACE-II | 2010 | Lenient vs strict rate control | [10.1056/NEJMoa1001337](https://doi.org/10.1056/NEJMoa1001337) |
+| ATHENA | 2009 | Dronedarone vs placebo | [10.1056/NEJMoa0803778](https://doi.org/10.1056/NEJMoa0803778) |
+| PALLAS | 2011 | Dronedarone in permanent AF (harm) | [10.1056/NEJMoa1109867](https://doi.org/10.1056/NEJMoa1109867) |
+
+### Catheter ablation trials
+
+Trials of pulmonary vein isolation and radiofrequency ablation for paroxysmal AF.
+
+| Trial | Year | Intervention | Citation |
+|---|---|---|---|
+| APAF | 2006 | Circumferential PVA vs antiarrhythmic drugs | [10.1016/j.jacc.2006.08.037](https://doi.org/10.1016/j.jacc.2006.08.037) |
+| ThermoCool-AF | 2010 | RF catheter ablation vs antiarrhythmic drugs | [10.1001/jama.2009.2029](https://doi.org/10.1001/jama.2009.2029) |
+| MANTRA-PAF | 2012 | RF ablation vs first-line antiarrhythmic drugs | [10.1056/NEJMoa1113566](https://doi.org/10.1056/NEJMoa1113566) |
 
 ## How matching works
 
@@ -313,7 +351,7 @@ If you use this software in academic work, please cite it. Citation metadata is 
 
 Suggested citation (APA):
 
-> Gaiba, R. (2026). *Cardiology Trial Match: an interactive tool for matching patient profiles against landmark cardiology trial criteria* (Version 0.2.0) [Computer software]. Zenodo. https://doi.org/10.5281/zenodo.19803460
+> Gaiba, R. (2026). *Cardiology Trial Match: an interactive tool for matching patient profiles against landmark cardiology trial criteria* (Version 0.3.0) [Computer software]. Zenodo. https://doi.org/10.5281/zenodo.19803460
 
 BibTeX:
 
@@ -322,7 +360,7 @@ BibTeX:
   author       = {Gaiba, Rahul},
   title        = {Cardiology Trial Match: an interactive tool for matching
                   patient profiles against landmark cardiology trial criteria},
-  version      = {0.2.0},
+  version      = {0.3.0},
   year         = {2026},
   publisher    = {Zenodo},
   doi          = {10.5281/zenodo.19803460},
