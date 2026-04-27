@@ -25,6 +25,11 @@ authors:
 repository-code: "https://github.com/rgaiba/cardio-trial-matcher"
 url: "https://rgaiba.github.io/cardio-trial-matcher/"
 license: MIT
+doi: "10.5281/zenodo.19803460"
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.19803460"
+    description: "Concept DOI (resolves to the latest version)"
 keywords:
   - evidence-based medicine
   - cardiology

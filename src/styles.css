@@ -283,18 +283,14 @@ a { color: var(--primary); }
   display: flex;
   align-items: baseline;
   gap: 10px;
-  font-size: 14px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
+  font-size: 16px;
+  font-weight: 700;
   color: var(--text);
   margin-bottom: 4px;
 }
 .trial-group-count {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 400;
-  text-transform: none;
-  letter-spacing: 0;
 }
 .trial-group-desc {
   margin: 0 0 4px;

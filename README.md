@@ -1,5 +1,8 @@
 # Cardiology Trial Match
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19803460.svg)](https://doi.org/10.5281/zenodo.19803460)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 An open-source, browser-based educational tool for evidence-based medicine. Users enter non-identifying clinical variables (NYHA class, LVEF, NT-proBNP, eGFR, comorbidities, current GDMT, etc.) and the app evaluates how well the patient matches the inclusion and exclusion criteria of landmark cardiology trials.
 
 **Live site:** https://rgaiba.github.io/cardio-trial-matcher/
@@ -305,11 +308,28 @@ If your fork has a different repository name, no `vite.config.js` change is need
 
 If you use this software in academic work, please cite it. Citation metadata is in [`CITATION.cff`](CITATION.cff); GitHub renders it as a "Cite this repository" button on the project sidebar.
 
+**DOI:** [10.5281/zenodo.19803460](https://doi.org/10.5281/zenodo.19803460)
+
 Suggested citation (APA):
 
-> Gaiba, R. (2026). *Cardiology Trial Match: an interactive tool for matching patient profiles against landmark cardiology trial criteria* (Version 0.2.0) [Computer software]. https://github.com/rgaiba/cardio-trial-matcher
+> Gaiba, R. (2026). *Cardiology Trial Match: an interactive tool for matching patient profiles against landmark cardiology trial criteria* (Version 0.2.0) [Computer software]. Zenodo. https://doi.org/10.5281/zenodo.19803460
 
-For a permanent, version-pinned DOI, link this repository to [Zenodo](https://zenodo.org) and tag a release. The DOI badge will appear here once minted.
+BibTeX:
+
+```bibtex
+@software{gaiba_cardiology_trial_match_2026,
+  author       = {Gaiba, Rahul},
+  title        = {Cardiology Trial Match: an interactive tool for matching
+                  patient profiles against landmark cardiology trial criteria},
+  version      = {0.2.0},
+  year         = {2026},
+  publisher    = {Zenodo},
+  doi          = {10.5281/zenodo.19803460},
+  url          = {https://doi.org/10.5281/zenodo.19803460}
+}
+```
+
+The DOI above is the **concept DOI** — it always resolves to the latest released version. Each new GitHub release auto-mints its own version-specific DOI; both can be cited.
 
 ## Author
 

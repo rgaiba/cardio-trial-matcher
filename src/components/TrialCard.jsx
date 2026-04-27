@@ -36,9 +36,7 @@ export default function TrialCard({ trial, evaluation, defaultOpen, anchorId }) 
             {trial.name}{' '}
             <span className="trial-year muted">({trial.year})</span>
           </h3>
-          <p className="trial-sub muted">
-            {trial.intervention}. {trial.category}.
-          </p>
+          <p className="trial-sub muted">{trial.intervention}</p>
         </div>
         <div className="trial-header-right">
           <span className="status-pill" style={{ background: meta.color }}>
