@@ -55,21 +55,6 @@ for (const { trial, evaluation } of results) {
   );
 }
 
-// URL roundtrip — emulate browser
-console.log('\n--- URL serialization test ---');
-// Polyfill btoa/atob for node
-globalThis.btoa = (s) => Buffer.from(s, 'binary').toString('base64');
-globalThis.atob = (s) => Buffer.from(s, 'base64').toString('binary');
-
-const { serializePatient, deserializePatient } = await import('../src/engine/serialize.js');
-const encoded = serializePatient(HFPEF_PATIENT);
-console.log('Encoded URL param length:', encoded.length, 'chars');
-console.log('Sample:', encoded.slice(0, 60) + '…');
-const decoded = deserializePatient(encoded, { comorbidities: {}, recent: {}, meds: {}, rhythm: 'unknown' });
-const matches =
-  decoded.age === HFPEF_PATIENT.age &&
-  decoded.lvef === HFPEF_PATIENT.lvef &&
-  decoded.ntProBnp === HFPEF_PATIENT.ntProBnp &&
-  decoded.comorbidities.diabetes === 'type2' &&
-  decoded.meds.aceArb === true;
-console.log('Roundtrip integrity check:', matches ? '✓ PASS' : '✗ FAIL');
+// Privacy note: patient state is no longer URL-encoded for sharing. The
+// Share button copies the bare site URL only; patient inputs never leave
+// the user's browser.

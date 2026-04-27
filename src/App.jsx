@@ -3,11 +3,13 @@ import PatientForm, { EMPTY_PATIENT } from './components/PatientForm.jsx';
 import ResultsDashboard from './components/ResultsDashboard.jsx';
 import { TRIALS, TOPICS } from './data/trials.js';
 import { evaluateAllTrials } from './engine/matchEngine.js';
-import { readPatientFromUrl } from './engine/serialize.js';
+import { trackTopicSwitched } from './engine/analytics.js';
 
 export default function App() {
-  // Lazy initial state: if URL has ?p=<encoded>, hydrate the patient from it.
-  const [patient, setPatient] = useState(() => readPatientFromUrl(EMPTY_PATIENT));
+  // Patient state always starts empty. We do not hydrate from URL parameters
+  // because clinical variables in a shareable URL is inappropriate even when
+  // no PHI is transmitted. Share button copies bare site URL only.
+  const [patient, setPatient] = useState(EMPTY_PATIENT);
   const [topicFilter, setTopicFilter] = useState(TOPICS[0]?.id || 'heart-failure');
 
   const results = useMemo(() => evaluateAllTrials(TRIALS, patient), [patient]);
@@ -81,7 +83,10 @@ export default function App() {
                 role="tab"
                 aria-selected={topicFilter === t.id}
                 className={`topic-tab ${topicFilter === t.id ? 'active' : ''}`}
-                onClick={() => setTopicFilter(t.id)}
+                onClick={() => {
+                  setTopicFilter(t.id);
+                  trackTopicSwitched(t.id);
+                }}
               >
                 {t.label}
                 <span className="topic-tab-count">{topicCounts[t.id] || 0}</span>

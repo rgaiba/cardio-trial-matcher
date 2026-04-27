@@ -2,6 +2,7 @@ import { useState } from 'react';
 import TrialRadarChart from './TrialRadarChart.jsx';
 import RaceBar from './RaceBar.jsx';
 import { STATUS_META } from '../engine/matchEngine.js';
+import { trackTrialOpened } from '../engine/analytics.js';
 
 const RESULT_LABEL = { met: 'Met', unknown: 'Unknown', not_met: 'Not met' };
 
@@ -30,7 +31,17 @@ export default function TrialCard({ trial, evaluation, defaultOpen, anchorId }) 
 
   return (
     <article id={anchorId} className="trial-card">
-      <header className="trial-header" onClick={() => setOpen((v) => !v)}>
+      <header
+        className="trial-header"
+        onClick={() => {
+          setOpen((v) => {
+            const next = !v;
+            // Track only on opens (not closes) to avoid double-counting.
+            if (next) trackTrialOpened(trial.id, trial.name);
+            return next;
+          });
+        }}
+      >
         <div className="trial-header-left">
           <h3 className="trial-name">
             {trial.name}{' '}

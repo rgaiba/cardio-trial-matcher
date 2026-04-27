@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { buildShareUrl } from '../engine/serialize.js';
+import { getShareUrl } from '../engine/serialize.js';
+import { trackSiteShared } from '../engine/analytics.js';
 
 // Initial empty patient state. `undefined` means "user hasn't provided" → the
 // engine treats those criteria as `unknown` rather than auto-failing them.
@@ -181,15 +182,18 @@ export default function PatientForm({ patient, onChange }) {
   const [shareState, setShareState] = useState('idle'); // 'idle' | 'copied' | 'failed'
 
   const handleShare = async () => {
-    const url = buildShareUrl(patient);
+    // Privacy: copies the bare site URL only. Patient inputs never leave
+    // the user's browser.
+    const url = getShareUrl();
     try {
       await navigator.clipboard.writeText(url);
       setShareState('copied');
     } catch {
       // Clipboard API can fail on http or insecure contexts; fallback to prompt
-      window.prompt('Copy this link to share the patient case:', url);
+      window.prompt('Copy this link to share Cardiology Trial Match:', url);
       setShareState('copied');
     }
+    trackSiteShared();
     setTimeout(() => setShareState('idle'), 2000);
   };
 
@@ -227,7 +231,7 @@ export default function PatientForm({ patient, onChange }) {
             type="button"
             className={`btn-primary ${shareState === 'copied' ? 'btn-success' : ''}`}
             onClick={handleShare}
-            title="Copy a shareable link to this patient case"
+            title="Copy a link to Cardiology Trial Match (no patient data is shared)"
           >
             {shareState === 'copied' ? '✓ Copied' : 'Share'}
           </button>
