@@ -1,7 +1,8 @@
 # Cardiology Trial Match
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19803460.svg)](https://doi.org/10.5281/zenodo.19803460)
+[![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.19803460-1f6feb)](https://doi.org/10.5281/zenodo.19803460)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Live site](https://img.shields.io/badge/live-rgaiba.github.io-16a34a)](https://rgaiba.github.io/cardio-trial-matcher/)
 
 An open-source, browser-based educational tool for evidence-based medicine. Users enter non-identifying clinical variables (NYHA class, LVEF, NT-proBNP, eGFR, comorbidities, current GDMT, etc.) and the app evaluates how well the patient matches the inclusion and exclusion criteria of landmark cardiology trials.
 

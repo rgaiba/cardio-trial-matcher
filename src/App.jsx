@@ -125,11 +125,12 @@ export default function App() {
           , Bayhealth Medical Center, Dover, Delaware. Released under the MIT License.
           {' '}
           <a
-            href="https://github.com/rgaiba/cardio-trial-matcher/blob/main/CITATION.cff"
+            href="https://doi.org/10.5281/zenodo.19803460"
             target="_blank"
             rel="noreferrer"
+            title="Zenodo record with one-click BibTeX, RIS, EndNote, and APA exports"
           >
-            How to cite
+            Cite this work (DOI)
           </a>.
         </p>
       </footer>

@@ -54,7 +54,7 @@ a { color: var(--primary); }
   border-radius: 8px;
   box-shadow: 0 2px 6px rgba(15, 23, 42, 0.12), 0 1px 2px rgba(15, 23, 42, 0.06);
 }
-.brand h1 { font-size: 18px; font-weight: 600; }
+.brand h1 { font-size: 27px; font-weight: 600; line-height: 1.15; }
 .brand-sub { font-size: 12px; }
 .topbar-meta { display: flex; align-items: center; gap: 12px; }
 .badge {
@@ -553,7 +553,7 @@ a { color: var(--primary); }
     width: 100%;
     justify-content: flex-start;
   }
-  .brand h1 { font-size: 17px; }
+  .brand h1 { font-size: 22px; }
 
   .disclaimer {
     font-size: 11px;
@@ -671,7 +671,7 @@ a { color: var(--primary); }
 /* ── Small mobile (≤380px) ─────────────────────────────── */
 @media (max-width: 380px) {
   .brand-mark { width: 32px; height: 32px; }
-  .brand h1 { font-size: 16px; }
+  .brand h1 { font-size: 20px; }
   .badge { font-size: 11px; padding: 3px 8px; }
   .trial-stats { grid-template-columns: 88px 1fr; }
   .form-actions { gap: 5px; }
