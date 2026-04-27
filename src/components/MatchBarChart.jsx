@@ -10,12 +10,6 @@ import {
 } from 'recharts';
 import { STATUS_META } from '../engine/matchEngine.js';
 
-// Threshold below which data completeness is shown in amber rather than green.
-// 80% completeness or higher is considered well-characterized.
-const COMPLETENESS_OK = 80;
-const COMPLETENESS_OK_COLOR = '#16a34a'; // green
-const COMPLETENESS_LOW_COLOR = '#f59e0b'; // amber
-
 export default function MatchBarChart({ results, onPick }) {
   // For bar rendering, treat null (no known data) as 0 so it shows as an empty bar.
   const data = results
@@ -23,7 +17,6 @@ export default function MatchBarChart({ results, onPick }) {
       name: trial.name,
       score: evaluation.matchScore == null ? 0 : evaluation.matchScore,
       hasScore: evaluation.matchScore != null,
-      dataComplete: evaluation.dataComplete,
       status: evaluation.status,
       year: trial.year,
       id: trial.id,
@@ -48,8 +41,6 @@ export default function MatchBarChart({ results, onPick }) {
                 if (!active || !payload?.length) return null;
                 const d = payload[0].payload;
                 const meta = STATUS_META[d.status];
-                const completenessColor =
-                  d.dataComplete >= COMPLETENESS_OK ? COMPLETENESS_OK_COLOR : COMPLETENESS_LOW_COLOR;
                 return (
                   <div className="tooltip">
                     <div className="tooltip-title">
@@ -60,10 +51,6 @@ export default function MatchBarChart({ results, onPick }) {
                     </div>
                     <div className="muted small">
                       Match score: {d.hasScore ? `${d.score}%` : '—'}
-                    </div>
-                    <div className="small" style={{ color: completenessColor, fontWeight: 500 }}>
-                      <span className="dot" style={{ background: completenessColor }} />
-                      Data complete: {d.dataComplete}%
                     </div>
                   </div>
                 );
