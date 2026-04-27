@@ -118,9 +118,9 @@ export default function TrialRadarChart({ trial, evaluation }) {
         </RadarChart>
       </ResponsiveContainer>
       <div className="radar-legend">
-        <span><span className="dot" style={{ background: '#0d9488' }} /> outer = met</span>
+        <span><span className="dot" style={{ background: '#14b8a6' }} /> outer = met</span>
         <span><span className="dot" style={{ background: '#94a3b8' }} /> middle = unknown</span>
-        <span><span className="dot" style={{ background: '#e11d48' }} /> center = not met</span>
+        <span><span className="dot" style={{ background: '#f43f5e' }} /> center = not met</span>
       </div>
     </div>
   );

@@ -57,12 +57,12 @@ export function evaluateAllTrials(trials, patient) {
   return trials.map((t) => ({ trial: t, evaluation: evaluateTrial(t, patient) }));
 }
 
-// Modern cool palette (Option C): teal / yellow / rose / slate.
-// Used as the single source of truth for status colors across the app —
-// changes here propagate to bar chart, status pills, filter chips, tooltips.
+// Unified palette at the "500" saturation tier across teal, amber, rose, slate.
+// Single source of truth for status colors site-wide: status pills, filter
+// chips, bar chart fills, tooltip dots, radar legend.
 export const STATUS_META = {
-  eligible: { label: 'Eligible', color: '#0d9488', description: 'Patient meets all encoded inclusion criteria with no exclusions met.' },
-  partial: { label: 'Partial match', color: '#eab308', description: 'Some criteria met or unknown; no exclusions triggered.' },
-  excluded: { label: 'Excluded', color: '#e11d48', description: 'At least one exclusion criterion is met.' },
+  eligible: { label: 'Eligible', color: '#14b8a6', description: 'Patient meets all encoded inclusion criteria with no exclusions met.' },
+  partial: { label: 'Partial match', color: '#f59e0b', description: 'Some criteria met or unknown; no exclusions triggered.' },
+  excluded: { label: 'Excluded', color: '#f43f5e', description: 'At least one exclusion criterion is met.' },
   insufficient: { label: 'Insufficient data', color: '#64748b', description: 'Too many criteria are unknown to determine eligibility.' },
 };

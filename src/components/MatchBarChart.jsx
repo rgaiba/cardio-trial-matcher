@@ -10,6 +10,11 @@ import {
 } from 'recharts';
 import { STATUS_META } from '../engine/matchEngine.js';
 
+// Bars use the same STATUS_META colors as pills/chips for visual cohesion,
+// but rendered at slight fillOpacity so bars read a touch softer than the
+// solid pills. Pills remain the loudest element; bars present and matching.
+const BAR_FILL_OPACITY = 0.92;
+
 export default function MatchBarChart({ results, onPick }) {
   // For bar rendering, treat null (no known data) as 0 so it shows as an empty bar.
   const data = results
@@ -56,7 +61,13 @@ export default function MatchBarChart({ results, onPick }) {
                 );
               }}
             />
-            <Bar dataKey="score" onClick={(d) => onPick?.(d.id)} radius={999} barSize={18}>
+            <Bar
+              dataKey="score"
+              onClick={(d) => onPick?.(d.id)}
+              radius={[0, 999, 999, 0]}
+              barSize={18}
+              fillOpacity={BAR_FILL_OPACITY}
+            >
               {data.map((d) => (
                 <Cell key={d.id} fill={STATUS_META[d.status].color} cursor="pointer" />
               ))}
