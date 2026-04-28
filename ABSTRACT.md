@@ -1,5 +1,5 @@
 # Cardiology Trial Match: an interactive tool for matching patient profiles against landmark cardiology trial criteria
-#Abstract
+# Abstract
 
 > **Citable as:** Gaiba, R. (2026). *Cardiology Trial Match: an interactive tool for matching patient profiles against landmark cardiology trial criteria* (Version 1.0.0) [Computer software]. Zenodo. https://doi.org/10.5281/zenodo.19803459
 >
