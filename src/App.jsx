@@ -1,6 +1,7 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useCallback } from 'react';
 import PatientForm, { EMPTY_PATIENT } from './components/PatientForm.jsx';
 import ResultsDashboard from './components/ResultsDashboard.jsx';
+import Worksheet from './components/Worksheet.jsx';
 import { TRIALS, TOPICS } from './data/trials.js';
 import { evaluateAllTrials } from './engine/matchEngine.js';
 import { trackTopicSwitched } from './engine/analytics.js';
@@ -12,7 +13,30 @@ export default function App() {
   const [patient, setPatient] = useState(EMPTY_PATIENT);
   const [topicFilter, setTopicFilter] = useState(TOPICS[0]?.id || 'heart-failure');
 
+  // EBM worksheet: trial selection + view toggle.
+  // Selection is preserved when toggling back from the worksheet so residents
+  // can keep iterating without losing their picks.
+  const [selectedTrialIds, setSelectedTrialIds] = useState(() => new Set());
+  const [showWorksheet, setShowWorksheet] = useState(false);
+
+  const toggleTrialSelected = useCallback((id) => {
+    setSelectedTrialIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  }, []);
+  const clearSelection = useCallback(() => setSelectedTrialIds(new Set()), []);
+
   const results = useMemo(() => evaluateAllTrials(TRIALS, patient), [patient]);
+
+  // Resolve selected IDs to trial objects in the same order they appear in TRIALS.
+  // Stable ordering keeps the worksheet reproducible regardless of click order.
+  const selectedTrials = useMemo(
+    () => TRIALS.filter((t) => selectedTrialIds.has(t.id)),
+    [selectedTrialIds]
+  );
 
   // Per-topic trial counts for the topbar tabs
   const topicCounts = useMemo(() => {
@@ -22,6 +46,21 @@ export default function App() {
     }
     return c;
   }, []);
+
+  // Worksheet view takes over the screen below the topbar. Keep the topbar so
+  // the user can always see the brand, but hide the topic tabs/patient pane to
+  // give the worksheet full width. Print stylesheet hides chrome entirely.
+  if (showWorksheet) {
+    return (
+      <div className="app app-worksheet">
+        <Worksheet
+          patient={patient}
+          selectedTrials={selectedTrials}
+          onBack={() => setShowWorksheet(false)}
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="app">
@@ -122,7 +161,14 @@ export default function App() {
           <PatientForm patient={patient} onChange={setPatient} />
         </aside>
         <section className="right-pane">
-          <ResultsDashboard results={results} topicFilter={topicFilter} />
+          <ResultsDashboard
+            results={results}
+            topicFilter={topicFilter}
+            selectedTrialIds={selectedTrialIds}
+            onToggleTrialSelected={toggleTrialSelected}
+            onClearSelection={clearSelection}
+            onOpenWorksheet={() => setShowWorksheet(true)}
+          />
         </section>
       </main>
 

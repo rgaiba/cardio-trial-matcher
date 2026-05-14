@@ -25,38 +25,56 @@ function CriteriaList({ items, kind }) {
   );
 }
 
-export default function TrialCard({ trial, evaluation, defaultOpen, anchorId }) {
+export default function TrialCard({ trial, evaluation, defaultOpen, anchorId, selected, onToggleSelect }) {
   const [open, setOpen] = useState(!!defaultOpen);
   const meta = STATUS_META[evaluation.status];
 
   return (
-    <article id={anchorId} className="trial-card">
-      <header
-        className="trial-header"
-        onClick={() => {
-          setOpen((v) => {
-            const next = !v;
-            // Track only on opens (not closes) to avoid double-counting.
-            if (next) trackTrialOpened(trial.id, trial.name);
-            return next;
-          });
-        }}
-      >
-        <div className="trial-header-left">
-          <h3 className="trial-name">
-            {trial.name}{' '}
-            <span className="trial-year muted">({trial.year})</span>
-          </h3>
-          <p className="trial-sub muted">{trial.intervention}</p>
-        </div>
-        <div className="trial-header-right">
-          <span className="status-pill" style={{ background: meta.color }}>
-            {meta.label}
-          </span>
-          <span className="match-score">
-            {evaluation.matchScore == null ? '—' : `${evaluation.matchScore}%`}
-          </span>
-          <span className={`chevron ${open ? 'open' : ''}`}>▾</span>
+    <article id={anchorId} className={`trial-card ${selected ? 'trial-card-selected' : ''}`}>
+      <header className="trial-header">
+        {/* Selection checkbox — its own click target so it doesn't toggle the
+            card body. Used to build the EBM worksheet. */}
+        {onToggleSelect && (
+          <label
+            className="trial-select"
+            onClick={(e) => e.stopPropagation()}
+            title="Select for EBM worksheet"
+          >
+            <input
+              type="checkbox"
+              checked={!!selected}
+              onChange={() => onToggleSelect(trial.id)}
+              aria-label={`Select ${trial.name} for EBM worksheet`}
+            />
+          </label>
+        )}
+        <div
+          className="trial-header-clickable"
+          onClick={() => {
+            setOpen((v) => {
+              const next = !v;
+              // Track only on opens (not closes) to avoid double-counting.
+              if (next) trackTrialOpened(trial.id, trial.name);
+              return next;
+            });
+          }}
+        >
+          <div className="trial-header-left">
+            <h3 className="trial-name">
+              {trial.name}{' '}
+              <span className="trial-year muted">({trial.year})</span>
+            </h3>
+            <p className="trial-sub muted">{trial.intervention}</p>
+          </div>
+          <div className="trial-header-right">
+            <span className="status-pill" style={{ background: meta.color }}>
+              {meta.label}
+            </span>
+            <span className="match-score">
+              {evaluation.matchScore == null ? '—' : `${evaluation.matchScore}%`}
+            </span>
+            <span className={`chevron ${open ? 'open' : ''}`}>▾</span>
+          </div>
         </div>
       </header>
 
