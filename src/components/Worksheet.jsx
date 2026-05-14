@@ -307,7 +307,7 @@ export default function Worksheet({ patient, selectedTrials, onBack }) {
               checked={includeEvaluator}
               onChange={(e) => setIncludeEvaluator(e.target.checked)}
             />
-            Include evaluator page in PDF
+            Mentor Discussion
           </label>
           <button type="button" className="btn-primary" onClick={handlePrint}>
             Print / Save as PDF
@@ -592,7 +592,7 @@ export default function Worksheet({ patient, selectedTrials, onBack }) {
         {includeEvaluator && (
           <section className="ws-eval-section ws-eval-printable">
             <div className="ws-section-head">
-              <h2>Evaluator assessment <span className="ws-eval-tag">attending fills in by hand</span></h2>
+              <h2>Mentor Discussion</h2>
             </div>
             <p className="ws-section-hint">
               Based on this worksheet and the journal-club discussion, circle the level that best
@@ -606,7 +606,7 @@ export default function Worksheet({ patient, selectedTrials, onBack }) {
                 <span className="ws-eval-blank" />
               </div>
               <div className="ws-eval-meta-row">
-                <span>Evaluator</span>
+                <span>Mentor</span>
                 <span className="ws-eval-blank" />
               </div>
               <div className="ws-eval-meta-row">
@@ -622,7 +622,7 @@ export default function Worksheet({ patient, selectedTrials, onBack }) {
             </div>
 
             <div className="ws-eval-comment-block">
-              <div className="ws-eval-comment-label">Evaluator comments / feedback</div>
+              <div className="ws-eval-comment-label">Mentor comments / feedback</div>
               <div className="ws-eval-comment-lines">
                 <span /><span /><span /><span /><span />
               </div>
