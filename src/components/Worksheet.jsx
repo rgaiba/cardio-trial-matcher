@@ -17,12 +17,6 @@ import { STATUS_META } from '../engine/matchEngine.js';
  * expected to print/save the PDF; reloading clears the form.
  */
 
-const PBLI_TAGS = {
-  'PBLI-4': 'Learning at the point of care: locate, appraise, and apply evidence to patient care.',
-  'PBLI-1': 'Monitor own practice with a goal for improvement.',
-  'PBLI-3': 'Learn and improve via feedback and reflection.',
-};
-
 // Compact human-readable summary of the patient form. Skips undefined fields
 // so the worksheet doesn't show blanks for things the user didn't fill in.
 function summarizePatient(p) {
@@ -168,7 +162,120 @@ const STEPS = [
   { n: 2, title: 'PICO & treatment' },
   { n: 3, title: 'Evidence appraisal' },
   { n: 4, title: 'Decision & reflection' },
+  { n: 5, title: 'Evaluator assessment' },
 ];
+
+// Curated subset of ACGME Cardiovascular Disease Milestones 2.0 (2021) most
+// directly assessed by an EBM journal-club exercise. Descriptors are
+// paraphrased to capture the spirit of each level without verbatim text;
+// programs using this for formal documentation should still consult the
+// official rubric. Level 3 corresponds to the readiness-for-graduation
+// threshold; Level 5 is aspirational.
+const MILESTONES = [
+  {
+    id: 'pc3',
+    code: 'PC3',
+    title: 'Clinical Reasoning',
+    competency: 'Patient Care',
+    levels: [
+      'Develops a differential diagnosis for common cardiovascular presentations.',
+      'Develops a prioritized differential for routine cardiovascular presentations; recognizes deviations from expected course.',
+      'Develops a prioritized differential for complex or atypical presentations; recognizes the limits of own knowledge.',
+      'Manages diagnostic uncertainty; integrates pretest probability and Bayesian reasoning into clinical decisions.',
+      'Coaches and teaches clinical reasoning; serves as a role model.',
+    ],
+  },
+  {
+    id: 'mk1',
+    code: 'MK1',
+    title: 'Applied Foundational Sciences',
+    competency: 'Medical Knowledge',
+    levels: [
+      'Recalls foundational cardiovascular pathophysiology and pharmacology.',
+      'Applies foundational principles to the care of patients with common cardiovascular conditions.',
+      'Integrates foundational and applied science to guide care of complex cardiovascular disease.',
+      'Applies emerging principles and evidence to the care of patients with complex disease.',
+      'Contributes to scholarly advancement of cardiovascular science.',
+    ],
+  },
+  {
+    id: 'pbli1',
+    code: 'PBLI1',
+    title: 'Evidence-Based and Informed Practice',
+    competency: 'Practice-Based Learning & Improvement',
+    levels: [
+      'Articulates how clinical evidence is generated and how to access it.',
+      'Formulates an answerable clinical question; locates and appraises evidence for routine questions.',
+      'Integrates appraised evidence with patient values and clinical context to guide decisions.',
+      'Critically appraises and applies evidence in ambiguous or conflicting situations.',
+      'Coaches others to critically appraise evidence; contributes to evidence synthesis.',
+    ],
+  },
+  {
+    id: 'pbli2',
+    code: 'PBLI2',
+    title: 'Reflective Practice & Commitment to Growth',
+    competency: 'Practice-Based Learning & Improvement',
+    levels: [
+      'Accepts responsibility for personal and professional development.',
+      'Identifies opportunities to learn from feedback; designs a learning plan with prompting.',
+      'Designs and implements a learning plan that integrates performance data with self-assessment.',
+      'Uses performance data to drive ongoing improvement; proactively seeks feedback.',
+      'Coaches others on reflective practice; promotes a culture of self-improvement.',
+    ],
+  },
+  {
+    id: 'ics1',
+    code: 'ICS1',
+    title: 'Patient- and Family-Centered Communication',
+    competency: 'Interpersonal & Communication Skills',
+    levels: [
+      'Uses language that is clear, respectful, and free of jargon.',
+      'Adapts communication to patient circumstances; participates in shared decision-making with prompting.',
+      'Engages patients and families in shared decision-making across the clinical encounter.',
+      'Manages emotionally challenging interactions; mentors shared decision-making in trainees.',
+      'Teaches and role-models patient-centered communication and shared decision-making.',
+    ],
+  },
+];
+
+function MilestoneRow({ milestone, value, onChange }) {
+  return (
+    <div className="ws-milestone">
+      <div className="ws-milestone-head">
+        <span className="ws-milestone-code">{milestone.code}</span>
+        <div>
+          <div className="ws-milestone-title">{milestone.title}</div>
+          <div className="ws-milestone-comp muted small">{milestone.competency}</div>
+        </div>
+      </div>
+      <div className="ws-milestone-levels" role="radiogroup" aria-label={`${milestone.code} ${milestone.title}`}>
+        {milestone.levels.map((descriptor, idx) => {
+          const level = idx + 1;
+          const selected = value === level;
+          return (
+            <label
+              key={level}
+              className={`ws-milestone-level ${selected ? 'selected' : ''}`}
+            >
+              <span className="ws-milestone-level-head">
+                <input
+                  type="radio"
+                  name={`milestone-${milestone.id}`}
+                  value={level}
+                  checked={selected}
+                  onChange={() => onChange(level)}
+                />
+                <span className="ws-milestone-level-num">L{level}</span>
+              </span>
+              <span className="ws-milestone-level-desc">{descriptor}</span>
+            </label>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
 
 export default function Worksheet({ patient, selectedTrials, onBack }) {
   // Wizard navigation — which step the user is currently editing.
@@ -219,6 +326,14 @@ export default function Worksheet({ patient, selectedTrials, onBack }) {
   const [rationale, setRationale] = useState('');
   const [followUp, setFollowUp] = useState('');
   const [learned, setLearned] = useState('');
+
+  // Section 5: evaluator assessment (attending fills this in)
+  // milestoneLevels: { [milestoneId]: 1..5 }. Undefined means not yet rated.
+  const [milestoneLevels, setMilestoneLevels] = useState({});
+  const setMilestoneLevel = (id, level) =>
+    setMilestoneLevels((prev) => ({ ...prev, [id]: level }));
+  const [evaluatorComment, setEvaluatorComment] = useState('');
+  const [evaluatorSignature, setEvaluatorSignature] = useState('');
 
   const handlePrint = () => {
     window.print();
@@ -511,6 +626,63 @@ export default function Worksheet({ patient, selectedTrials, onBack }) {
           />
         </section>
 
+        {/* ───────── Section 5: Evaluator assessment ───────── */}
+        {/* This section is fillable by the attending / evaluator after the
+            resident hands in the worksheet. It is the LAST page of the PDF
+            (forced by print stylesheet) so it functions as a tear-off
+            evaluation sheet that can be filed with the program. */}
+        <section
+          className={`ws-section ws-step-section ws-eval-section ${currentStep === 5 ? 'ws-section-active' : 'ws-section-hidden'}`}
+          data-step="5"
+        >
+          <div className="ws-section-head">
+            <h2>5. Evaluator assessment <span className="ws-eval-tag">(attending fills in)</span></h2>
+          </div>
+          <p className="ws-section-hint">
+            Based on this worksheet and the journal-club discussion, rate the fellow on each milestone.
+            Level 3 represents the threshold for graduation from fellowship; Level 5 is aspirational.
+            Mark only the milestones applicable to today's exercise.
+          </p>
+
+          <div className="ws-eval-meta">
+            <label className="ws-meta-row">
+              <span>Evaluator name</span>
+              <input
+                value={evaluatorSignature}
+                onChange={(e) => setEvaluatorSignature(e.target.value)}
+                placeholder="Attending / preceptor name"
+              />
+            </label>
+          </div>
+
+          <div className="ws-milestone-list">
+            {MILESTONES.map((m) => (
+              <MilestoneRow
+                key={m.id}
+                milestone={m}
+                value={milestoneLevels[m.id]}
+                onChange={(lvl) => setMilestoneLevel(m.id, lvl)}
+              />
+            ))}
+          </div>
+
+          <Field
+            id="ws-eval-comment"
+            label="Evaluator comments / feedback"
+            hint="Narrative feedback for the fellow: strengths, areas for growth, suggestions for the next reading."
+            multiline
+            rows={5}
+            value={evaluatorComment}
+            onChange={setEvaluatorComment}
+          />
+
+          <p className="ws-eval-cite muted small">
+            Milestone descriptors adapted from the ACGME Cardiovascular Disease Milestones 2.0 (2021).
+            For formal Milestones reporting, consult the official rubric at
+            {' '}<span className="ws-url">acgme.org/specialties/cardiovascular-disease/milestones</span>.
+          </p>
+        </section>
+
         {/* Prev / Next wizard nav. On the last step, "Next" becomes the
             print action so the resident can move from the final field
             straight to saving the PDF without scrolling back up. */}
@@ -544,25 +716,6 @@ export default function Worksheet({ patient, selectedTrials, onBack }) {
             </button>
           )}
         </div>
-
-        {/* PBLI appendix — visible on screen and on print */}
-        <section className="ws-appendix">
-          <h3>ACGME Practice-Based Learning &amp; Improvement (PBLI) — milestones referenced</h3>
-          <dl>
-            {Object.entries(PBLI_TAGS).map(([tag, desc]) => (
-              <div key={tag}>
-                <dt>{tag}</dt>
-                <dd>{desc}</dd>
-              </div>
-            ))}
-          </dl>
-          <p className="ws-appendix-cite muted small">
-            Sub-competency descriptions adapted from the ACGME Internal Medicine Milestones, available at
-            {' '}<span className="ws-url">acgme.org/specialties/internal-medicine/milestones</span>.
-            This worksheet is for resident education and self-documentation; it is not part of the official
-            Milestones reporting form.
-          </p>
-        </section>
 
         <footer className="ws-footer muted small">
           Generated with Cardiology Trial Match — for educational use only, no PHI stored.
