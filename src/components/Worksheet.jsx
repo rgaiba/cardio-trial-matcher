@@ -162,42 +162,16 @@ const STEPS = [
   { n: 2, title: 'PICO & treatment' },
   { n: 3, title: 'Evidence appraisal' },
   { n: 4, title: 'Decision & reflection' },
-  { n: 5, title: 'Evaluator assessment' },
 ];
 
-// Curated subset of ACGME Cardiovascular Disease Milestones 2.0 (2021) most
-// directly assessed by an EBM journal-club exercise. Descriptors are
-// paraphrased to capture the spirit of each level without verbatim text;
-// programs using this for formal documentation should still consult the
-// official rubric. Level 3 corresponds to the readiness-for-graduation
-// threshold; Level 5 is aspirational.
+// EBM-focused subset of ACGME Practice-Based Learning & Improvement
+// milestones (Cardiovascular Disease Milestones 2.0, 2021). These are the
+// two PBLI sub-competencies most directly demonstrated by a journal-club /
+// EBM exercise. Descriptors are paraphrased to capture the spirit of each
+// level without verbatim text; programs using this for formal documentation
+// should still consult the official rubric. Level 3 corresponds to the
+// readiness-for-graduation threshold; Level 5 is aspirational.
 const MILESTONES = [
-  {
-    id: 'pc3',
-    code: 'PC3',
-    title: 'Clinical Reasoning',
-    competency: 'Patient Care',
-    levels: [
-      'Develops a differential diagnosis for common cardiovascular presentations.',
-      'Develops a prioritized differential for routine cardiovascular presentations; recognizes deviations from expected course.',
-      'Develops a prioritized differential for complex or atypical presentations; recognizes the limits of own knowledge.',
-      'Manages diagnostic uncertainty; integrates pretest probability and Bayesian reasoning into clinical decisions.',
-      'Coaches and teaches clinical reasoning; serves as a role model.',
-    ],
-  },
-  {
-    id: 'mk1',
-    code: 'MK1',
-    title: 'Applied Foundational Sciences',
-    competency: 'Medical Knowledge',
-    levels: [
-      'Recalls foundational cardiovascular pathophysiology and pharmacology.',
-      'Applies foundational principles to the care of patients with common cardiovascular conditions.',
-      'Integrates foundational and applied science to guide care of complex cardiovascular disease.',
-      'Applies emerging principles and evidence to the care of patients with complex disease.',
-      'Contributes to scholarly advancement of cardiovascular science.',
-    ],
-  },
   {
     id: 'pbli1',
     code: 'PBLI1',
@@ -224,22 +198,14 @@ const MILESTONES = [
       'Coaches others on reflective practice; promotes a culture of self-improvement.',
     ],
   },
-  {
-    id: 'ics1',
-    code: 'ICS1',
-    title: 'Patient- and Family-Centered Communication',
-    competency: 'Interpersonal & Communication Skills',
-    levels: [
-      'Uses language that is clear, respectful, and free of jargon.',
-      'Adapts communication to patient circumstances; participates in shared decision-making with prompting.',
-      'Engages patients and families in shared decision-making across the clinical encounter.',
-      'Manages emotionally challenging interactions; mentors shared decision-making in trainees.',
-      'Teaches and role-models patient-centered communication and shared decision-making.',
-    ],
-  },
 ];
 
-function MilestoneRow({ milestone, value, onChange }) {
+// Static (non-interactive) milestone row. Rendered into the printed PDF as a
+// blank tear-off rubric — the attending circles a level number and writes
+// comments by hand. We deliberately do not wire React state to these inputs
+// per the product decision: online, the evaluator section is invisible; the
+// only online control is the "Include evaluator page" toggle on the toolbar.
+function MilestonePrintRow({ milestone }) {
   return (
     <div className="ws-milestone">
       <div className="ws-milestone-head">
@@ -249,27 +215,17 @@ function MilestoneRow({ milestone, value, onChange }) {
           <div className="ws-milestone-comp muted small">{milestone.competency}</div>
         </div>
       </div>
-      <div className="ws-milestone-levels" role="radiogroup" aria-label={`${milestone.code} ${milestone.title}`}>
+      <div className="ws-milestone-levels">
         {milestone.levels.map((descriptor, idx) => {
           const level = idx + 1;
-          const selected = value === level;
           return (
-            <label
-              key={level}
-              className={`ws-milestone-level ${selected ? 'selected' : ''}`}
-            >
+            <div key={level} className="ws-milestone-level">
               <span className="ws-milestone-level-head">
-                <input
-                  type="radio"
-                  name={`milestone-${milestone.id}`}
-                  value={level}
-                  checked={selected}
-                  onChange={() => onChange(level)}
-                />
+                <span className="ws-milestone-level-bubble" aria-hidden="true" />
                 <span className="ws-milestone-level-num">L{level}</span>
               </span>
               <span className="ws-milestone-level-desc">{descriptor}</span>
-            </label>
+            </div>
           );
         })}
       </div>
@@ -327,13 +283,11 @@ export default function Worksheet({ patient, selectedTrials, onBack }) {
   const [followUp, setFollowUp] = useState('');
   const [learned, setLearned] = useState('');
 
-  // Section 5: evaluator assessment (attending fills this in)
-  // milestoneLevels: { [milestoneId]: 1..5 }. Undefined means not yet rated.
-  const [milestoneLevels, setMilestoneLevels] = useState({});
-  const setMilestoneLevel = (id, level) =>
-    setMilestoneLevels((prev) => ({ ...prev, [id]: level }));
-  const [evaluatorComment, setEvaluatorComment] = useState('');
-  const [evaluatorSignature, setEvaluatorSignature] = useState('');
+  // Opt-in for the printed evaluator page. When true, the static evaluator
+  // form (PBLI1 + PBLI2 milestones with blank rating bubbles + comments) is
+  // appended as the final page of the printed PDF. No online form fields —
+  // the attending fills it in by hand on the printed copy.
+  const [includeEvaluator, setIncludeEvaluator] = useState(false);
 
   const handlePrint = () => {
     window.print();
@@ -346,10 +300,19 @@ export default function Worksheet({ patient, selectedTrials, onBack }) {
         <button type="button" className="btn-secondary" onClick={onBack}>
           ← Back to results
         </button>
-        <div className="ws-toolbar-title">EBM journal-club worksheet</div>
-        <button type="button" className="btn-primary" onClick={handlePrint}>
-          Print / Save as PDF
-        </button>
+        <div className="ws-toolbar-right">
+          <label className="ws-toolbar-check" title="Adds a tear-off ACGME PBLI evaluation page (PBLI1, PBLI2) to the printed PDF for the attending to fill in by hand.">
+            <input
+              type="checkbox"
+              checked={includeEvaluator}
+              onChange={(e) => setIncludeEvaluator(e.target.checked)}
+            />
+            Include evaluator page in PDF
+          </label>
+          <button type="button" className="btn-primary" onClick={handlePrint}>
+            Print / Save as PDF
+          </button>
+        </div>
       </div>
 
       <div className="ws-sheet">
@@ -410,7 +373,6 @@ export default function Worksheet({ patient, selectedTrials, onBack }) {
         >
           <div className="ws-section-head">
             <h2>1. Patient</h2>
-            <span className="ws-pbli">PBLI-4 · Frame the clinical question</span>
           </div>
 
           <div className="ws-autofill">
@@ -472,7 +434,6 @@ export default function Worksheet({ patient, selectedTrials, onBack }) {
         >
           <div className="ws-section-head">
             <h2>2. PICO question &amp; current treatment</h2>
-            <span className="ws-pbli">PBLI-4 · Formulate searchable question</span>
           </div>
 
           <div className="ws-pico-grid">
@@ -500,7 +461,6 @@ export default function Worksheet({ patient, selectedTrials, onBack }) {
         >
           <div className="ws-section-head">
             <h2>3. Evidence appraisal</h2>
-            <span className="ws-pbli">PBLI-4 · Appraise validity, results, applicability</span>
           </div>
 
           {selectedTrials.length === 0 ? (
@@ -569,7 +529,6 @@ export default function Worksheet({ patient, selectedTrials, onBack }) {
         >
           <div className="ws-section-head">
             <h2>4. Change in treatment &amp; reflection</h2>
-            <span className="ws-pbli">PBLI-1, PBLI-3 · Improve practice, learn from feedback</span>
           </div>
 
           <div className="ws-decision">
@@ -626,62 +585,56 @@ export default function Worksheet({ patient, selectedTrials, onBack }) {
           />
         </section>
 
-        {/* ───────── Section 5: Evaluator assessment ───────── */}
-        {/* This section is fillable by the attending / evaluator after the
-            resident hands in the worksheet. It is the LAST page of the PDF
-            (forced by print stylesheet) so it functions as a tear-off
-            evaluation sheet that can be filed with the program. */}
-        <section
-          className={`ws-section ws-step-section ws-eval-section ${currentStep === 5 ? 'ws-section-active' : 'ws-section-hidden'}`}
-          data-step="5"
-        >
-          <div className="ws-section-head">
-            <h2>5. Evaluator assessment <span className="ws-eval-tag">(attending fills in)</span></h2>
-          </div>
-          <p className="ws-section-hint">
-            Based on this worksheet and the journal-club discussion, rate the fellow on each milestone.
-            Level 3 represents the threshold for graduation from fellowship; Level 5 is aspirational.
-            Mark only the milestones applicable to today's exercise.
-          </p>
+        {/* Evaluator page — print-only tear-off. Rendered when the toolbar
+            checkbox is on; the print stylesheet then forces it onto its own
+            final page. Hidden from screen entirely so the resident's
+            workflow isn't cluttered with a form they don't fill in. */}
+        {includeEvaluator && (
+          <section className="ws-eval-section ws-eval-printable">
+            <div className="ws-section-head">
+              <h2>Evaluator assessment <span className="ws-eval-tag">attending fills in by hand</span></h2>
+            </div>
+            <p className="ws-section-hint">
+              Based on this worksheet and the journal-club discussion, circle the level that best
+              describes the fellow on each PBLI milestone. Level 3 is the threshold for graduation
+              from fellowship; Level 5 is aspirational.
+            </p>
 
-          <div className="ws-eval-meta">
-            <label className="ws-meta-row">
-              <span>Evaluator name</span>
-              <input
-                value={evaluatorSignature}
-                onChange={(e) => setEvaluatorSignature(e.target.value)}
-                placeholder="Attending / preceptor name"
-              />
-            </label>
-          </div>
+            <div className="ws-eval-meta">
+              <div className="ws-eval-meta-row">
+                <span>Fellow</span>
+                <span className="ws-eval-blank" />
+              </div>
+              <div className="ws-eval-meta-row">
+                <span>Evaluator</span>
+                <span className="ws-eval-blank" />
+              </div>
+              <div className="ws-eval-meta-row">
+                <span>Date</span>
+                <span className="ws-eval-blank" />
+              </div>
+            </div>
 
-          <div className="ws-milestone-list">
-            {MILESTONES.map((m) => (
-              <MilestoneRow
-                key={m.id}
-                milestone={m}
-                value={milestoneLevels[m.id]}
-                onChange={(lvl) => setMilestoneLevel(m.id, lvl)}
-              />
-            ))}
-          </div>
+            <div className="ws-milestone-list">
+              {MILESTONES.map((m) => (
+                <MilestonePrintRow key={m.id} milestone={m} />
+              ))}
+            </div>
 
-          <Field
-            id="ws-eval-comment"
-            label="Evaluator comments / feedback"
-            hint="Narrative feedback for the fellow: strengths, areas for growth, suggestions for the next reading."
-            multiline
-            rows={5}
-            value={evaluatorComment}
-            onChange={setEvaluatorComment}
-          />
+            <div className="ws-eval-comment-block">
+              <div className="ws-eval-comment-label">Evaluator comments / feedback</div>
+              <div className="ws-eval-comment-lines">
+                <span /><span /><span /><span /><span />
+              </div>
+            </div>
 
-          <p className="ws-eval-cite muted small">
-            Milestone descriptors adapted from the ACGME Cardiovascular Disease Milestones 2.0 (2021).
-            For formal Milestones reporting, consult the official rubric at
-            {' '}<span className="ws-url">acgme.org/specialties/cardiovascular-disease/milestones</span>.
-          </p>
-        </section>
+            <p className="ws-eval-cite muted small">
+              Milestone descriptors adapted from the ACGME Cardiovascular Disease Milestones 2.0 (2021).
+              For formal Milestones reporting, consult the official rubric at
+              {' '}<span className="ws-url">acgme.org/specialties/cardiovascular-disease/milestones</span>.
+            </p>
+          </section>
+        )}
 
         {/* Prev / Next wizard nav. On the last step, "Next" becomes the
             print action so the resident can move from the final field

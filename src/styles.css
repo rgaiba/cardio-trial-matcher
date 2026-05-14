@@ -875,6 +875,28 @@ a { color: var(--primary); }
   text-align: center;
   font-size: 14px;
 }
+.ws-toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-left: auto;
+}
+.ws-toolbar-check {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  color: var(--muted);
+  cursor: pointer;
+  user-select: none;
+}
+.ws-toolbar-check input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+.ws-toolbar-check:hover { color: var(--text); }
 
 .ws-sheet {
   background: var(--surface);
@@ -1154,35 +1176,64 @@ a { color: var(--primary); }
   accent-color: var(--accent);
 }
 
-/* ── Evaluator assessment (step 5) ────────────────────── */
+/* ── Evaluator assessment (print-only tear-off page) ────
+   Always hidden on screen. Print stylesheet overrides to display it on
+   its own final page. The section is only rendered into the DOM when the
+   "Include evaluator page" checkbox is on, so when off it doesn't even
+   show up in the source. */
 .ws-eval-section {
-  /* Visual cue that this section is distinct from the resident-fillable
-     sections — light slate background plus a stronger top border. */
-  background: #f8fafc;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 18px 20px;
-  margin-top: 24px;
+  display: none;
 }
 .ws-eval-tag {
   display: inline-block;
   margin-left: 8px;
-  font-size: 11px;
-  font-weight: 500;
-  color: var(--muted);
-  background: white;
-  border: 1px solid var(--border-strong);
-  border-radius: 999px;
-  padding: 2px 9px;
-  vertical-align: middle;
+  font-size: 10pt;
+  font-weight: 400;
+  font-style: italic;
+  color: #555;
 }
 .ws-eval-meta {
   display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 6px 10px;
-  margin: 12px 0 18px;
-  font-size: 12px;
-  max-width: 480px;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10pt 16pt;
+  margin: 14pt 0 18pt;
+  font-size: 10pt;
+}
+.ws-eval-meta-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4pt;
+}
+.ws-eval-meta-row > span:first-child {
+  font-weight: 600;
+  color: #444;
+  font-size: 9pt;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.ws-eval-blank {
+  display: block;
+  height: 1em;
+  border-bottom: 1pt solid #555;
+}
+.ws-eval-comment-block {
+  margin: 18pt 0 10pt;
+}
+.ws-eval-comment-label {
+  font-weight: 600;
+  font-size: 10pt;
+  color: #333;
+  margin-bottom: 8pt;
+}
+.ws-eval-comment-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 12pt;
+}
+.ws-eval-comment-lines > span {
+  display: block;
+  border-bottom: 1pt solid #999;
+  height: 1em;
 }
 .ws-milestone-list {
   display: flex;
@@ -1264,6 +1315,17 @@ a { color: var(--primary); }
   margin: 0;
 }
 .ws-milestone-level-desc { color: var(--text); }
+/* Empty radio-like circle for the print-only tear-off form. The attending
+   fills it in by hand on the printed PDF. */
+.ws-milestone-level-bubble {
+  display: inline-block;
+  width: 11pt;
+  height: 11pt;
+  border: 1pt solid #444;
+  border-radius: 50%;
+  background: white;
+  flex-shrink: 0;
+}
 
 .ws-eval-cite {
   margin-top: 14px;
@@ -1449,10 +1511,11 @@ a { color: var(--primary); }
      they just break naturally between fields. */
   .ws-section { margin: 16pt 0; padding-top: 10pt; }
 
-  /* Evaluator assessment is the LAST page of the PDF. Forced page break so
-     it tears off cleanly for filing with the program even if the preceding
-     content is short. */
+  /* Evaluator assessment is the LAST page of the PDF when the user opted
+     in via the toolbar checkbox. Forced page break so the tear-off form
+     stands alone for the attending to fill in by hand. */
   .ws-eval-section {
+    display: block !important;
     page-break-before: always;
     break-before: page;
     background: white !important;
