@@ -418,7 +418,7 @@ export default function Worksheet({ patient, selectedTrials, onBack }) {
 
           <Field
             id="ws-scenario"
-            label="Clinical scenario / chief concern"
+            label="Chief Concern"
             hint="One short paragraph: why this patient and what question prompted you to look at the literature."
             multiline
             rows={4}
@@ -445,7 +445,7 @@ export default function Worksheet({ patient, selectedTrials, onBack }) {
 
           <Field
             id="ws-current-tx"
-            label="Current treatment plan (before today)"
+            label="Current treatment plan"
             hint="What is the patient on right now? What is the planned next step before applying this evidence?"
             multiline
             rows={4}
@@ -493,7 +493,7 @@ export default function Worksheet({ patient, selectedTrials, onBack }) {
 
           <Field
             id="ws-validity"
-            label="Validity (are the results trustworthy?)"
+            label={<>Validity <em className="ws-field-italic">Are the results trustworthy?</em></>}
             hint="Randomization, allocation concealment, blinding, follow-up, intention-to-treat, sponsorship. Comment across all selected trials."
             multiline
             rows={5}

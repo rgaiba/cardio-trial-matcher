@@ -1137,6 +1137,17 @@ a { color: var(--primary); }
   font-weight: 800;
 }
 
+/* Italicized sub-question inside a field label (e.g.
+   "Validity *Are the results trustworthy?*"). Lower visual weight than the
+   label so it reads as a clarifying gloss, not a competing title. */
+.ws-field-italic {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--muted);
+  margin-left: 8px;
+  font-size: 12.5px;
+}
+
 /* Trial reference list */
 .ws-trials { margin: 8px 0 14px; }
 .ws-trial-refs {
