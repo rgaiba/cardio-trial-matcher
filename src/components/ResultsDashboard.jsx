@@ -9,8 +9,6 @@ export default function ResultsDashboard({
   topicFilter,
   selectedTrialIds,
   onToggleTrialSelected,
-  onClearSelection,
-  onOpenWorksheet,
 }) {
   const [filter, setFilter] = useState('all');
   const [highlightId, setHighlightId] = useState(null);
@@ -69,44 +67,8 @@ export default function ResultsDashboard({
     });
   };
 
-  const selectedCount = selectedTrialIds ? selectedTrialIds.size : 0;
-
   return (
     <section className="results">
-      {/* Worksheet builder toolbar — visible whenever selection is enabled */}
-      {onOpenWorksheet && (
-        <div className="ws-builder-bar">
-          <div className="ws-builder-msg">
-            {selectedCount === 0 ? (
-              <>
-                <strong>Build an EBM worksheet:</strong>{' '}
-                <span className="muted">tick one or more trials below, then open the worksheet to draft a journal-club / PBLI write-up.</span>
-              </>
-            ) : (
-              <>
-                <strong>{selectedCount}</strong>{' '}
-                {selectedCount === 1 ? 'trial' : 'trials'} selected for worksheet.
-              </>
-            )}
-          </div>
-          <div className="ws-builder-actions">
-            {selectedCount > 0 && (
-              <button type="button" className="btn-secondary" onClick={onClearSelection}>
-                Clear
-              </button>
-            )}
-            <button
-              type="button"
-              className="btn-primary"
-              disabled={selectedCount === 0}
-              onClick={onOpenWorksheet}
-            >
-              Build EBM worksheet →
-            </button>
-          </div>
-        </div>
-      )}
-
       <div className="status-summary">
         {Object.entries(STATUS_META).map(([key, meta]) => (
           <button

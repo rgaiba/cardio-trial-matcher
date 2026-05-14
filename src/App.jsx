@@ -2,6 +2,7 @@ import { useMemo, useState, useCallback } from 'react';
 import PatientForm, { EMPTY_PATIENT } from './components/PatientForm.jsx';
 import ResultsDashboard from './components/ResultsDashboard.jsx';
 import Worksheet from './components/Worksheet.jsx';
+import WorksheetBuilderBar from './components/WorksheetBuilderBar.jsx';
 import { TRIALS, TOPICS } from './data/trials.js';
 import { evaluateAllTrials } from './engine/matchEngine.js';
 import { trackTopicSwitched } from './engine/analytics.js';
@@ -159,6 +160,14 @@ export default function App() {
       <main className="layout">
         <aside className="left-pane">
           <PatientForm patient={patient} onChange={setPatient} />
+          {/* Worksheet builder sits below the patient profile so trial
+              selection and worksheet action share the left rail with patient
+              inputs. */}
+          <WorksheetBuilderBar
+            selectedCount={selectedTrialIds.size}
+            onClearSelection={clearSelection}
+            onOpenWorksheet={() => setShowWorksheet(true)}
+          />
         </aside>
         <section className="right-pane">
           <ResultsDashboard
@@ -166,8 +175,6 @@ export default function App() {
             topicFilter={topicFilter}
             selectedTrialIds={selectedTrialIds}
             onToggleTrialSelected={toggleTrialSelected}
-            onClearSelection={clearSelection}
-            onOpenWorksheet={() => setShowWorksheet(true)}
           />
         </section>
       </main>
