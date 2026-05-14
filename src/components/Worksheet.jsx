@@ -319,9 +319,9 @@ export default function Worksheet({ patient, selectedTrials, onBack }) {
         {/* Header block */}
         <header className="ws-header">
           <div className="ws-header-title">
-            <h1>EBM Journal-Club Worksheet</h1>
+            <h1>Evidence-Based Medicine Worksheet</h1>
             <p className="ws-header-sub">
-              Practice-Based Learning &amp; Improvement (ACGME) — apply evidence to a real patient.
+              Practice-Based Learning &amp; Improvement
             </p>
           </div>
           <div className="ws-header-meta">
