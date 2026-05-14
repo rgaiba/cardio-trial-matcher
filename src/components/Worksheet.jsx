@@ -326,11 +326,11 @@ export default function Worksheet({ patient, selectedTrials, onBack }) {
           </div>
           <div className="ws-header-meta">
             <label className="ws-meta-row">
-              <span>Resident</span>
+              <span>Fellow</span>
               <input value={residentName} onChange={(e) => setResidentName(e.target.value)} />
             </label>
             <label className="ws-meta-row">
-              <span>Attending / preceptor</span>
+              <span>Mentor</span>
               <input value={attendingName} onChange={(e) => setAttendingName(e.target.value)} />
             </label>
             <label className="ws-meta-row">
@@ -422,7 +422,7 @@ export default function Worksheet({ patient, selectedTrials, onBack }) {
 
           <Field
             id="ws-scenario"
-            label="Chief Concern"
+            label="Clinical Question"
             hint="One short paragraph: why this patient and what question prompted you to look at the literature."
             multiline
             rows={4}
