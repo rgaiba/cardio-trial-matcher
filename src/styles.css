@@ -786,7 +786,8 @@ a { color: var(--primary); }
    ───────────────────────────────────────────────────────── */
 
 /* Worksheet builder card — mirrors .form-card chrome so it stacks visually
-   with the Patient card above it. */
+   with the Patient card above it. Heading style matches .form-header h2 so
+   the two cards read as siblings. */
 .ws-builder-card {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -795,10 +796,16 @@ a { color: var(--primary); }
   padding: 14px 16px;
   margin-top: 12px;
 }
-.ws-builder-text {
-  margin: 0 0 10px;
-  font-size: 13px;
+.ws-builder-head { margin-bottom: 10px; }
+.ws-builder-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 2px;
   color: var(--text);
+}
+.ws-builder-sub {
+  margin: 0;
+  font-size: 12px;
   line-height: 1.45;
 }
 .ws-builder-actions {
