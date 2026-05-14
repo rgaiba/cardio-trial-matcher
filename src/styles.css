@@ -785,14 +785,26 @@ a { color: var(--primary); }
    EBM journal-club worksheet
    ───────────────────────────────────────────────────────── */
 
-/* Worksheet builder — slim two-pill row below the Patient card.
-   No container chrome on purpose; the buttons themselves carry the visual
-   weight, and the count is encoded in the primary button's label. */
-.ws-builder-row {
+/* Worksheet builder card — mirrors .form-card chrome so it stacks visually
+   with the Patient card above it. */
+.ws-builder-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  padding: 14px 16px;
+  margin-top: 12px;
+}
+.ws-builder-text {
+  margin: 0 0 10px;
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.45;
+}
+.ws-builder-actions {
   display: flex;
   gap: 8px;
   justify-content: flex-end;
-  margin-top: 10px;
 }
 /* Capsule-shaped buttons just for the worksheet builder bar. Kept separate
    from .btn-primary/.btn-secondary so it doesn't ripple to the rest of the
@@ -1070,6 +1082,10 @@ a { color: var(--primary); }
 }
 .ws-kv-list { list-style: none; margin: 4px 0 0; padding: 0; }
 .ws-kv-list li { padding: 1px 0; }
+/* Used by Comorbidities and Current cardiac meds — places the comma-joined
+   values on the line below the label rather than inline, so long lists
+   don't crowd the label. */
+.ws-autofill-content { margin-top: 4px; }
 
 .ws-field { margin: 12px 0; }
 .ws-field-label {

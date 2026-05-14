@@ -377,12 +377,12 @@ export default function Worksheet({ patient, selectedTrials, onBack }) {
 
           <div className="ws-autofill">
             <div className="ws-autofill-line">
-              <strong>Profile:</strong>{' '}
+              <strong>Patient:</strong>{' '}
               {summarizePatient(patient) || <em className="muted">No demographics entered</em>}
             </div>
             <div className="ws-autofill-grid">
               <div>
-                <strong>Vitals / cardiac:</strong>
+                <strong>Profile:</strong>
                 {vitals.length === 0 ? (
                   <span className="muted"> none entered</span>
                 ) : (
@@ -406,12 +406,16 @@ export default function Worksheet({ patient, selectedTrials, onBack }) {
                 )}
               </div>
               <div>
-                <strong>Comorbidities:</strong>{' '}
-                {comorbs.length === 0 ? <span className="muted">none entered</span> : comorbs.join(', ')}
+                <strong>Comorbidities:</strong>
+                <div className="ws-autofill-content">
+                  {comorbs.length === 0 ? <span className="muted">none entered</span> : comorbs.join(', ')}
+                </div>
               </div>
               <div>
-                <strong>Current cardiac meds:</strong>{' '}
-                {meds.length === 0 ? <span className="muted">none entered</span> : meds.join(', ')}
+                <strong>Current cardiac meds:</strong>
+                <div className="ws-autofill-content">
+                  {meds.length === 0 ? <span className="muted">none entered</span> : meds.join(', ')}
+                </div>
               </div>
             </div>
           </div>
