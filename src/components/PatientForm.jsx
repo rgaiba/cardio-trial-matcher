@@ -223,8 +223,8 @@ export default function PatientForm({ patient, onChange }) {
     <div className="form-card">
       <div className="form-header">
         <div>
-          <h2>Patient profile</h2>
-          <p className="muted">No PHI; clinical variables only. Leave any field blank if unknown.</p>
+          <h2>Patient</h2>
+          <p className="muted">No PHI stored.</p>
         </div>
         <div className="form-actions">
           <button

@@ -13,7 +13,7 @@ export default function WorksheetBuilderBar({ selectedCount, onClearSelection, o
         {selectedCount === 0 ? (
           <>
             <strong>Build an EBM worksheet:</strong>{' '}
-            <span className="muted">tick one or more trials, then open the worksheet to draft a journal-club / PBLI write-up.</span>
+            <span className="muted">Select articles to get started.</span>
           </>
         ) : (
           <>
@@ -23,14 +23,17 @@ export default function WorksheetBuilderBar({ selectedCount, onClearSelection, o
         )}
       </div>
       <div className="ws-builder-actions">
-        {selectedCount > 0 && (
-          <button type="button" className="btn-secondary" onClick={onClearSelection}>
-            Clear
-          </button>
-        )}
         <button
           type="button"
-          className="btn-primary"
+          className="ws-pill ws-pill-secondary"
+          onClick={onClearSelection}
+          disabled={selectedCount === 0}
+        >
+          Clear
+        </button>
+        <button
+          type="button"
+          className="ws-pill ws-pill-primary"
           disabled={selectedCount === 0}
           onClick={onOpenWorksheet}
         >

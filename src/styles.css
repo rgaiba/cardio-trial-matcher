@@ -809,9 +809,36 @@ a { color: var(--primary); }
   gap: 8px;
   justify-content: flex-end;
 }
-.ws-builder-actions .btn-primary {
-  padding: 7px 14px;
+/* Capsule-shaped buttons just for the worksheet builder bar. Kept separate
+   from .btn-primary/.btn-secondary so it doesn't ripple to the rest of the
+   form actions. */
+.ws-pill {
+  padding: 7px 16px;
   font-size: 13px;
+  font-weight: 500;
+  border-radius: 999px;
+  border: 1px solid var(--border-strong);
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s, opacity 0.15s;
+  white-space: nowrap;
+}
+.ws-pill-primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: white;
+}
+.ws-pill-primary:hover:not(:disabled) {
+  background: #b91c1c;
+  border-color: #b91c1c;
+}
+.ws-pill-secondary {
+  background: white;
+  color: var(--text);
+}
+.ws-pill-secondary:hover:not(:disabled) { background: #f1f5f9; }
+.ws-pill:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
 }
 .btn-primary:disabled,
 .btn-primary[disabled] {
