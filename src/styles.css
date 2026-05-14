@@ -1130,6 +1130,12 @@ a { color: var(--primary); }
 @media (max-width: 640px) {
   .ws-pico-grid { grid-template-columns: 1fr; }
 }
+/* Highlight the PICO mnemonic letter (P / I / C / O) in the brand accent
+   so the framework is visible at a glance. */
+.ws-pico-letter {
+  color: var(--accent);
+  font-weight: 800;
+}
 
 /* Trial reference list */
 .ws-trials { margin: 8px 0 14px; }

@@ -437,10 +437,10 @@ export default function Worksheet({ patient, selectedTrials, onBack }) {
           </div>
 
           <div className="ws-pico-grid">
-            <Field id="ws-pico-p" label="P — Patient / Population" multiline rows={2} value={picoP} onChange={setPicoP} />
-            <Field id="ws-pico-i" label="I — Intervention" multiline rows={2} value={picoI} onChange={setPicoI} />
-            <Field id="ws-pico-c" label="C — Comparator" multiline rows={2} value={picoC} onChange={setPicoC} />
-            <Field id="ws-pico-o" label="O — Outcome" multiline rows={2} value={picoO} onChange={setPicoO} />
+            <Field id="ws-pico-p" label={<><span className="ws-pico-letter">P</span>atients</>} multiline rows={2} value={picoP} onChange={setPicoP} />
+            <Field id="ws-pico-i" label={<><span className="ws-pico-letter">I</span>ntervention</>} multiline rows={2} value={picoI} onChange={setPicoI} />
+            <Field id="ws-pico-c" label={<><span className="ws-pico-letter">C</span>omparison</>} multiline rows={2} value={picoC} onChange={setPicoC} />
+            <Field id="ws-pico-o" label={<><span className="ws-pico-letter">O</span>utcome</>} multiline rows={2} value={picoO} onChange={setPicoO} />
           </div>
 
           <Field
