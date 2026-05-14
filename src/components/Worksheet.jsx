@@ -470,7 +470,11 @@ export default function Worksheet({ patient, selectedTrials, onBack }) {
           ) : (
             <div className="ws-trials">
               <p className="ws-section-hint">
-                {selectedTrials.length === 1 ? 'Trial under review:' : 'Trials under review (collective appraisal):'}
+                {selectedTrials.length === 1 ? (
+                  <>Trial under review</>
+                ) : (
+                  <>Trials under review <em className="ws-field-italic">collective appraisal</em></>
+                )}
               </p>
               <ol className="ws-trial-refs">
                 {selectedTrials.map((t) => (
@@ -503,7 +507,7 @@ export default function Worksheet({ patient, selectedTrials, onBack }) {
 
           <Field
             id="ws-results"
-            label="Results (what did the evidence show?)"
+            label={<>Results <em className="ws-field-italic">What did the evidence show?</em></>}
             hint="Magnitude of effect, confidence intervals, absolute vs relative risk, NNT/NNH, consistency across trials and subgroups."
             multiline
             rows={5}
@@ -513,7 +517,7 @@ export default function Worksheet({ patient, selectedTrials, onBack }) {
 
           <Field
             id="ws-applicability"
-            label="Applicability to your patient (external validity)"
+            label={<>Applicability to your patient <em className="ws-field-italic">External validity</em></>}
             hint="Is your patient like the enrolled population? Were the treatments feasible in your setting? Do benefits outweigh harms and burdens for this individual?"
             multiline
             rows={5}

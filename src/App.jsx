@@ -32,10 +32,13 @@ export default function App() {
 
   const results = useMemo(() => evaluateAllTrials(TRIALS, patient), [patient]);
 
-  // Resolve selected IDs to trial objects in the same order they appear in TRIALS.
-  // Stable ordering keeps the worksheet reproducible regardless of click order.
+  // Resolve selected IDs to trial objects, sorted chronologically (oldest
+  // first) so the evidence appraisal reads as a historical progression.
   const selectedTrials = useMemo(
-    () => TRIALS.filter((t) => selectedTrialIds.has(t.id)),
+    () =>
+      TRIALS.filter((t) => selectedTrialIds.has(t.id)).sort(
+        (a, b) => (a.year ?? 0) - (b.year ?? 0)
+      ),
     [selectedTrialIds]
   );
 
