@@ -37,7 +37,7 @@ export default function WorksheetBuilderBar({ selectedCount, onClearSelection, o
           disabled={selectedCount === 0}
           onClick={onOpenWorksheet}
         >
-          Build EBM worksheet →
+          Build Worksheet
         </button>
       </div>
     </div>

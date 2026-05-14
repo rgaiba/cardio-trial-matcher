@@ -931,6 +931,91 @@ a { color: var(--primary); }
   border-top: 1px solid var(--border);
 }
 .ws-section:first-of-type { border-top: none; padding-top: 0; }
+/* Wizard-step sections: only the active one is shown on screen. The print
+   stylesheet at the bottom forces all of them visible so the PDF is
+   complete regardless of which step is active. */
+.ws-step-section { border-top: none; padding-top: 0; margin-top: 18px; }
+.ws-section-hidden { display: none; }
+
+/* Step indicator (clickable tabs) */
+.ws-steps {
+  display: flex;
+  gap: 6px;
+  margin: 18px 0 4px;
+  flex-wrap: wrap;
+}
+.ws-step {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: white;
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  text-align: left;
+  color: var(--muted);
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+.ws-step:hover { background: #f8fafc; color: var(--text); }
+.ws-step-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  background: #f1f5f9;
+  color: var(--muted);
+  font-weight: 700;
+  font-size: 12px;
+  flex-shrink: 0;
+}
+.ws-step-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 500;
+}
+.ws-step-current {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: #b91c1c;
+}
+.ws-step-current .ws-step-num {
+  background: var(--accent);
+  color: white;
+}
+.ws-step-done {
+  color: var(--text);
+  border-color: #cbd5e1;
+}
+.ws-step-done .ws-step-num {
+  background: var(--green);
+  color: white;
+}
+
+/* Prev/Next nav at the bottom of the active section */
+.ws-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 24px 0 6px;
+  padding-top: 16px;
+  border-top: 1px dashed var(--border);
+}
+.ws-nav-progress { flex: 1; text-align: center; }
+
+@media (max-width: 720px) {
+  .ws-steps { gap: 4px; }
+  .ws-step { padding: 8px 10px; font-size: 12px; }
+  .ws-step-title { display: none; }
+  .ws-step { justify-content: center; flex: 1 1 0; }
+}
 .ws-section-head {
   display: flex;
   align-items: baseline;
@@ -1147,8 +1232,17 @@ a { color: var(--primary); }
   .footer,
   .no-print,
   .ws-toolbar,
-  .ws-builder-bar {
+  .ws-builder-bar,
+  .ws-steps,
+  .ws-nav {
     display: none !important;
+  }
+
+  /* Wizard hides non-active sections on screen — on print, force ALL
+     sections visible so the PDF is the complete worksheet. */
+  .ws-section-hidden,
+  .ws-step-section {
+    display: block !important;
   }
 
   .worksheet {

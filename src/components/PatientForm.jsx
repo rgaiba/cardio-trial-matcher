@@ -224,7 +224,7 @@ export default function PatientForm({ patient, onChange }) {
       <div className="form-header">
         <div>
           <h2>Patient</h2>
-          <p className="muted">No PHI stored.</p>
+          <p className="muted">No PHI stored. Leave unknown fields blank.</p>
         </div>
         <div className="form-actions">
           <button

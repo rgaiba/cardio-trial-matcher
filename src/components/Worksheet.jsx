@@ -159,7 +159,27 @@ function Field({ id, label, hint, multiline, rows, value, onChange, pbli }) {
   );
 }
 
+// Wizard step metadata. Keep the order aligned with the section numbering
+// in the JSX below. The `n` field is used both for the indicator and for
+// per-section visibility — switching to step n shows only the section with
+// matching `data-step={n}`.
+const STEPS = [
+  { n: 1, title: 'Patient' },
+  { n: 2, title: 'PICO & treatment' },
+  { n: 3, title: 'Evidence appraisal' },
+  { n: 4, title: 'Decision & reflection' },
+];
+
 export default function Worksheet({ patient, selectedTrials, onBack }) {
+  // Wizard navigation — which step the user is currently editing.
+  // All sections remain mounted (so their form state survives navigation)
+  // but only the active step is shown on screen via CSS. The print
+  // stylesheet overrides this and renders every section, so the saved PDF
+  // is always the full worksheet regardless of which step was visible.
+  const [currentStep, setCurrentStep] = useState(1);
+  const goPrev = () => setCurrentStep((s) => Math.max(1, s - 1));
+  const goNext = () => setCurrentStep((s) => Math.min(STEPS.length, s + 1));
+
   // Header metadata
   const [residentName, setResidentName] = useState('');
   const [attendingName, setAttendingName] = useState('');
@@ -246,8 +266,33 @@ export default function Worksheet({ patient, selectedTrials, onBack }) {
           </div>
         </header>
 
+        {/* Step indicator — also acts as direct nav (clickable) */}
+        <nav className="ws-steps no-print" aria-label="Worksheet sections">
+          {STEPS.map((step) => {
+            const state =
+              step.n === currentStep ? 'current'
+              : step.n < currentStep ? 'done'
+              : 'upcoming';
+            return (
+              <button
+                key={step.n}
+                type="button"
+                className={`ws-step ws-step-${state}`}
+                onClick={() => setCurrentStep(step.n)}
+                aria-current={step.n === currentStep ? 'step' : undefined}
+              >
+                <span className="ws-step-num">{step.n}</span>
+                <span className="ws-step-title">{step.title}</span>
+              </button>
+            );
+          })}
+        </nav>
+
         {/* ───────── Section 1: Patient ───────── */}
-        <section className="ws-section">
+        <section
+          className={`ws-section ws-step-section ${currentStep === 1 ? 'ws-section-active' : 'ws-section-hidden'}`}
+          data-step="1"
+        >
           <div className="ws-section-head">
             <h2>1. Patient</h2>
             <span className="ws-pbli">PBLI-4 · Frame the clinical question</span>
@@ -306,7 +351,10 @@ export default function Worksheet({ patient, selectedTrials, onBack }) {
         </section>
 
         {/* ───────── Section 2: PICO + current treatment ───────── */}
-        <section className="ws-section">
+        <section
+          className={`ws-section ws-step-section ${currentStep === 2 ? 'ws-section-active' : 'ws-section-hidden'}`}
+          data-step="2"
+        >
           <div className="ws-section-head">
             <h2>2. PICO question &amp; current treatment</h2>
             <span className="ws-pbli">PBLI-4 · Formulate searchable question</span>
@@ -331,7 +379,10 @@ export default function Worksheet({ patient, selectedTrials, onBack }) {
         </section>
 
         {/* ───────── Section 3: Evidence appraisal (collective) ───────── */}
-        <section className="ws-section">
+        <section
+          className={`ws-section ws-step-section ${currentStep === 3 ? 'ws-section-active' : 'ws-section-hidden'}`}
+          data-step="3"
+        >
           <div className="ws-section-head">
             <h2>3. Evidence appraisal</h2>
             <span className="ws-pbli">PBLI-4 · Appraise validity, results, applicability</span>
@@ -397,7 +448,10 @@ export default function Worksheet({ patient, selectedTrials, onBack }) {
         </section>
 
         {/* ───────── Section 4: Change in treatment + reflection ───────── */}
-        <section className="ws-section">
+        <section
+          className={`ws-section ws-step-section ${currentStep === 4 ? 'ws-section-active' : 'ws-section-hidden'}`}
+          data-step="4"
+        >
           <div className="ws-section-head">
             <h2>4. Change in treatment &amp; reflection</h2>
             <span className="ws-pbli">PBLI-1, PBLI-3 · Improve practice, learn from feedback</span>
@@ -456,6 +510,40 @@ export default function Worksheet({ patient, selectedTrials, onBack }) {
             onChange={setLearned}
           />
         </section>
+
+        {/* Prev / Next wizard nav. On the last step, "Next" becomes the
+            print action so the resident can move from the final field
+            straight to saving the PDF without scrolling back up. */}
+        <div className="ws-nav no-print">
+          <button
+            type="button"
+            className="ws-pill ws-pill-secondary"
+            onClick={goPrev}
+            disabled={currentStep === 1}
+          >
+            ← Previous
+          </button>
+          <span className="ws-nav-progress muted small">
+            Step {currentStep} of {STEPS.length}
+          </span>
+          {currentStep < STEPS.length ? (
+            <button
+              type="button"
+              className="ws-pill ws-pill-primary"
+              onClick={goNext}
+            >
+              Next →
+            </button>
+          ) : (
+            <button
+              type="button"
+              className="ws-pill ws-pill-primary"
+              onClick={handlePrint}
+            >
+              Print / Save as PDF
+            </button>
+          )}
+        </div>
 
         {/* PBLI appendix — visible on screen and on print */}
         <section className="ws-appendix">
