@@ -135,6 +135,46 @@ export const DEMOGRAPHICS = {
     notReported: true,
     notes: 'Scandinavian multi-center trial (Denmark, Sweden, Finland); race not formally reported.',
   },
+
+  // ── Valvular disease: Aortic stenosis (TAVR) ──
+  'partner-1b': {
+    white: 93, black: 4, asian: 1, other: 2,
+    notes: 'US/Canada/Germany multi-center; predominantly elderly White cohort.',
+  },
+  'partner-1a': {
+    white: 94, black: 3, asian: 1, other: 2,
+    notes: 'US multi-center high-risk cohort; predominantly White, elderly.',
+  },
+  'corevalve-high-risk': {
+    white: 94, black: 4, asian: 1, other: 1,
+    notes: 'US multi-center; predominantly White cohort similar to PARTNER 1A.',
+  },
+  'partner-2a': {
+    white: 93, black: 4, asian: 1, other: 2,
+    notes: 'US/Canada multi-center; intermediate-risk cohort.',
+  },
+  'partner-3': {
+    white: 87, black: 4, asian: 2, other: 7,
+    notes: 'US/Canada/Europe/Australia/New Zealand low-risk cohort.',
+  },
+  'evolut-low-risk': {
+    white: 88, black: 4, asian: 2, other: 6,
+    notes: 'International multi-center self-expanding TAVR low-risk cohort.',
+  },
+
+  // ── Valvular disease: Mitral regurgitation (TEER) ──
+  'everest-ii': {
+    white: 91, black: 4, other: 5,
+    notes: 'US multi-center; predominantly degenerative-MR cohort.',
+  },
+  'coapt': {
+    white: 88, black: 7, asian: 1, other: 4,
+    notes: 'US/Canada multi-center HF + secondary-MR cohort.',
+  },
+  'mitra-fr': {
+    notReported: true,
+    notes: 'French multi-center trial (37 sites); race not formally reported. Population was predominantly White European.',
+  },
 };
 
 // Display order and brand colors. Slate/amber/indigo palette to match the

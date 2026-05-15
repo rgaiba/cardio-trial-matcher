@@ -36,12 +36,31 @@ export const EMPTY_PATIENT = {
     vascularDisease: undefined,
     mitralStenosis: undefined,
     mechanicalValve: undefined,
+    // Valvular-specific
+    bicuspidValve: undefined,
+    activeEndocarditis: undefined,
   },
   // AF-specific top-level fields
   afibType: 'unknown',           // paroxysmal | persistent | permanent | unknown
   afibSymptomatic: undefined,
   priorAblation: undefined,
   priorAADFailure: undefined,
+  // Valvular-specific top-level fields
+  aorticStenosis: {
+    severity: 'unknown',         // none | mild | moderate | severe | criticalLowFlowLowGradient | unknown
+    meanGradient: undefined,     // mmHg
+    valveArea: undefined,        // cm²
+    peakVelocity: undefined,     // m/s
+    symptomatic: undefined,      // dyspnea / syncope / angina attributable to AS
+  },
+  mitralRegurgitation: {
+    grade: undefined,            // 0–4 (1+ trace, 2+ mild, 3+ moderate-to-severe, 4+ severe)
+    etiology: 'unknown',         // primary | secondary | mixed | unknown
+    anatomySuitable: undefined,  // boolean — suitable for TEER on echo
+    ero: undefined,              // cm² (ERO area; 0.20 cm² = 20 mm²)
+  },
+  stsScore: undefined,           // STS PROM %
+  surgicalRisk: 'unknown',       // low | intermediate | high | inoperable | unknown
   recent: {
     miWithinMonths: undefined,
     hfHospWithinMonths: undefined,
@@ -88,7 +107,24 @@ const SAMPLE_PATIENT = {
     cadAmenableToCabg: true,
     leftMainGte50: false,
     ccsAnginaClass3plus: false,
+    bicuspidValve: false,
+    activeEndocarditis: false,
   },
+  aorticStenosis: {
+    severity: 'none',
+    meanGradient: undefined,
+    valveArea: undefined,
+    peakVelocity: undefined,
+    symptomatic: false,
+  },
+  mitralRegurgitation: {
+    grade: 1,
+    etiology: 'unknown',
+    anatomySuitable: undefined,
+    ero: undefined,
+  },
+  stsScore: undefined,
+  surgicalRisk: 'unknown',
   recent: {
     miWithinMonths: 18,
     hfHospWithinMonths: 4,
@@ -217,6 +253,7 @@ export default function PatientForm({ patient, onChange }) {
     { id: 'meds', label: 'Medications' },
     { id: 'labs', label: 'Labs' },
     { id: 'afib', label: 'AF' },
+    { id: 'valves', label: 'Valves' },
   ];
 
   return (
@@ -376,6 +413,134 @@ export default function PatientForm({ patient, onChange }) {
           <TriToggle label="Vascular disease (PAD or prior MI)" value={patient.comorbidities.vascularDisease} onChange={(v) => update('comorbidities.vascularDisease', v)} />
           <TriToggle label="Moderate–severe mitral stenosis" value={patient.comorbidities.mitralStenosis} onChange={(v) => update('comorbidities.mitralStenosis', v)} />
           <TriToggle label="Mechanical heart valve" value={patient.comorbidities.mechanicalValve} onChange={(v) => update('comorbidities.mechanicalValve', v)} />
+        </div>
+      )}
+
+      {activeTab === 'valves' && (
+        <div className="form-grid form-grid-tri">
+          {/* Aortic stenosis */}
+          <SelectInput
+            label="AS severity"
+            value={patient.aorticStenosis.severity}
+            onChange={(v) => update('aorticStenosis.severity', v)}
+            options={[
+              { value: 'unknown', label: 'Not specified' },
+              { value: 'none', label: 'None' },
+              { value: 'mild', label: 'Mild' },
+              { value: 'moderate', label: 'Moderate' },
+              { value: 'severe', label: 'Severe' },
+              { value: 'criticalLowFlowLowGradient', label: 'Severe low-flow / low-gradient' },
+            ]}
+          />
+          <NumberInput
+            label="AS mean gradient"
+            unit="mmHg"
+            min={0}
+            max={120}
+            value={patient.aorticStenosis.meanGradient}
+            onChange={(v) => update('aorticStenosis.meanGradient', v)}
+          />
+          <NumberInput
+            label="Aortic valve area"
+            unit="cm²"
+            min={0.2}
+            max={4.0}
+            step={0.1}
+            value={patient.aorticStenosis.valveArea}
+            onChange={(v) => update('aorticStenosis.valveArea', v)}
+          />
+          <NumberInput
+            label="Peak Ao jet velocity"
+            unit="m/s"
+            min={1.0}
+            max={6.5}
+            step={0.1}
+            value={patient.aorticStenosis.peakVelocity}
+            onChange={(v) => update('aorticStenosis.peakVelocity', v)}
+          />
+          <TriToggle
+            label="Symptomatic AS (dyspnea / syncope / angina)"
+            value={patient.aorticStenosis.symptomatic}
+            onChange={(v) => update('aorticStenosis.symptomatic', v)}
+          />
+          <TriToggle
+            label="Bicuspid aortic valve"
+            value={patient.comorbidities.bicuspidValve}
+            onChange={(v) => update('comorbidities.bicuspidValve', v)}
+          />
+
+          {/* Mitral regurgitation */}
+          <SelectInput
+            label="MR grade"
+            value={patient.mitralRegurgitation.grade ?? ''}
+            onChange={(v) =>
+              update('mitralRegurgitation.grade', v === '' ? undefined : Number(v))
+            }
+            options={[
+              { value: '', label: 'Not specified' },
+              { value: 0, label: '0 / none' },
+              { value: 1, label: '1+ / trace' },
+              { value: 2, label: '2+ / mild' },
+              { value: 3, label: '3+ / moderate-to-severe' },
+              { value: 4, label: '4+ / severe' },
+            ]}
+          />
+          <SelectInput
+            label="MR etiology"
+            value={patient.mitralRegurgitation.etiology}
+            onChange={(v) => update('mitralRegurgitation.etiology', v)}
+            options={[
+              { value: 'unknown', label: 'Not specified' },
+              { value: 'primary', label: 'Primary (degenerative)' },
+              { value: 'secondary', label: 'Secondary (functional)' },
+              { value: 'mixed', label: 'Mixed' },
+            ]}
+          />
+          <NumberInput
+            label="ERO area"
+            unit="cm²"
+            hint="0.20 = 20 mm²"
+            min={0}
+            max={1.0}
+            step={0.01}
+            value={patient.mitralRegurgitation.ero}
+            onChange={(v) => update('mitralRegurgitation.ero', v)}
+          />
+          <TriToggle
+            label="Mitral anatomy suitable for TEER"
+            value={patient.mitralRegurgitation.anatomySuitable}
+            onChange={(v) => update('mitralRegurgitation.anatomySuitable', v)}
+          />
+
+          {/* Surgical risk */}
+          <NumberInput
+            label="STS Predicted Risk of Mortality"
+            unit="%"
+            min={0}
+            max={50}
+            step={0.1}
+            value={patient.stsScore}
+            onChange={(v) => update('stsScore', v)}
+          />
+          <SelectInput
+            label="Heart-team surgical risk"
+            value={patient.surgicalRisk}
+            onChange={(v) => update('surgicalRisk', v)}
+            options={[
+              { value: 'unknown', label: 'Not specified' },
+              { value: 'low', label: 'Low' },
+              { value: 'intermediate', label: 'Intermediate' },
+              { value: 'high', label: 'High' },
+              { value: 'inoperable', label: 'Inoperable' },
+            ]}
+          />
+
+          {/* Other valvular comorbidities */}
+          <TriToggle
+            label="Active endocarditis or rheumatic valve disease"
+            value={patient.comorbidities.activeEndocarditis}
+            onChange={(v) => update('comorbidities.activeEndocarditis', v)}
+          />
         </div>
       )}
     </div>

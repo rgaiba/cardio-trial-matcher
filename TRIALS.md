@@ -1,6 +1,6 @@
 # Trial library
 
-The current release of [Cardiology Trial Match](https://cardiologytrialmatch.org) covers **2 topics, 7 groups, 30 landmark trials**. Each entry below links to the original publication's DOI. Encoded inclusion and exclusion criteria are simplified summaries of the published protocols; always consult the original publication before applying to clinical decisions.
+The current release of [Cardiology Trial Match](https://cardiologytrialmatch.org) covers **3 topics, 9 groups, 39 landmark trials**. Each entry below links to the original publication's DOI. Encoded inclusion and exclusion criteria are simplified summaries of the published protocols; always consult the original publication before applying to clinical decisions.
 
 To add a trial, see [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
@@ -90,6 +90,33 @@ Trials of pulmonary vein isolation and radiofrequency ablation for paroxysmal AF
 | APAF | 2006 | Circumferential PVA vs antiarrhythmic drugs | [10.1016/j.jacc.2006.08.037](https://doi.org/10.1016/j.jacc.2006.08.037) |
 | ThermoCool-AF | 2010 | RF catheter ablation vs antiarrhythmic drugs | [10.1001/jama.2009.2029](https://doi.org/10.1001/jama.2009.2029) |
 | MANTRA-PAF | 2012 | RF ablation vs first-line antiarrhythmic drugs | [10.1056/NEJMoa1113566](https://doi.org/10.1056/NEJMoa1113566) |
+
+---
+
+## Valvular disease
+
+### Aortic stenosis: TAVR pivotal trials
+
+Pivotal trials of transcatheter aortic valve replacement (TAVR) across the surgical-risk spectrum: inoperable, high, intermediate, and low risk.
+
+| Trial | Year | Intervention | Citation |
+|---|---|---|---|
+| PARTNER 1B | 2010 | Transfemoral TAVR vs standard therapy (inoperable) | [10.1056/NEJMoa1008232](https://doi.org/10.1056/NEJMoa1008232) |
+| PARTNER 1A | 2011 | Edwards SAPIEN TAVR vs SAVR (high risk) | [10.1056/NEJMoa1103510](https://doi.org/10.1056/NEJMoa1103510) |
+| CoreValve US Pivotal High Risk | 2014 | Self-expanding TAVR vs SAVR (high risk) | [10.1056/NEJMoa1400590](https://doi.org/10.1056/NEJMoa1400590) |
+| PARTNER 2A | 2016 | SAPIEN XT TAVR vs SAVR (intermediate risk) | [10.1056/NEJMoa1514616](https://doi.org/10.1056/NEJMoa1514616) |
+| PARTNER 3 | 2019 | SAPIEN 3 TAVR vs SAVR (low risk) | [10.1056/NEJMoa1814052](https://doi.org/10.1056/NEJMoa1814052) |
+| Evolut Low Risk | 2019 | Self-expanding TAVR vs SAVR (low risk) | [10.1056/NEJMoa1816885](https://doi.org/10.1056/NEJMoa1816885) |
+
+### Mitral regurgitation: transcatheter edge-to-edge repair (TEER)
+
+Trials of percutaneous mitral leaflet approximation (MitraClip / TEER) for primary degenerative and secondary functional mitral regurgitation.
+
+| Trial | Year | Intervention | Citation |
+|---|---|---|---|
+| EVEREST II | 2011 | MitraClip vs surgical mitral repair/replacement (primary MR) | [10.1056/NEJMoa1009355](https://doi.org/10.1056/NEJMoa1009355) |
+| COAPT | 2018 | MitraClip + GDMT vs GDMT (secondary MR + HF) | [10.1056/NEJMoa1806640](https://doi.org/10.1056/NEJMoa1806640) |
+| MITRA-FR | 2018 | MitraClip + medical therapy vs medical therapy (secondary MR) | [10.1056/NEJMoa1805374](https://doi.org/10.1056/NEJMoa1805374) |
 
 ---
 

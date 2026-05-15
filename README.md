@@ -8,7 +8,7 @@ An open-source, browser-based educational tool for evidence-based medicine. User
 
 **Live site:** https://cardiologytrialmatch.org
 
-**Status:** v1.0.0 (first production-ready release). Two topics populated: **heart failure** (17 trials across 4 groups) and **atrial fibrillation** (13 trials across 3 groups). Coronary artery disease topic scaffolded for future expansion. See [`CONTRIBUTING.md`](CONTRIBUTING.md) for the trial-addition recipe.
+**Status:** v1.0.0 (first production-ready release). Three topics populated: **heart failure** (17 trials across 4 groups), **atrial fibrillation** (13 trials across 3 groups), and **valvular disease** (9 trials across 2 groups). Coronary artery disease topic scaffolded for future expansion. See [`CONTRIBUTING.md`](CONTRIBUTING.md) for the trial-addition recipe.
 
 ## Disclaimer
 
@@ -16,7 +16,7 @@ This is an educational EBM tool intended for clinicians and trainees exploring h
 
 ## Trial library
 
-Trials are organized into a two-level taxonomy: **topic** (a clinical domain) → **group** (a clinically meaningful subdivision) → individual trial. The current release covers two topics, **heart failure** (4 groups, 17 trials) and **atrial fibrillation** (3 groups, 13 trials), for a total of **30 trials**.
+Trials are organized into a two-level taxonomy: **topic** (a clinical domain) → **group** (a clinically meaningful subdivision) → individual trial. The current release covers three topics, **heart failure** (4 groups, 17 trials), **atrial fibrillation** (3 groups, 13 trials), and **valvular disease** (2 groups, 9 trials), for a total of **39 trials**.
 
 The complete list with DOIs lives in [**TRIALS.md**](TRIALS.md) and is updated as new trials are added.
 

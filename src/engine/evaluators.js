@@ -292,6 +292,107 @@ export const evaluators = {
     return p.ntProBnp > cutoff ? 'met' : 'not_met';
   },
 
+  // ── Valvular disease ──
+  // Aortic stenosis severity: 'none' | 'mild' | 'moderate' | 'severe' |
+  // 'criticalLowFlowLowGradient'. Pass `severities` array of acceptable values.
+  asSeverityIn: (p, { severities }) => {
+    const v = p.aorticStenosis?.severity;
+    if (!v || v === 'unknown') return 'unknown';
+    return severities.includes(v) ? 'met' : 'not_met';
+  },
+  // AS mean transaortic gradient (mmHg)
+  asMeanGradientGte: (p, { threshold }) => {
+    const v = p.aorticStenosis?.meanGradient;
+    return !isNum(v) ? 'unknown' : v >= threshold ? 'met' : 'not_met';
+  },
+  asMeanGradientLt: (p, { threshold }) => {
+    const v = p.aorticStenosis?.meanGradient;
+    return !isNum(v) ? 'unknown' : v < threshold ? 'met' : 'not_met';
+  },
+  // AS aortic valve area (cm²)
+  asValveAreaLte: (p, { max }) => {
+    const v = p.aorticStenosis?.valveArea;
+    return !isNum(v) ? 'unknown' : v <= max ? 'met' : 'not_met';
+  },
+  // AS peak transaortic jet velocity (m/s)
+  asPeakVelocityGte: (p, { threshold }) => {
+    const v = p.aorticStenosis?.peakVelocity;
+    return !isNum(v) ? 'unknown' : v >= threshold ? 'met' : 'not_met';
+  },
+  // AS clinically symptomatic (dyspnea, syncope, angina attributable to AS)
+  asSymptomatic: (p) => {
+    const v = p.aorticStenosis?.symptomatic;
+    return !isBool(v) ? 'unknown' : v ? 'met' : 'not_met';
+  },
+  // Composite severe-AS check: AVA ≤1.0 OR mean gradient ≥40 OR peak velocity
+  // ≥4.0 — the standard "any one of three" criterion used by PARTNER and Evolut
+  // pivotal trials.
+  asSevereAny: (p) => {
+    const ava = p.aorticStenosis?.valveArea;
+    const mg = p.aorticStenosis?.meanGradient;
+    const pv = p.aorticStenosis?.peakVelocity;
+    const sev = p.aorticStenosis?.severity;
+    if (sev === 'severe' || sev === 'criticalLowFlowLowGradient') return 'met';
+    if (isNum(ava) && ava <= 1.0) return 'met';
+    if (isNum(mg) && mg >= 40) return 'met';
+    if (isNum(pv) && pv >= 4.0) return 'met';
+    if (isNum(ava) || isNum(mg) || isNum(pv) || sev) return 'not_met';
+    return 'unknown';
+  },
+
+  // Mitral regurgitation grade (0–4)
+  mrGradeGte: (p, { min }) => {
+    const v = p.mitralRegurgitation?.grade;
+    return !isNum(v) ? 'unknown' : v >= min ? 'met' : 'not_met';
+  },
+  mrGradeIn: (p, { grades }) => {
+    const v = p.mitralRegurgitation?.grade;
+    return !isNum(v) ? 'unknown' : grades.includes(v) ? 'met' : 'not_met';
+  },
+  // MR etiology: 'primary' (degenerative) | 'secondary' (functional) | 'mixed'
+  mrEtiologyIs: (p, { etiology }) => {
+    const v = p.mitralRegurgitation?.etiology;
+    if (!v || v === 'unknown') return 'unknown';
+    return v === etiology ? 'met' : 'not_met';
+  },
+  // Mitral anatomy suitable for transcatheter edge-to-edge repair on echo.
+  mitralAnatomySuitable: (p) => {
+    const v = p.mitralRegurgitation?.anatomySuitable;
+    return !isBool(v) ? 'unknown' : v ? 'met' : 'not_met';
+  },
+  // Effective regurgitant orifice area (ERO, cm²)
+  mrEroGte: (p, { threshold }) => {
+    const v = p.mitralRegurgitation?.ero;
+    return !isNum(v) ? 'unknown' : v >= threshold ? 'met' : 'not_met';
+  },
+
+  // Surgical risk — STS Predicted Risk of Mortality (PROM), %
+  stsScoreGte: (p, { threshold }) =>
+    !isNum(p.stsScore) ? 'unknown' : p.stsScore >= threshold ? 'met' : 'not_met',
+  stsScoreLt: (p, { threshold }) =>
+    !isNum(p.stsScore) ? 'unknown' : p.stsScore < threshold ? 'met' : 'not_met',
+  stsScoreBetween: (p, { min, max }) =>
+    !isNum(p.stsScore) ? 'unknown' : p.stsScore >= min && p.stsScore < max ? 'met' : 'not_met',
+  // Categorical heart-team surgical risk (low | intermediate | high | inoperable)
+  surgicalRiskIn: (p, { categories }) => {
+    const v = p.surgicalRisk;
+    if (!v || v === 'unknown') return 'unknown';
+    return categories.includes(v) ? 'met' : 'not_met';
+  },
+
+  // PARTNER-3 / Evolut-LR composite low-risk gate: STS <4% AND no surgical-risk
+  // flag bumping the patient to intermediate/high. Used as a single criterion
+  // so the trial card mirrors how the heart team applied it.
+  partnerLowRiskGate: (p) => {
+    const sts = p.stsScore;
+    const risk = p.surgicalRisk;
+    if (isNum(sts) && sts < 4 && (risk === 'low' || !risk || risk === 'unknown')) return 'met';
+    if (isNum(sts) && sts >= 4) return 'not_met';
+    if (risk === 'intermediate' || risk === 'high' || risk === 'inoperable') return 'not_met';
+    if (!isNum(sts) && (!risk || risk === 'unknown')) return 'unknown';
+    return 'met';
+  },
+
   hospOrNatriureticEmphasis: (p) => {
     const recentHosp = isNum(p.recent?.hfHospWithinMonths) && p.recent.hfHospWithinMonths <= 6;
     if (recentHosp) return 'met';
