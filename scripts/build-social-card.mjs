@@ -24,47 +24,15 @@ const activeTopics = TOPICS.filter((t) =>
   TRIALS.some((tr) => tr.topicId === t.id)
 );
 const topicLabels = activeTopics.map((t) => t.label).join(' · ');
-const bodyLine = `criteria of ${totalTrials} landmark cardiology trials.`;
-
-// Per-topic trial count for the chip row
-const topicChipData = activeTopics.map((t) => ({
-  label: t.label,
-  count: TRIALS.filter((tr) => tr.topicId === t.id).length,
-}));
+// Body line is intentionally count-free: social platforms cache the OG image,
+// so a hard number would go stale on already-shared links as trials are added.
+const bodyLine =
+  'Match patient profiles to inclusion and exclusion criteria of landmark cardiology trials.';
 
 // ── SVG template ───────────────────────────────────────────────────────────
-// Card design: dark slate background, brand mark on left, title + tagline
-// + body line on right, auto-generated topic chips below, URL footer.
-// Standard OG image dimensions: 1200x630.
-
-function chipPills(chips) {
-  // Lay out chips left-to-right starting at x=0, with 20px gap.
-  // Each chip width = label length * 13 + 80 (rough heuristic that fits the
-  // current chip designs). Caps at 5 chips before truncating.
-  const pad = 20;
-  let xOffset = 0;
-  const visible = chips.slice(0, 5);
-  return visible
-    .map((chip, i) => {
-      const labelWidth = chip.label.length * 13 + 80;
-      const fillFirst = i === 0; // first chip uses the brand accent
-      const x = xOffset;
-      xOffset += labelWidth + pad;
-      return `
-    <g transform="translate(${x}, 0)">
-      <rect width="${labelWidth}" height="64" rx="32"
-            fill="${fillFirst ? '#dc2626' : 'none'}"
-            stroke="${fillFirst ? '#dc2626' : '#475569'}" stroke-width="${fillFirst ? 0 : 1.5}"/>
-      <text x="34" y="42" font-size="22" font-weight="500"
-            fill="${fillFirst ? '#ffffff' : '#cbd5e1'}">${chip.label}</text>
-      <rect x="${labelWidth - 90}" y="20" width="56" height="24" rx="12"
-            fill="${fillFirst ? 'rgba(255,255,255,0.22)' : 'rgba(203,213,225,0.18)'}"/>
-      <text x="${labelWidth - 62}" y="38" font-size="14" font-weight="600"
-            fill="${fillFirst ? '#ffffff' : '#cbd5e1'}" text-anchor="middle">${chip.count}</text>
-    </g>`;
-    })
-    .join('');
-}
+// Card design: dark slate background, brand mark on the left with the title
+// + tagline beside it, the body line centered below, then the URL footer.
+// All content is vertically centered on the card. 1200x630.
 
 const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
   <defs>
@@ -81,7 +49,7 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" widt
   <rect width="1200" height="630" fill="#0f172a"/>
   <circle cx="1200" cy="630" r="480" fill="#dc2626" opacity="0.08"/>
 
-  <g transform="translate(80, 80)">
+  <g transform="translate(80, 107)">
     <rect width="240" height="240" rx="42" fill="#0b1428" stroke="#1e293b" stroke-width="2"/>
     <g transform="translate(40, 40) scale(5)">
       <path d="M 2 16 H 7 L 9 12 L 11 21 L 14 16 H 18 L 20 11 L 22 22 L 25 16 H 30"
@@ -99,20 +67,14 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" widt
   </g>
 
   <g font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" fill="#ffffff">
-    <text x="370" y="170" font-size="64" font-weight="700" letter-spacing="-1">Cardiology Trial Match</text>
-    <text x="370" y="220" font-size="28" font-weight="400" fill="#cbd5e1">Landmark Cardiology Trials | EBM Education Tool</text>
-    <text x="370" y="310" font-size="26" font-weight="400" fill="#e2e8f0">
-      Match patient profiles to inclusion and exclusion
-    </text>
-    <text x="370" y="346" font-size="26" font-weight="400" fill="#e2e8f0">${bodyLine}</text>
-  </g>
-
-  <g transform="translate(80, 440)" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">${chipPills(topicChipData)}
+    <text x="370" y="222" font-size="64" font-weight="700" letter-spacing="-1">Cardiology Trial Match</text>
+    <text x="370" y="272" font-size="28" font-weight="400" fill="#cbd5e1">Landmark Cardiology Trials | EBM Education Tool</text>
+    <text x="600" y="423" font-size="26" font-weight="400" fill="#e2e8f0" text-anchor="middle">${bodyLine}</text>
   </g>
 
   <g font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
-    <text x="80" y="570" font-size="22" font-weight="500" fill="#94a3b8">cardiologytrialmatch.org</text>
-    <text x="1120" y="570" font-size="18" font-weight="400" fill="#64748b" text-anchor="end">Open source · MIT licensed · DOI 10.5281/zenodo.19803459</text>
+    <text x="80" y="518" font-size="22" font-weight="500" fill="#94a3b8">cardiologytrialmatch.org</text>
+    <text x="1120" y="518" font-size="18" font-weight="400" fill="#64748b" text-anchor="end">Open source · MIT licensed</text>
   </g>
 </svg>
 `;
