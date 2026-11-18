@@ -1,6 +1,8 @@
 import { useMemo, useState } from 'react';
 import { summarizeForWorksheet } from '../engine/appraisal.js';
-import { trackEvidenceInserted } from '../engine/analytics.js';
+import { trackEvidenceInserted, trackWorksheetInsert } from '../engine/analytics.js';
+import { summarizeEffectForWorksheet, summarizeFlagsForWorksheet } from '../engine/absoluteEffect.js';
+import ForestPlot from './ForestPlot.jsx';
 import { STATUS_META } from '../engine/matchEngine.js';
 
 /**
@@ -528,6 +530,26 @@ export default function Worksheet({ patient, selectedTrials, onBack }) {
             onChange={setValidity}
           />
 
+          {selectedTrials.length > 0 && (
+            <div className="ws-forest">
+              <ForestPlot trials={selectedTrials} />
+              <div className="ws-evidence-insert no-print">
+                <button
+                  type="button"
+                  className="btn-secondary"
+                  onClick={() => {
+                    const draft = selectedTrials.map((t) => summarizeEffectForWorksheet(t)).join('\n\n');
+                    setResults((v) => (v ? `${v}\n\n${draft}` : draft));
+                    trackWorksheetInsert('results', selectedTrials.length);
+                  }}
+                >
+                  Insert absolute effects for selected trials
+                </button>
+                <span className="muted small"> Adds each trial&apos;s numbers at its own control rate. Edit them into your own reading.</span>
+              </div>
+            </div>
+          )}
+
           <Field
             id="ws-results"
             label={<>Results <em className="ws-field-italic">What did the evidence show?</em></>}
@@ -537,6 +559,23 @@ export default function Worksheet({ patient, selectedTrials, onBack }) {
             value={results}
             onChange={setResults}
           />
+
+          {selectedTrials.length > 0 && (
+            <div className="ws-evidence-insert no-print">
+              <button
+                type="button"
+                className="btn-secondary"
+                onClick={() => {
+                  const draft = selectedTrials.map((t) => summarizeFlagsForWorksheet(t, patient)).join('\n\n');
+                  setApplicability((v) => (v ? `${v}\n\n${draft}` : draft));
+                  trackWorksheetInsert('applicability', selectedTrials.length);
+                }}
+              >
+                Insert population comparison for selected trials
+              </button>
+              <span className="muted small"> Compares the patient form with each trial&apos;s enrolled patients.</span>
+            </div>
+          )}
 
           <Field
             id="ws-applicability"
