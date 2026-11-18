@@ -329,3 +329,10 @@ The evidence card ("How was this trial built?") reads `src/data/evidence.js`. To
 2. **In `src/data/evidence.js`:** copy an existing entry, key it by the trial id from `trials.js`, and fill each field using the allowed values listed at the top of the file. Add at least one source link per entry and put any field you could not confirm in `fieldsToVerify`.
 3. **Second reviewer:** checks every field against the paper and fills `verifiedBy` with their name and the date in `lastVerified`.
 4. **In the terminal:** run `npm test`. It checks allowed values, sources, and the expected grades for the pilot trials. The build runs the same test, so a bad entry blocks deploy.
+
+## Adding absolute-effect data for a trial
+
+1. **In the trial paper:** find the primary end point's control and treated values, the follow-up they refer to, the ratio (HR, OR or RR) with its 95% CI, and any harm outcome reported the same way. From Table 1, take age and any of LVEF, EROA or STS score as mean and SD (or median and IQR).
+2. **In `src/data/outcomes.js`:** copy an existing entry and key it by the trial id. Use `kind: 'risk'` for a cumulative proportion (give `horizon`), `'rate'` for events per 100 patient-years, or `'none'` with a `note` when the end point has no baseline risk. List any patient-form medicines the trial predates in `predatesTherapies`. Put anything you could not confirm in `fieldsToVerify`.
+3. **Second reviewer:** checks every number against the paper and fills `verifiedBy`.
+4. **In the terminal:** run `npm test`. It fails if the engine cannot reproduce the published treated value within 1 point, which catches most transcription errors.

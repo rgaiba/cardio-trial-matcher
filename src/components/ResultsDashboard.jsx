@@ -6,6 +6,7 @@ import { TRIAL_GROUPS } from '../data/trials.js';
 
 export default function ResultsDashboard({
   results,
+  patient,
   topicFilter,
   selectedTrialIds,
   onToggleTrialSelected,
@@ -114,6 +115,7 @@ export default function ResultsDashboard({
                 key={trial.id}
                 trial={trial}
                 evaluation={evaluation}
+                patient={patient}
                 anchorId={`trial-${trial.id}`}
                 defaultOpen={trial.id === highlightId}
                 selected={selectedTrialIds?.has(trial.id)}

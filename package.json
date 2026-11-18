@@ -30,8 +30,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "prebuild": "node scripts/smoke-evidence.mjs && node scripts/build-social-card.mjs",
-    "test": "node scripts/smoke-evidence.mjs",
+    "prebuild": "node scripts/smoke-evidence.mjs && node scripts/smoke-absolute.mjs && node scripts/build-social-card.mjs",
+    "test": "node scripts/smoke-evidence.mjs && node scripts/smoke-absolute.mjs",
     "build": "vite build",
     "preview": "vite preview",
     "build:social-card": "node scripts/build-social-card.mjs"
