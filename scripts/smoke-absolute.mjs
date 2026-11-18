@@ -10,6 +10,8 @@ import {
   transportFlags,
   compareToSummary,
   numberNeeded,
+  forestRows,
+  summarizeFlagsForWorksheet,
 } from '../src/engine/absoluteEffect.js';
 
 let failures = 0;
@@ -127,6 +129,26 @@ if (compareToSummary(80, { type: 'median-iqr', median: 70, q1: 63, q3: 76 })?.le
   if (transportFlags('mitra-fr', p).some((f) => f.field === 'ero')) fail('MITRA-FR EROA 25 should not flag');
 }
 if (transportFlags('aristotle', {}).length !== 0) fail('empty patient should give no flags');
+
+// 5. Forest rows ----------------------------------------------------------
+{
+  const byId = Object.fromEntries(TRIALS.map((t) => [t.id, t]));
+  const uncurated = TRIALS.find((t) => !OUTCOMES[t.id]);
+  const rows = forestRows([byId['madit-ii'], byId['mantra-paf'], byId.pallas, uncurated]);
+  const st = rows.map((r) => r.status).join(',');
+  if (st !== 'ok,none,ok,uncurated') fail(`forest statuses: ${st}`);
+  near(rows[0].ard, -5.6, 0.3, 'MADIT-II absolute difference at own rate');
+  if (!(rows[2].ard > 0)) fail('PALLAS absolute difference should be positive (harm)');
+  if (!(rows[0].ardRange[0] < rows[0].ard && rows[0].ard < rows[0].ardRange[1])) fail('MADIT-II ard outside its range');
+
+  // Same baseline 10%: 1 - 0.9^0.69 = 7.02%, so -2.98 points.
+  const same = forestRows([byId['madit-ii'], byId.coapt], { sameBaseline: 10 });
+  near(same[0].ard, -2.98, 0.02, 'MADIT-II at 10% baseline');
+  if (same[1].control !== 10) fail('same-baseline should override COAPT control');
+
+  const txt = summarizeFlagsForWorksheet(byId['madit-ii'], { age: 64, lvef: 35 });
+  if (!txt.includes('few like this')) fail('worksheet flag summary should mark LVEF 35 as few like this');
+}
 
 const covered = Object.keys(OUTCOMES).length;
 if (failures) {

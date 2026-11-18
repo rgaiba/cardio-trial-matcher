@@ -1738,3 +1738,24 @@ a { color: var(--primary); }
 .ae-flags ul { list-style: none; margin: 4px 0 8px; padding: 0; display: grid; gap: 4px; }
 .ae-flags li { display: flex; gap: 6px; align-items: flex-start; }
 @media print { .ae-slider input, .ae-reset { display: none; } }
+
+/* ---- Worksheet forest plot ---- */
+.ws-forest { margin: 12px 0 4px; }
+.forest-controls { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; }
+.forest-baseline { display: inline-flex; align-items: center; gap: 8px; }
+.forest-baseline input { width: 160px; accent-color: var(--primary); }
+.forest-mode { margin: 4px 0; }
+.forest-svg { width: 100%; height: auto; display: block; font-family: inherit; }
+.forest-head { font-size: 12px; font-weight: 600; fill: var(--text); }
+.forest-sub { font-size: 10px; fill: var(--muted); }
+.forest-name { font-size: 12px; font-weight: 600; fill: var(--text); }
+.forest-detail { font-size: 10px; fill: var(--muted); }
+.forest-tick { font-size: 10px; fill: var(--muted); }
+.forest-band { fill: var(--bg); }
+.forest-ref { stroke: var(--border-strong); stroke-dasharray: 3 3; }
+.forest-axis { stroke: var(--muted); }
+.forest-ci { stroke: var(--text); stroke-width: 1.5; }
+.forest-point { stroke: var(--text); stroke-width: 0.5; }
+.forest-notes { margin: 6px 0 0; padding-left: 18px; }
+.forest-notes li { margin-bottom: 2px; }
+@media print { .ws-forest { break-inside: avoid; } }

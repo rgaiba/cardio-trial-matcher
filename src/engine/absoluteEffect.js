@@ -120,6 +120,13 @@ function numberRangeFrom([lo, hi]) {
   };
 }
 
+function withPublished(effect, outcome) {
+  if (!Number.isFinite(outcome.treated)) return effect;
+  const sign = outcome.lowerIsBetter === false ? -1 : 1;
+  const diff = sign * (outcome.control - outcome.treated);
+  return { ...effect, treated: outcome.treated, diff, number: numberNeeded(diff) };
+}
+
 /** Ceil an NNT for display; whole patients only. */
 export function roundNumber(n) {
   if (!Number.isFinite(n)) return '∞';
@@ -174,7 +181,8 @@ function patientValue(patient, field) {
 }
 
 function fmt(n) {
-  return String(Math.round(n * 10) / 10);
+  const d = Math.abs(n) < 10 ? 100 : 10;
+  return String(Math.round(n * d) / d);
 }
 
 /** Compare one value with one baseline summary. Returns a flag or null. */
@@ -197,7 +205,7 @@ export function compareToSummary(value, summary) {
 
 function summaryText(summary, unit) {
   if (summary.type === 'mean-sd') return `trial mean ${fmt(summary.mean)} ± ${fmt(summary.sd)}${unit}`;
-  return `trial median ${fmt(summary.median)}${unit} (IQR ${fmt(summary.q1)}–${fmt(summary.q3)})`;
+  return `trial median ${fmt(summary.median)}${unit}, IQR ${fmt(summary.q1)}–${fmt(summary.q3)}`;
 }
 
 /**
@@ -253,8 +261,10 @@ export function absoluteEffectModel(trialId, multiplier = 1) {
   }
   const cap = p.kind === 'rate' ? Infinity : MAX_RISK_PCT;
   const baseline = Math.min(cap, p.control * multiplier);
-  const primary = computeEffect(p, baseline);
-  const atTrial = computeEffect(p, p.control);
+  // At the trial's own rate, report the published treated value rather
+  // than the transform's reconstruction of it (they differ by rounding).
+  const atTrial = withPublished(computeEffect(p, p.control), p);
+  const primary = multiplier === 1 ? atTrial : computeEffect(p, baseline);
 
   let safety = null;
   if (data.safety) {
@@ -294,5 +304,77 @@ export function summarizeEffectForWorksheet(trial, multiplier = 1) {
   ];
   const r = describeNumberRange(e.numberRange, '');
   if (r) lines.push(`- ${r}.`);
+  if (e.direction === 'uncertain' && p.ci) lines.push('- The CI includes no difference, so the point estimate alone overstates what is known.');
   return lines.join('\n');
+}
+
+// ---------------------------------------------------------------------------
+// Forest plot rows (worksheet)
+// ---------------------------------------------------------------------------
+
+/**
+ * One row per selected trial for the worksheet forest plot.
+ *
+ * Default mode: each trial at its own control rate and follow-up, so the
+ * absolute column has mixed units (shown per row). Same-baseline mode:
+ * every trial's ratio is applied to one baseline risk (percent), treating
+ * each ratio as if it acted on a cumulative risk over that trial's own
+ * follow-up. That holds a patient constant to compare relative effects; it
+ * does not make the follow-ups or end points comparable.
+ *
+ * Absolute values are treated minus control, so negative means fewer
+ * events with treatment (left side, matching ratios below 1).
+ */
+export function forestRows(trials, { sameBaseline = null } = {}) {
+  return trials.map((t) => {
+    const data = OUTCOMES[t.id];
+    const base = { id: t.id, name: t.name, year: t.year };
+    if (!data) return { ...base, status: 'uncurated' };
+    const p = data.primary;
+    if (p.kind === 'none') return { ...base, status: 'none', label: p.label, reason: p.note };
+
+    const kind = sameBaseline != null ? 'risk' : p.kind;
+    const control = sameBaseline != null ? sameBaseline : p.control;
+    let effect = computeEffect({ ...p, kind }, control);
+    if (sameBaseline == null) effect = withPublished(effect, p);
+    // computeEffect's diff is control - treated (benefit positive); flip.
+    const ard = -effect.diff;
+    const ardRange = effect.diffRange ? [-effect.diffRange[1], -effect.diffRange[0]] : null;
+
+    let unit;
+    if (sameBaseline != null) unit = `points over ${p.kind === 'rate' ? 'the trial follow-up' : p.horizon}`;
+    else if (p.kind === 'rate') unit = 'per 100 patient-years';
+    else unit = `points over ${p.horizon}`;
+
+    return {
+      ...base,
+      status: 'ok',
+      label: p.label,
+      measure: p.measure,
+      estimate: p.estimate,
+      ci: p.ci,
+      control,
+      treated: effect.treated,
+      ard,
+      ardRange,
+      unit,
+      direction: effect.direction,
+      rateBased: p.kind === 'rate',
+    };
+  });
+}
+
+/** Population-flag text for the worksheet applicability box. */
+export function summarizeFlagsForWorksheet(trial, patient) {
+  if (!OUTCOMES[trial.id]) return `${trial.name} (${trial.year})\n- Population comparison: trial baseline not yet curated.`;
+  const flags = transportFlags(trial.id, patient);
+  const d = OUTCOMES[trial.id];
+  const comparable = Object.keys(d.baseline || {}).length + (d.predatesTherapies || []).length;
+  if (!flags.length && !comparable) {
+    return `${trial.name} (${trial.year})\n- Population comparison: no baseline summary curated for this trial yet. Check its Table 1 directly.`;
+  }
+  if (!flags.length) {
+    return `${trial.name} (${trial.year})\n- No population flags from the fields entered (age, LVEF, EROA, STS score, background drugs). Fields left blank are not compared.`;
+  }
+  return [`${trial.name} (${trial.year})`, ...flags.map((f) => `- [${f.level === 'flag' ? 'few like this' : 'less typical'}] ${f.text}`)].join('\n');
 }

@@ -96,6 +96,14 @@ Each curated trial card has a second panel that turns the trial's relative effec
 
 Numbers describe patients like those in the trial, not a prediction for one person.
 
+### Forest plot in the EBM worksheet
+
+Step 3 of the worksheet plots the selected trials side by side: the relative effect (HR, OR or RR) on a log scale and the absolute difference (treated minus control) on a linear scale, each with its 95% CI. Row color comes from the trial's design checks, so a large effect from a weakly built trial stands out. A toggle applies every trial's ratio to one baseline risk, holding the patient constant.
+
+No pooled estimate is shown. Selected trials usually differ in comparator, era, follow-up and end point. Two new buttons insert drafts into the worksheet: absolute effects into the results box, and the patient-versus-trial population comparison into the applicability box.
+
+- UI: `src/components/ForestPlot.jsx` (plain SVG, prints with the worksheet). Rows: `forestRows()` in `src/engine/absoluteEffect.js`.
+
 ### NNT caveat
 
 For trials without absolute-effect data, when a trial is anything other than 100% eligible, the trial card surfaces a small note under NNT: *"NNT increases when trial results are applied to lower-risk populations."* This is a standard EBM caution: the published NNT applies to the trial population; patients who differ from that population (especially toward lower baseline risk) typically have higher NNTs in practice.

@@ -77,3 +77,16 @@ export function trackBaselineAdjusted(trialId) {
 export function trackTransportFlag(trialId, field) {
   trackEvent(`absolute-transport/${trialId}/${field}`, `Transport flag shown: ${field}`);
 }
+
+// Worksheet forest plot.
+export function trackForestViewed(count) {
+  trackEvent('forest-viewed', `Forest plot viewed (${count} trials)`);
+}
+
+export function trackSameBaseline() {
+  trackEvent('forest-same-baseline', 'Forest plot same-baseline toggle used');
+}
+
+export function trackWorksheetInsert(kind, count) {
+  trackEvent(`worksheet-insert/${kind}`, `Worksheet ${kind} draft inserted (${count} trials)`);
+}
