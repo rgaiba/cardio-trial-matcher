@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import TrialRadarChart from './TrialRadarChart.jsx';
 import RaceBar from './RaceBar.jsx';
+import EvidencePanel from './EvidencePanel.jsx';
 import { STATUS_META } from '../engine/matchEngine.js';
 import { trackTrialOpened } from '../engine/analytics.js';
 
@@ -105,6 +106,7 @@ export default function TrialCard({ trial, evaluation, defaultOpen, anchorId, se
                 </p>
               )}
               <RaceBar trialId={trial.id} />
+              <EvidencePanel trial={trial} />
               <p className="citation muted small">
                 {trial.citation}{' '}
                 {trial.url && (

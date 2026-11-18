@@ -45,3 +45,19 @@ export function trackTopicSwitched(topicId) {
 export function trackSiteShared() {
   trackEvent('site-shared', 'Site URL shared');
 }
+
+// Fired when a user expands the evidence card ("How was this trial built?").
+// Logs the trial id only, never patient inputs.
+export function trackEvidenceOpened(trialId, trialName) {
+  trackEvent(`evidence-opened/${trialId}`, `Evidence card opened: ${trialName}`);
+}
+
+// Fired when a user opens "Why this matters" on one evidence check.
+export function trackWhyOpened(trialId, checkId) {
+  trackEvent(`evidence-why/${trialId}/${checkId}`, `Evidence why opened: ${checkId}`);
+}
+
+// Fired when a user inserts the evidence-check summary into the worksheet.
+export function trackEvidenceInserted(count) {
+  trackEvent('evidence-inserted', `Evidence summary inserted (${count} trials)`);
+}

@@ -1,4 +1,6 @@
 import { useMemo, useState } from 'react';
+import { summarizeForWorksheet } from '../engine/appraisal.js';
+import { trackEvidenceInserted } from '../engine/analytics.js';
 import { STATUS_META } from '../engine/matchEngine.js';
 
 /**
@@ -496,6 +498,23 @@ export default function Worksheet({ patient, selectedTrials, onBack }) {
                   </li>
                 ))}
               </ol>
+            </div>
+          )}
+
+          {selectedTrials.length > 0 && (
+            <div className="ws-evidence-insert no-print">
+              <button
+                type="button"
+                className="btn-secondary"
+                onClick={() => {
+                  const draft = selectedTrials.map((t) => summarizeForWorksheet(t)).join('\n\n');
+                  setValidity((v) => (v ? `${v}\n\n${draft}` : draft));
+                  trackEvidenceInserted(selectedTrials.length);
+                }}
+              >
+                Insert design checks for selected trials
+              </button>
+              <span className="muted small"> Adds a draft from the evidence cards. Edit it into your own appraisal.</span>
             </div>
           )}
 

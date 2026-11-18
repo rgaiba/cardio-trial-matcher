@@ -317,3 +317,15 @@ For the impatient:
 5. Run `node scripts/smoke.mjs` and `node scripts/smoke-afib.mjs`
 6. `npm run dev` to verify visually
 7. Commit, push, the deploy workflow handles the rest (including regenerating the social card)
+
+
+---
+
+## Adding evidence-card data for a trial
+
+The evidence card ("How was this trial built?") reads `src/data/evidence.js`. To add a trial:
+
+1. **In the trial paper:** find masking, sham use, primary end point, enrollment years, comparator, number screened and randomized, design (superiority or noninferiority) and margin, analysis population, and funding statement.
+2. **In `src/data/evidence.js`:** copy an existing entry, key it by the trial id from `trials.js`, and fill each field using the allowed values listed at the top of the file. Add at least one source link per entry and put any field you could not confirm in `fieldsToVerify`.
+3. **Second reviewer:** checks every field against the paper and fills `verifiedBy` with their name and the date in `lastVerified`.
+4. **In the terminal:** run `npm test`. It checks allowed values, sources, and the expected grades for the pilot trials. The build runs the same test, so a bad entry blocks deploy.
