@@ -76,10 +76,12 @@ for (const [id, d] of Object.entries(OUTCOMES)) {
   if (p.kind === 'risk' && !p.horizon) fail(`${id}: risk outcome needs a horizon`);
 
   // The engine must reproduce the published treated value from the
-  // published control value and relative effect. Tolerance: 1 point, since
+  // published control value and relative effect, since
   // published figures are Kaplan–Meier or crude and the transform is an
-  // approximation.
-  near(projectTreated(p.control, p.measure, p.estimate, p.kind), p.treated, 1, `${id}: reproduce treated value`);
+  // approximation. Tolerance: 1 point or 10% of the control value.
+  // Tolerance grows with the control value: crude proportions over long
+  // follow-up diverge more from the hazard-ratio transform.
+  near(projectTreated(p.control, p.measure, p.estimate, p.kind), p.treated, Math.max(1, 0.1 * p.control), `${id}: reproduce treated value`);
 
   if (d.safety && d.safety.kind !== 'single-arm') {
     const s = d.safety;
@@ -102,12 +104,20 @@ const expectDir = {
   coapt: 'benefit',
   pallas: 'harm',
   'mitra-fr': 'uncertain',
+  'scd-heft': 'benefit',
+  'castle-af': 'benefit',
+  danish: 'uncertain',
+  ocean: 'uncertain',
+  'champion-af': 'uncertain',
+  'closure-af': 'harm',
 };
 for (const [id, dir] of Object.entries(expectDir)) {
   const got = absoluteEffectModel(id, 1)?.primary?.direction;
   if (got !== dir) fail(`${id}: expected ${dir}, got ${got}`);
 }
-if (absoluteEffectModel('mantra-paf')?.applicable !== false) fail('mantra-paf should be not applicable');
+for (const id of ['mantra-paf', 'pvi-sham-af']) {
+  if (absoluteEffectModel(id)?.applicable !== false) fail(`${id} should be not applicable`);
+}
 if (absoluteEffectModel('not-a-trial') !== null) fail('uncurated trial should return null');
 
 // 4. Transport flags -----------------------------------------------------

@@ -125,7 +125,54 @@ export const evaluators = {
   noPriorAAD: (p) =>
     !isBool(p.priorAADFailure) ? 'unknown' : !p.priorAADFailure ? 'met' : 'not_met',
 
+  // OCEAN: months since the last ablation with no documented AF recurrence.
+  afFreeMonthsGte: (p, { months }) =>
+    !isNum(p.afFreeMonthsAfterAblation)
+      ? 'unknown'
+      : p.afFreeMonthsAfterAblation >= months ? 'met' : 'not_met',
+
+  // ── Natriuretic peptides (simple thresholds) ──
+  ntProBnpGt: (p, { threshold }) =>
+    !isNum(p.ntProBnp) ? 'unknown' : p.ntProBnp > threshold ? 'met' : 'not_met',
+
   // ── CHADS2 / CHA2DS2-VASc style composites ──
+  // CHA2DS2-VASc at or above a sex-specific threshold. Counts known points;
+  // returns 'met' once the known points reach the threshold, 'not_met' when
+  // even every unknown item scoring could not reach it, else 'unknown'.
+  cha2ds2vascGte: (p, { men, women }) => {
+    const items = [
+      ['hfHistory', 1],
+      ['htn', 1],
+      ['ageGte75', 2],
+      ['diabetes', 1],
+      ['priorStrokeOrTIA', 2],
+      ['vascularDisease', 1],
+    ];
+    let known = 0; // points certainly present (sex excluded)
+    let max = 0; // points that could be present (sex excluded)
+    for (const [f, pts] of items) {
+      const r = checkRiskFactor(p, f);
+      if (r === 'met') known += pts;
+      if (r !== 'not_met') max += pts;
+    }
+    // Age 65–74 scores 1; an unknown age is already covered by the ≥75 slot.
+    if (isNum(p.age) && p.age >= 65 && p.age < 75) { known += 1; max += 1; }
+
+    const meets = (score, sex) => score >= (sex === 'F' ? women : men);
+    const sexes = p.sex === 'F' || p.sex === 'M' ? [p.sex] : ['M', 'F'];
+    const lo = (sex) => known + (sex === 'F' ? 1 : 0);
+    const hi = (sex) => max + (sex === 'F' ? 1 : 0);
+    if (sexes.every((sx) => meets(lo(sx), sx))) return 'met';
+    if (sexes.every((sx) => !meets(hi(sx), sx))) return 'not_met';
+    return 'unknown';
+  },
+
+  // CLOSURE-AF high bleeding risk: HAS-BLED ≥3, prior major bleeding, or
+  // eGFR 15–29. The form captures only eGFR, so eGFR 15–29 returns 'met' and
+  // anything else returns 'unknown' (HAS-BLED and bleeding history not asked).
+  closureBleedRisk: (p) =>
+    isNum(p.egfr) && p.egfr >= 15 && p.egfr < 30 ? 'met' : 'unknown',
+
   // Generic "≥1 stroke risk factor" — used by ARISTOTLE, RE-LY, etc.
   // Each trial has slightly different qualifying factors; pass `factors` array.
   hasAnyRiskFactor: (p, { factors }) => {

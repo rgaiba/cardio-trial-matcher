@@ -89,7 +89,11 @@ function blindingCheck(e) {
 }
 
 function endpointCheck(e) {
-  const note = e.primaryEndpointNote ? ` (${e.primaryEndpointNote.charAt(0).toLowerCase()}${e.primaryEndpointNote.slice(1)})` : '';
+  // Lowercase the first letter for mid-sentence use, but leave acronyms
+  // such as "CV death" or "AF burden" alone.
+  const n = e.primaryEndpointNote;
+  const lowered = n && !/^[A-Z]{2}/.test(n) ? n.charAt(0).toLowerCase() + n.slice(1) : n;
+  const note = n ? ` (${lowered})` : '';
   switch (e.primaryEndpointType) {
     case 'mortality':
     case 'hard-event':
@@ -154,10 +158,18 @@ function noninferiorityCheck(e) {
     return check('noninferiority', 'Noninferiority margin', 'pass', 'Superiority design; no noninferiority margin.');
   }
   const m = e.niMargin;
-  const wide = (m.type === 'hr' && m.value >= 1.3) || (m.type === 'absolute-pct' && m.value >= 5);
-  const marginText = m.type === 'hr'
+  // An absolute margin is judged against the control event rate when it is
+  // recorded: a 4.8-point margin on a 4.8% control rate allows a doubling.
+  const relToControl = m.type === 'absolute-pct' && m.controlPct > 0 ? m.value / m.controlPct : null;
+  const wide =
+    (m.type === 'hr' && m.value >= 1.3) ||
+    (m.type === 'absolute-pct' && (m.value >= 5 || (relToControl != null && relToControl >= 0.5)));
+  let marginText = m.type === 'hr'
     ? `a hazard ratio upper limit of ${m.value} (up to ${Math.round((m.value - 1) * 100)}% relatively worse)`
     : `an absolute difference of ${m.value} percentage points`;
+  if (relToControl != null) {
+    marginText += ` on a control event rate of ${m.controlPct}%, so up to ${Math.round(relToControl * 100)}% more events would still count as noninferior`;
+  }
   if (wide && e.superiorityShown) {
     return check('noninferiority', 'Noninferiority margin', 'pass', `Margin was ${marginText}, which is wide, but superiority was also shown, so the margin did not decide the result.`);
   }

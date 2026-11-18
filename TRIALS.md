@@ -1,6 +1,6 @@
 # Trial library
 
-The current release of [Cardiology Trial Match](https://cardiologytrialmatch.org) covers **3 topics, 9 groups, 39 landmark trials**. Each entry below links to the original publication's DOI. Encoded inclusion and exclusion criteria are simplified summaries of the published protocols; always consult the original publication before applying to clinical decisions.
+The current release of [Cardiology Trial Match](https://cardiologytrialmatch.org) covers **3 topics, 10 groups, 46 landmark trials**. Each entry below links to the original publication's DOI. Encoded inclusion and exclusion criteria are simplified summaries of the published protocols; always consult the original publication before applying to clinical decisions.
 
 To add a trial, see [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
@@ -38,6 +38,8 @@ Trials of implantable defibrillators, cardiac resynchronization therapy, and sur
 | Trial | Year | Intervention | Citation |
 |---|---|---|---|
 | MADIT-II | 2002 | Prophylactic ICD | [10.1056/NEJMoa013474](https://doi.org/10.1056/NEJMoa013474) |
+| SCD-HeFT | 2005 | ICD vs amiodarone vs placebo | [10.1056/NEJMoa043399](https://doi.org/10.1056/NEJMoa043399) |
+| DANISH | 2016 | ICD vs usual care in nonischemic HF | [10.1056/NEJMoa1608029](https://doi.org/10.1056/NEJMoa1608029) |
 | COMPANION | 2004 | CRT-P / CRT-D | [10.1056/NEJMoa032423](https://doi.org/10.1056/NEJMoa032423) |
 | CARE-HF | 2005 | CRT | [10.1056/NEJMoa050496](https://doi.org/10.1056/NEJMoa050496) |
 | STICH | 2011 | CABG + medical therapy | [10.1056/NEJMoa1100356](https://doi.org/10.1056/NEJMoa1100356) |
@@ -69,6 +71,7 @@ Trials of warfarin, aspirin, and direct oral anticoagulants for stroke preventio
 | SPAF | 1991 | Warfarin or aspirin vs placebo | [10.1161/01.CIR.84.2.527](https://doi.org/10.1161/01.CIR.84.2.527) |
 | SPAF-II | 1994 | Warfarin vs aspirin (by age) | [10.1016/S0140-6736(94)91577-6](https://doi.org/10.1016/S0140-6736(94)91577-6) |
 | SPAF-III | 1996 | Adjusted-dose vs low-dose warfarin + aspirin | [10.1016/S0140-6736(96)03487-3](https://doi.org/10.1016/S0140-6736(96)03487-3) |
+| OCEAN | 2025 | Rivaroxaban vs aspirin after successful ablation | [10.1056/NEJMoa2509688](https://doi.org/10.1056/NEJMoa2509688) |
 
 ### Rate and rhythm control trials
 
@@ -90,6 +93,17 @@ Trials of pulmonary vein isolation and radiofrequency ablation for paroxysmal AF
 | APAF | 2006 | Circumferential PVA vs antiarrhythmic drugs | [10.1016/j.jacc.2006.08.037](https://doi.org/10.1016/j.jacc.2006.08.037) |
 | ThermoCool-AF | 2010 | RF catheter ablation vs antiarrhythmic drugs | [10.1001/jama.2009.2029](https://doi.org/10.1001/jama.2009.2029) |
 | MANTRA-PAF | 2012 | RF ablation vs first-line antiarrhythmic drugs | [10.1056/NEJMoa1113566](https://doi.org/10.1056/NEJMoa1113566) |
+| CASTLE-AF | 2018 | Ablation vs medical therapy in AF with HFrEF | [10.1056/NEJMoa1707855](https://doi.org/10.1056/NEJMoa1707855) |
+| PVI-SHAM-AF | 2026 | Pulmonary vein isolation vs sham | [10.1016/S0140-6736(26)01558-8](https://doi.org/10.1016/S0140-6736(26)01558-8) |
+
+### Left atrial appendage closure trials
+
+Trials comparing catheter-based left atrial appendage closure with anticoagulation or best medical care for stroke prevention in atrial fibrillation.
+
+| Trial | Year | Intervention | Citation |
+|---|---|---|---|
+| CHAMPION-AF | 2026 | Watchman FLX closure vs NOAC | [10.1056/NEJMoa2517213](https://doi.org/10.1056/NEJMoa2517213) |
+| CLOSURE-AF | 2026 | Appendage closure vs best medical care in high bleeding risk | [10.1056/NEJMoa2513310](https://doi.org/10.1056/NEJMoa2513310) |
 
 ---
 
