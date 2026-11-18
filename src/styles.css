@@ -1636,3 +1636,76 @@ a { color: var(--primary); }
     print-color-adjust: exact;
   }
 }
+
+/* ── Evidence card (src/components/EvidencePanel.jsx) ─────────────────── */
+.evidence-panel {
+  margin: 12px 0 8px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+}
+.evidence-toggle {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 10px;
+  width: 100%;
+  padding: 8px 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+}
+.evidence-title { font-weight: 600; font-size: 13px; flex: 1 1 auto; }
+.evidence-counts { display: flex; gap: 10px; font-size: 11px; font-weight: 600; white-space: nowrap; }
+.evidence-body { padding: 0 10px 10px; border-top: 1px solid var(--border); }
+.evidence-list { list-style: none; margin: 8px 0; padding: 0; }
+.evidence-row {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  padding: 6px 0;
+  font-size: 12px;
+  border-bottom: 1px dashed var(--border);
+}
+.evidence-row:last-child { border-bottom: none; }
+.evidence-dot {
+  display: inline-block;
+  flex: 0 0 auto;
+  width: 9px;
+  height: 9px;
+  margin-top: 4px;
+  border-radius: 50%;
+}
+.evidence-text { flex: 1; }
+.evidence-why {
+  padding: 0;
+  background: none;
+  border: none;
+  color: var(--primary);
+  font: inherit;
+  font-size: 11px;
+  cursor: pointer;
+}
+.evidence-why-text { margin: 4px 0 0; }
+.evidence-teaching {
+  margin: 6px 0;
+  padding: 6px 10px;
+  background: #f1f5f9;
+  border-left: 3px solid var(--gray);
+  border-radius: 4px;
+  font-size: 12px;
+}
+.evidence-legend { display: flex; flex-wrap: wrap; gap: 12px; margin: 6px 0 2px; }
+.evidence-legend-item { display: inline-flex; align-items: center; gap: 4px; }
+.evidence-legend-item .evidence-dot { margin-top: 0; }
+.evidence-note { margin: 2px 0 6px; }
+.evidence-provenance { display: grid; gap: 2px; }
+.evidence-unverified { color: #b45309; font-weight: 600; }
+
+.ws-evidence-insert { margin: 12px 0 4px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+
+@media print {
+  .evidence-toggle .chevron { display: none; }
+}

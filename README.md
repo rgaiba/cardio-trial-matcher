@@ -74,6 +74,16 @@ Reusable evaluators handle simple checks (`ageGte`, `lvefLte`, `egfrLt`, `sbpLt`
 
 Status carries a color in the dashboard: green (eligible), amber (partial), red (excluded), gray (insufficient).
 
+### Evidence card ("How was this trial built?")
+
+Each curated trial card has a collapsible evidence card that grades the trial's design on eight checks: blinding, end point type, comparator era, how closely enrolled patients resemble practice, end point construction, noninferiority margin, whether a less-treatment arm was tested, and sponsor. Each check is marked *protects*, *weigh*, *bias risk*, or *context*, with a one-line reason and a "why this matters" explanation.
+
+- Data: `src/data/evidence.js` (design facts per trial, with sources, curator, verifier, and date)
+- Logic: `src/engine/appraisal.js` (pure functions; tested by `npm test`)
+- UI: `src/components/EvidencePanel.jsx`; the EBM worksheet can insert the checks as a draft in its validity box
+
+The checks describe how a trial was designed, not whether its result is true. Coverage grows trial by trial; uncurated trials simply show no evidence card. Entries marked "not yet independently verified" await a second reviewer.
+
 ### NNT caveat
 
 When a trial is anything other than 100% eligible, the trial card surfaces a small note under NNT: *"NNT increases when trial results are applied to lower-risk populations."* This is a standard EBM caution: the published NNT applies to the trial population; patients who differ from that population (especially toward lower baseline risk) typically have higher NNTs in practice.
