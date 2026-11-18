@@ -136,6 +136,15 @@ export const DEMOGRAPHICS = {
     notes: 'Scandinavian multi-center trial (Denmark, Sweden, Finland); race not formally reported.',
   },
 
+  'champion-af': {
+    white: 85, other: 15,
+    notes: '141 sites in 16 countries; 85% White. Breakdown of the remaining 15% not curated.',
+  },
+  'closure-af': {
+    white: 94, other: 6,
+    notes: '42 centers in Germany; 94% White. Breakdown of the remaining 6% not curated.',
+  },
+
   // ── Valvular disease: Aortic stenosis (TAVR) ──
   'partner-1b': {
     white: 93, black: 4, asian: 1, other: 2,

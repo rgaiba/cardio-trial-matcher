@@ -60,6 +60,16 @@ expect('mantra-paf', 'population', 'caution');
 expect('pallas', 'blinding', 'pass');
 expect('pallas', 'endpoint', 'pass');           // design passes; result was harm
 expect('madit-ii', 'blinding', 'pass');         // open-label but mortality end point
+
+// EP trials
+expect('champion-af', 'noninferiority', 'caution'); // 4.8-point margin on a 4.8% control rate
+expect('champion-af', 'construction', 'caution');   // safety end point leaves out procedural bleeding
+expect('closure-af', 'noninferiority', 'caution');  // HR margin 1.3, superiority not shown
+expect('closure-af', 'blinding', 'pass');           // blinded adjudication of hard events
+expect('pvi-sham-af', 'blinding', 'pass');          // sham-controlled
+expect('castle-af', 'blinding', 'caution');         // open-label, hospitalization in end point
+expect('scd-heft', 'era', 'flag');                  // comparator superseded
+expect('danish', 'blinding', 'pass');               // open-label but mortality
 expect('madit-ii', 'era', 'flag');              // comparator superseded
 expect('coapt', 'blinding', 'caution');         // hospitalization end point
 expect('partner-3', 'construction', 'caution'); // as-treated analysis

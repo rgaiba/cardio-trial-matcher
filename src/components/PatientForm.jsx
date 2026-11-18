@@ -44,6 +44,7 @@ export const EMPTY_PATIENT = {
   afibType: 'unknown',           // paroxysmal | persistent | permanent | unknown
   afibSymptomatic: undefined,
   priorAblation: undefined,
+  afFreeMonthsAfterAblation: undefined, // months free of AF since last ablation (OCEAN)
   priorAADFailure: undefined,
   // Valvular-specific top-level fields
   aorticStenosis: {
@@ -408,6 +409,7 @@ export default function PatientForm({ patient, onChange }) {
           />
           <TriToggle label="Symptomatic AF" value={patient.afibSymptomatic} onChange={(v) => update('afibSymptomatic', v)} />
           <TriToggle label="Prior catheter ablation" value={patient.priorAblation} onChange={(v) => update('priorAblation', v)} />
+          <NumberInput label="Months free of AF since last ablation" unit="mo" min={0} max={360} value={patient.afFreeMonthsAfterAblation} onChange={(v) => update('afFreeMonthsAfterAblation', v)} />
           <TriToggle label="Failed ≥1 antiarrhythmic drug" value={patient.priorAADFailure} onChange={(v) => update('priorAADFailure', v)} />
           <TriToggle label="Prior stroke or TIA (any time)" value={patient.comorbidities.priorStrokeOrTIA} onChange={(v) => update('comorbidities.priorStrokeOrTIA', v)} />
           <TriToggle label="Vascular disease (PAD or prior MI)" value={patient.comorbidities.vascularDisease} onChange={(v) => update('comorbidities.vascularDisease', v)} />

@@ -16,7 +16,7 @@ This is an educational EBM tool intended for clinicians and trainees exploring h
 
 ## Trial library
 
-Trials are organized into a two-level taxonomy: **topic** (a clinical domain) → **group** (a clinically meaningful subdivision) → individual trial. The current release covers three topics, **heart failure** (4 groups, 17 trials), **atrial fibrillation** (3 groups, 13 trials), and **valvular disease** (2 groups, 9 trials), for a total of **39 trials**.
+Trials are organized into a two-level taxonomy: **topic** (a clinical domain) → **group** (a clinically meaningful subdivision) → individual trial. The current release covers three topics, **heart failure** (4 groups, 19 trials), **atrial fibrillation** (4 groups, 18 trials), and **valvular disease** (2 groups, 9 trials), for a total of **46 trials**.
 
 The complete list with DOIs lives in [**TRIALS.md**](TRIALS.md) and is updated as new trials are added.
 
@@ -92,7 +92,7 @@ Each curated trial card has a second panel that turns the trial's relative effec
 - **Assumption:** the relative effect stays the same at every baseline risk. That is the usual working assumption, not a finding, and the panel says so.
 - **Population flags:** when the patient form has age, LVEF, EROA or STS score, the panel compares them with the trial's baseline summary (outside 1 SD: "less typical"; outside 2 SD: "few or no trial patients like this"). It also flags drugs the patient takes that the trial predates, such as an SGLT2 inhibitor in a 2002 trial. Patient values stay in the browser; analytics log trial ids and field names only.
 - **No translation:** outcomes with no baseline risk, such as MANTRA-PAF's AF burden percentile, show a short explanation instead of numbers.
-- Data: `src/data/outcomes.js`. Logic: `src/engine/absoluteEffect.js`. UI: `src/components/AbsoluteEffectPanel.jsx`. Tested by `npm test`, which also checks that the engine reproduces each trial's published treated-arm value from its control value and ratio.
+- Data: `src/data/outcomes.js`. Logic: `src/engine/absoluteEffect.js`. UI: `src/components/AbsoluteEffectPanel.jsx`. Tested by `npm test`, which also checks that the engine reproduces each trial's published treated-arm value from its control value and ratio, within 1 point or 10% of the control value.
 
 Numbers describe patients like those in the trial, not a prediction for one person.
 

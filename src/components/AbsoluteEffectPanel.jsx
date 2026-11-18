@@ -212,7 +212,7 @@ export default function AbsoluteEffectPanel({ trial, patient }) {
               </div>
 
               <p className="muted small ae-source">
-                Trial result: {p.measure} {p.estimate}
+                Trial result: {p.measure} {p.estimate.toFixed(2)}
                 {p.ci ? ` (95% CI ${ci2(p.ci[0])}–${ci2(p.ci[1])})` : ''}; control {fmt(p.control)}{units}, treated {fmt(p.treated)}{units}.
                 {p.note ? ` ${p.note}` : ''}
               </p>
@@ -230,7 +230,7 @@ export default function AbsoluteEffectPanel({ trial, patient }) {
               ) : (
                 <>
                   {fmt(model.safety.control)} versus {fmt(model.safety.treated)}
-                  {model.safety.kind === 'rate' ? ' per 100 patient-years' : '%'} ({model.safety.measure} {model.safety.estimate}
+                  {model.safety.kind === 'rate' ? ' per 100 patient-years' : '%'} ({model.safety.measure} {model.safety.estimate.toFixed(2)}
                   {model.safety.ci ? `, 95% CI ${ci2(model.safety.ci[0])}–${ci2(model.safety.ci[1])}` : ''}), at the trial&apos;s own rate.
                 </>
               )}

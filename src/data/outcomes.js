@@ -263,4 +263,216 @@ export const OUTCOMES = {
     lastVerified: '2026-11-18',
     fieldsToVerify: ['baseline.age.sd', 'baseline.stsScore.sd'],
   },
+
+  // ── EP trials added November 2026 ──
+  'scd-heft': {
+    primary: {
+      label: 'All-cause mortality (ICD vs placebo)',
+      kind: 'risk',
+      horizon: 'a median 45.5 months',
+      control: 28.8,
+      treated: 22.0,
+      measure: 'HR',
+      estimate: 0.77,
+      ci: [0.62, 0.96],
+      lowerIsBetter: true,
+      note: '244 of 847 placebo vs 182 of 829 ICD patients died. The published interval is a 97.5% CI because alpha was split across two comparisons; it is shown here as the interval.',
+    },
+    safety: null,
+    baseline: {
+      age: { type: 'median-iqr', median: 60, q1: 52, q3: 68 },
+    },
+    predatesTherapies: ['sglt2i', 'arni'],
+    sources: [
+      { label: 'Bardy GH et al. N Engl J Med 2005;352:225-37', url: 'https://doi.org/10.1056/NEJMoa043399' },
+      { label: 'Age IQR from a comparison table (ICD arm), Neth Heart J 2017', url: 'https://pmc.ncbi.nlm.nih.gov/articles/PMC5612865/table/Tab2' },
+    ],
+    curatedBy: 'Claude-assisted draft',
+    verifiedBy: null,
+    lastVerified: '2026-11-18',
+    fieldsToVerify: ['baseline.age'],
+  },
+
+  danish: {
+    primary: {
+      label: 'All-cause mortality',
+      kind: 'risk',
+      horizon: 'a median 67.6 months',
+      control: 23.4,
+      treated: 21.6,
+      measure: 'HR',
+      estimate: 0.87,
+      ci: [0.68, 1.12],
+      lowerIsBetter: true,
+      note: 'Sudden cardiac death, a secondary outcome, was about halved; all-cause mortality was not significantly lower.',
+    },
+    safety: null,
+    baseline: {
+      // Median age 63–64 reported; IQR not curated.
+    },
+    predatesTherapies: ['sglt2i', 'arni'],
+    sources: [
+      { label: 'Køber L et al. N Engl J Med 2016;375:1221-30', url: 'https://doi.org/10.1056/NEJMoa1608029' },
+    ],
+    curatedBy: 'Claude-assisted draft',
+    verifiedBy: null,
+    lastVerified: '2026-11-18',
+    fieldsToVerify: [],
+  },
+
+  ocean: {
+    primary: {
+      label: 'Stroke, systemic embolism or covert embolic stroke (rivaroxaban vs aspirin)',
+      kind: 'risk',
+      horizon: '3 years',
+      control: 1.4,
+      treated: 0.8,
+      measure: 'RR',
+      estimate: 0.56,
+      ci: [0.19, 1.65],
+      lowerIsBetter: true,
+      note: '9 events on aspirin and 5 on rivaroxaban. "Control" here is aspirin, the less-treatment arm.',
+    },
+    safety: {
+      label: 'Fatal or major bleeding',
+      kind: 'risk',
+      horizon: '3 years',
+      control: 0.6,
+      treated: 1.6,
+      measure: 'RR',
+      estimate: 2.51,
+      ci: [0.79, 7.95],
+      lowerIsBetter: true,
+    },
+    baseline: {
+      age: { type: 'mean-sd', mean: 66, sd: 7.5 },
+    },
+    predatesTherapies: [],
+    sources: [
+      { label: 'Verma A et al. N Engl J Med 2025', url: 'https://doi.org/10.1056/NEJMoa2509688' },
+      { label: 'ACC trial summary (age by arm)', url: 'https://www.acc.org/latest-in-cardiology/clinical-trials/2026/03/03/18/35/ocean' },
+    ],
+    curatedBy: 'Claude-assisted draft',
+    verifiedBy: null,
+    lastVerified: '2026-11-18',
+    fieldsToVerify: [],
+  },
+
+  'castle-af': {
+    primary: {
+      label: 'Death or hospitalization for worsening heart failure',
+      kind: 'risk',
+      horizon: 'a median 37.8 months',
+      control: 44.6,
+      treated: 28.5,
+      measure: 'HR',
+      estimate: 0.62,
+      ci: [0.43, 0.87],
+      lowerIsBetter: true,
+      note: '82 of 184 medical-therapy vs 51 of 179 ablation patients. Crude proportions over a long follow-up, so the HR transform reproduces them only roughly.',
+    },
+    safety: null,
+    baseline: {
+      // Median age 64 reported; IQR not curated.
+    },
+    predatesTherapies: ['sglt2i', 'arni'],
+    sources: [
+      { label: 'Marrouche NF et al. N Engl J Med 2018;378:417-27', url: 'https://doi.org/10.1056/NEJMoa1707855' },
+    ],
+    curatedBy: 'Claude-assisted draft',
+    verifiedBy: null,
+    lastVerified: '2026-11-18',
+    fieldsToVerify: [],
+  },
+
+  'pvi-sham-af': {
+    primary: {
+      label: 'Change in AFEQT quality-of-life score at 6 months',
+      kind: 'none',
+      note:
+        'The primary end point is a change in a 0–100 quality-of-life score, a continuous measure, so there is no baseline risk or NNT. Between-group difference 2.6 points (95% CI −2.7 to 8.0). AF on 7-day Holter at 6 months: 21% with ablation vs 41% with sham.',
+    },
+    safety: null,
+    baseline: {},
+    predatesTherapies: [],
+    sources: [
+      { label: 'Wachter R et al. Lancet 2026 (PVI-SHAM-AF)', url: 'https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(26)01558-8/fulltext' },
+    ],
+    curatedBy: 'Claude-assisted draft',
+    verifiedBy: null,
+    lastVerified: '2026-11-18',
+    fieldsToVerify: [],
+  },
+
+  'champion-af': {
+    primary: {
+      label: 'CV death, stroke or systemic embolism (closure vs NOAC)',
+      kind: 'risk',
+      horizon: '3 years',
+      control: 4.8,
+      treated: 5.7,
+      measure: 'HR',
+      estimate: 1.2,
+      ci: [0.87, 1.66],
+      lowerIsBetter: true,
+      note: 'Noninferiority margin 4.8 percentage points. Ischemic stroke 3.2% with closure vs 2.0% with NOAC.',
+    },
+    safety: {
+      label: 'Non-procedural bleeding (ISTH major or clinically relevant nonmajor)',
+      kind: 'risk',
+      horizon: '3 years',
+      control: 19.0,
+      treated: 10.9,
+      measure: 'HR',
+      estimate: 0.55,
+      ci: [0.45, 0.67],
+      lowerIsBetter: true,
+    },
+    baseline: {
+      age: { type: 'mean-sd', mean: 71.7, sd: 7.5 },
+    },
+    predatesTherapies: [],
+    sources: [
+      { label: 'Doshi SK et al. N Engl J Med 2026', url: 'https://doi.org/10.1056/NEJMoa2517213' },
+      { label: 'Sponsor clinical summary (HR 1.20, 95% CI 0.87–1.66)', url: 'https://www.bostonscientific.com/content/dam/bostonscientific/trials/trial-result//SH-2434711-AB_WM-CHAMPION-AF-Clinical%20Summary-Digital_PSST.pdf' },
+      { label: 'ConsultantLive (age 71.7 ± 7.5)', url: 'https://www.consultantlive.com/view/champion-af-left-atrial-appendage-closure-noninferior-to-noacs' },
+    ],
+    curatedBy: 'Claude-assisted draft',
+    verifiedBy: null,
+    lastVerified: '2026-11-18',
+    fieldsToVerify: ['primary.note (ischemic stroke rates)'],
+  },
+
+  'closure-af': {
+    primary: {
+      label: 'Stroke, embolism, major bleeding, or CV or unexplained death (closure vs medical care)',
+      kind: 'rate',
+      control: 13.27,
+      treated: 16.83,
+      measure: 'HR',
+      estimate: 1.28,
+      ci: [1.01, 1.62],
+      lowerIsBetter: true,
+      note: 'Events per 100 patient-years over a median 3 years. Noninferiority margin HR 1.3; not met.',
+    },
+    safety: {
+      label: 'Periprocedural complications',
+      kind: 'single-arm',
+      horizon: 'within 7 days',
+      treated: 5.7,
+      note: 'Device arm only. Major bleeding is already inside the primary end point.',
+    },
+    baseline: {
+      // Mean age about 78; SD not curated.
+    },
+    predatesTherapies: [],
+    sources: [
+      { label: 'Landmesser U et al. N Engl J Med 2026;394:1270-80', url: 'https://doi.org/10.1056/NEJMoa2513310' },
+      { label: 'ACC trial summary', url: 'https://www.acc.org/Latest-in-Cardiology/Clinical-Trials/2026/03/03/18/35/CLOSURE-AF' },
+    ],
+    curatedBy: 'Claude-assisted draft',
+    verifiedBy: null,
+    lastVerified: '2026-11-18',
+    fieldsToVerify: [],
+  },
 };
