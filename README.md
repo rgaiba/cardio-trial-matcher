@@ -84,9 +84,21 @@ Each curated trial card has a collapsible evidence card that grades the trial's 
 
 The checks describe how a trial was designed, not whether its result is true. Coverage grows trial by trial; uncurated trials simply show no evidence card. Entries marked "not yet independently verified" await a second reviewer.
 
+### Absolute effect ("What does this mean in absolute terms?")
+
+Each curated trial card has a second panel that turns the trial's relative effect into absolute numbers. A slider sets baseline risk from 0.25 to 3 times the trial's control-arm rate. The panel shows the risk with and without treatment (a 100-person icon array for cumulative risks, two bars for event rates), the NNT or NNH with its 95% CI, and any reported harm outcome.
+
+- **Math:** for a hazard ratio on a cumulative risk, R1 = 1 - (1 - R0)^HR (proportional hazards over the trial follow-up). Event rates scale by the ratio. Odds ratios use the odds transform. When the CI crosses 1, the panel shows the split range: NNT to benefit X to NNH to harm Y.
+- **Assumption:** the relative effect stays the same at every baseline risk. That is the usual working assumption, not a finding, and the panel says so.
+- **Population flags:** when the patient form has age, LVEF, EROA or STS score, the panel compares them with the trial's baseline summary (outside 1 SD: "less typical"; outside 2 SD: "few or no trial patients like this"). It also flags drugs the patient takes that the trial predates, such as an SGLT2 inhibitor in a 2002 trial. Patient values stay in the browser; analytics log trial ids and field names only.
+- **No translation:** outcomes with no baseline risk, such as MANTRA-PAF's AF burden percentile, show a short explanation instead of numbers.
+- Data: `src/data/outcomes.js`. Logic: `src/engine/absoluteEffect.js`. UI: `src/components/AbsoluteEffectPanel.jsx`. Tested by `npm test`, which also checks that the engine reproduces each trial's published treated-arm value from its control value and ratio.
+
+Numbers describe patients like those in the trial, not a prediction for one person.
+
 ### NNT caveat
 
-When a trial is anything other than 100% eligible, the trial card surfaces a small note under NNT: *"NNT increases when trial results are applied to lower-risk populations."* This is a standard EBM caution: the published NNT applies to the trial population; patients who differ from that population (especially toward lower baseline risk) typically have higher NNTs in practice.
+For trials without absolute-effect data, when a trial is anything other than 100% eligible, the trial card surfaces a small note under NNT: *"NNT increases when trial results are applied to lower-risk populations."* This is a standard EBM caution: the published NNT applies to the trial population; patients who differ from that population (especially toward lower baseline risk) typically have higher NNTs in practice.
 
 ## Visualizations
 

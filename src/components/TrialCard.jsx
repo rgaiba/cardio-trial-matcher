@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import TrialRadarChart from './TrialRadarChart.jsx';
 import RaceBar from './RaceBar.jsx';
+import AbsoluteEffectPanel from './AbsoluteEffectPanel.jsx';
+import { OUTCOMES } from '../data/outcomes.js';
 import EvidencePanel from './EvidencePanel.jsx';
 import { STATUS_META } from '../engine/matchEngine.js';
 import { trackTrialOpened } from '../engine/analytics.js';
@@ -26,7 +28,7 @@ function CriteriaList({ items, kind }) {
   );
 }
 
-export default function TrialCard({ trial, evaluation, defaultOpen, anchorId, selected, onToggleSelect }) {
+export default function TrialCard({ trial, evaluation, patient, defaultOpen, anchorId, selected, onToggleSelect }) {
   const [open, setOpen] = useState(!!defaultOpen);
   const meta = STATUS_META[evaluation.status];
 
@@ -100,13 +102,14 @@ export default function TrialCard({ trial, evaluation, defaultOpen, anchorId, se
                   </div>
                 )}
               </dl>
-              {trial.nnt && evaluation.matchScore != null && evaluation.matchScore < 100 && (
+              {trial.nnt && !OUTCOMES[trial.id] && evaluation.matchScore != null && evaluation.matchScore < 100 && (
                 <p className="nnt-caveat">
                   NNT increases when trial results are applied to lower-risk populations.
                 </p>
               )}
               <RaceBar trialId={trial.id} />
               <EvidencePanel trial={trial} />
+              <AbsoluteEffectPanel trial={trial} patient={patient} />
               <p className="citation muted small">
                 {trial.citation}{' '}
                 {trial.url && (

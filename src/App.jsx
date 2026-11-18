@@ -175,6 +175,7 @@ export default function App() {
         <section className="right-pane">
           <ResultsDashboard
             results={results}
+            patient={patient}
             topicFilter={topicFilter}
             selectedTrialIds={selectedTrialIds}
             onToggleTrialSelected={toggleTrialSelected}

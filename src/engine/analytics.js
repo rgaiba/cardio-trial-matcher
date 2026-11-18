@@ -61,3 +61,19 @@ export function trackWhyOpened(trialId, checkId) {
 export function trackEvidenceInserted(count) {
   trackEvent('evidence-inserted', `Evidence summary inserted (${count} trials)`);
 }
+
+// Absolute-effect panel. Trial ids, field names and counts only; no
+// patient values ever leave the browser.
+export function trackAbsoluteOpened(trialId, trialName) {
+  trackEvent(`absolute-opened/${trialId}`, `Absolute effect opened: ${trialName}`);
+}
+
+// Fired once per panel open, when the user first moves the baseline slider.
+export function trackBaselineAdjusted(trialId) {
+  trackEvent(`absolute-baseline/${trialId}`, `Baseline risk adjusted: ${trialId}`);
+}
+
+// Fired once per field per panel open when a transport flag is shown.
+export function trackTransportFlag(trialId, field) {
+  trackEvent(`absolute-transport/${trialId}/${field}`, `Transport flag shown: ${field}`);
+}
